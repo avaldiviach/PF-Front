@@ -1,43 +1,44 @@
+
 /*HEADER---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .header {
 	opacity: 0.9;
-	width: 75.375em;
-	width: calc(100% - 2.25em);
-  width: 100%;
+	/* width: 75.375em;
+	width: calc(100% - 2.25em); */
+	width: 100%;
 	height: 4.125em;
 	height: 6em;
 	/* position: sticky -> es mejor que usar 'position: fixed'.
   Es mejor practica. Porque sticky no se sale del flow del contenido, 
   fixed sí. */
-	position: sticky;
-  display: flex;
-	top: 0;
-	z-index: 100;
+	/* position: sticky; */
+	display: flex;
+  flex-direction: row;
+	/* top: 0; */
+	/* z-index: 100; */
 	/* box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 75%); */
 }
 
 .logo {
-  width: 4.125em;
-  height: 4.125em;
-  margin-left: 1.25em;
-  margin-top: 0.625em;
-  margin-bottom: 0.625em;
-  color: var(--color1);
-  font-size: 1.8em;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: 'Monserrat','Roboto', sans-serif;
-  /* text-align: center; */
+  height: 100%;
+	width: 4.125em;
+  margin-left: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	color: var(--secundario);
+	font-size: calc(1.3vw + 1.3vh + 0.8vmin);
+	font-weight: bold;
+	text-decoration: none;
+	font-family: 'Monserrat', 'Roboto', sans-serif;
+	/* text-align: center; */
 }
 
-
 .navbar {
-	width: 100%;
+	width: 68%;
 	height: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: normal;
 }
 
 /*enlaces páginas inicio */
@@ -57,17 +58,19 @@
 }
 
 .links__a {
-	margin-top: 1rem;
+	font-family: 'Montserrat';
+	font-size: calc(0.9vw + 1vh + 0.5vmin);
+	letter-spacing: 0.05em;
+	margin-top: 1.25em;
+  margin-left: 1.25em;
 	text-decoration: none;
 	color: var(--negro);
 	font-weight: 600;
-	/* font-family: var(--font2);
-	font-size: var(--tamano6); */
 }
 
 .links__a:hover {
 	cursor: pointer;
-	color: var(--terciario);
+	color: var(--color1);
 }
 
 .links__a--active {
@@ -77,12 +80,10 @@
 /*Navegacion principal para pantalla grande--------*/
 @media (min-width: 769px) {
 	.header {
-		/* width: 75.375em; */
-		/* width: calc(100% - 2.25em); */
 		height: 4.125em;
 	}
 	.navbar {
-		/* height: 5rem; */
+		/* height: 5em; */
 	}
 
 	.links__ul {
@@ -92,34 +93,33 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		align-items: center;
 		background-color: transparent;
 		transition: all 0.1s ease-out;
-		margin: 0 6rem 0 0;
+		margin: 0
 	}
 
-  /* Esconde las lineas de arriba y abajo de los enlaces */
+	/* Esconde las lineas de arriba y abajo de los enlaces */
 	.links__a {
 		margin-top: initial;
-		margin-top: 0.2rem;
-		margin-bottom: 0.1rem;
+		margin-top: 0.2em;
+		margin-bottom: 0.1em;
 		--clippy1: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 		--clippy2: polygon(0 0, 0 0, 0 100%, 0% 100%);
 	}
 
 	.links__a:hover {
 		cursor: pointer;
-		color: var(--terciario);
+		color: var(--color1);
 	}
 
 	/*animacion linea hacia la izquierda*/
 	.links__a::before {
 		content: '';
 		display: block;
-		background: var(--terciario);
+		background: var(--color1);
 		width: 100%;
-		margin-bottom: 0.1rem;
-		height: 0.2rem;
+		margin-bottom: 0.1em;
+		height: 0.1em;
 		clip-path: var(--clippy1);
 		transition: clip-path 0.4s;
 	}
@@ -128,10 +128,10 @@
 	.links__a::after {
 		content: '';
 		display: block;
-		background: var(--terciario);
+		background: var(--color1);
 		width: 100%;
-		margin-top: 0.1rem;
-		height: 0.2rem;
+		margin-top: 0.1em;
+		height: 0.1em;
 		clip-path: var(--clippy2);
 		transition: clip-path 0.4s;
 	}
@@ -139,11 +139,11 @@
 	/*muestra las lineas horizontales en los enlaces*/
 	.links__a:hover:before {
 		--clippy1: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-		color: var(--terciario);
+		color: var(--color1);
 	}
 	.links__a:hover:after {
 		--clippy2: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-		color: var(--terciario);
+		color: var(--color1);
 	}
 }
 

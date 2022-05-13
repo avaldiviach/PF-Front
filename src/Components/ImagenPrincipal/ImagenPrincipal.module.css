@@ -1,11 +1,12 @@
+
+/* Para pantalla grande hay que hacer mobil responsive */
 @media screen and (min-width: 769px) {
 	.section {
 		width: 100%;
-		margin: 0 auto;
 		display: flex;
 		justify-content: center;
-		/* flex-direction: row; */
 	}
+
 	.container {
 		width: 80%;
 		display: flex;
@@ -20,34 +21,51 @@
 		display: flex;
 		flex-direction: column;
 		margin-right: 2em;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Monserrat', 'Roboto', sans-serif;
 		/* white-space: wrap; */
 	}
 
 	.item__left h1 {
-		line-height: 104px;
+		line-height: 1em;
 		color: var(--negro);
 		/* font-size: 99px; */
-		font-size: (170px + 2vmin);
-		font-size: calc(4.3vw + 3.5vh + 0.8vmin);
+		/* font-size: (170px + 2vmin); */
+    font-weight: 700;
+		font-size: calc(4.4vw + 3.6vh + 1vmin);
+    letter-spacing: 0.12em;
+		white-space: nowrap;
 		text-align: left;
 		margin: 0;
 	}
 
 	.item__left span {
 		color: var(--color2);
-	}
+	} 
 
-	.item__left p {
-		line-height: 30px;
+  .item__left h2 {
+		line-height: 1em;
 		color: var(--negro);
-		font-size: calc(1vw + 1.1vh + 0.6vmin);
+		/* font-size: 99px; */
+		/* font-size: (170px + 2vmin); */
+    font-weight: 700;
+		font-size: calc(4.4vw + 3.6vh + 1vmin);
+    letter-spacing: 0.05em;
 		text-align: left;
 		margin: 0;
 	}
 
+	.item__left p {
+		margin: 0;
+		color: var(--negro);
+		font-size: calc(0.8vw + 0.95vh + 0.45vmin);
+		text-align: left;
+    font-weight: 400;
+		line-height: 30px;
+	}
+
   .item__left button {
     width: 15rem;
+    height: 3.475rem;
 		background-color: var(--color1);
     color: var(--blanco);
 		font-size: calc(1vw + 1.1vh + 0.6vmin);
@@ -55,18 +73,20 @@
     border: none;
     box-shadow: 0px 5px 7px rgba(251, 80, 20, 0.45);
     border-radius: 30px;
+    cursor: pointer;
 	}
 
 	.item__right {
-		height: 300px;
+		height: 100%;
 		width: 50%;
-		font-family: 'Roboto', sans-serif;
+    margin-left: -68.2px;
+		font-family: 'Monserrat', 'Roboto', sans-serif;
 	}
 
 	.item__right img {
 		width: 100%;
 		height: 100%;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Monserrat', 'Roboto', sans-serif;
 		/* white-space: wrap; */
 	}
 }

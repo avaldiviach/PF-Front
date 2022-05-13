@@ -6,11 +6,12 @@ import styles from './NavBar.module.css'
 // Componentes y funciones
 import SearchBar from '../SearchBar'
 
+
 const NavBar = () => {
   return (
     <header className={styles.header}>
       <NavLink to="/" className={styles.logo}>
-        Henry
+        Henry's
         {/* <img src="https://i.imgur.com/Q9XcQ9I.png" alt="logo" /> */}
       </NavLink>
       <nav className={styles.navbar}>
@@ -28,10 +29,10 @@ const NavBar = () => {
             Home
           </NavLink>
 
-          <NavLink className={styles.links__a} to='/user'>
+          {/* <NavLink className={styles.links__a} to='/user'>
             Crear Usuario
-          </NavLink>
-          <SearchBar />
+          </NavLink> */}
+          <SearchBar/>
         </ul>
       </nav>
     </header>

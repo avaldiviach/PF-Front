@@ -1,4 +1,39 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap');
+
+/* <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet"> */
+
+:root {
+	--color1: #fb5014;
+	--color2: #17b4cc;
+	--negro: #0b2027;
+	--blanco: #f6f1d1;
+
+
+  --secundario: #40798c;
+	--terciario: #70a9a1;
+	--cuatro: #cfd7c7;
+	--cinco: #f6f1d1;
+	--botones: #40798c;
+	--botonesSombraPulso: #0b202780;
+	--negrotransparentado: #00000050;
+	/* --blanco: #f8f3e3;
+    --rojo: #bb2929;
+	--azul: #106ba0;
+	--azulOscuro: #06273a;
+	--otroGris: #757575;
+	--negro: #000000; */
+	/* -primario: #242121;
+	--secundario: #f8c25c;
+	--terciario: #242121; */
+	/* --negro: #242121;
+	--amarillo: #f8c25c;
+	--rojo: #d83863;
+	--blanco: #f8f3e3; */
+}
+
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +45,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
