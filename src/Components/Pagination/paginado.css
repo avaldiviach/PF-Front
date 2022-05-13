@@ -1,0 +1,27 @@
+ul {
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+  }
+  
+  ul li {
+    display: inline;
+  }
+  
+  ul li a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: rgb(219, 219, 219);
+    transition: background-color 0.3s;
+    background-color: rgba(0, 0, 0, 0.431);
+  }
+  
+  ul li a.number {
+    background-color: #a434ff;
+    color: white;
+  }
+  
+  ul li a:hover:not(.number) {
+    background-color: rgba(80, 0, 155, 0.89);
+  }

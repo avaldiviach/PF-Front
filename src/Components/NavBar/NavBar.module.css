@@ -1,0 +1,168 @@
+/*HEADER---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.header {
+	opacity: 0.9;
+	width: 75.375em;
+	width: calc(100% - 2.25em);
+  width: 100%;
+	height: 4.125em;
+	height: 6em;
+	/* position: sticky -> es mejor que usar 'position: fixed'.
+  Es mejor practica. Porque sticky no se sale del flow del contenido, 
+  fixed sí. */
+	position: sticky;
+  display: flex;
+	top: 0;
+	z-index: 100;
+	/* box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 75%); */
+}
+
+.logo {
+  width: 4.125em;
+  height: 4.125em;
+  margin-left: 1.25em;
+  margin-top: 0.625em;
+  margin-bottom: 0.625em;
+  color: var(--color1);
+  font-size: 1.8em;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Monserrat','Roboto', sans-serif;
+  /* text-align: center; */
+}
+
+
+.navbar {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: normal;
+}
+
+/*enlaces páginas inicio */
+.links__ul {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	transition: all 0.1s ease-out;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	transition: all 0.5s ease-out; /*transición cuando se despliega menu hamburguesa*/
+	/* background-color: #3a606e; */
+	/* background-color: var(--primario); */
+}
+
+.links__a {
+	margin-top: 1rem;
+	text-decoration: none;
+	color: var(--negro);
+	font-weight: 600;
+	/* font-family: var(--font2);
+	font-size: var(--tamano6); */
+}
+
+.links__a:hover {
+	cursor: pointer;
+	color: var(--terciario);
+}
+
+.links__a--active {
+	color: var(--terciario);
+}
+
+/*Navegacion principal para pantalla grande--------*/
+@media (min-width: 769px) {
+	.header {
+		/* width: 75.375em; */
+		/* width: calc(100% - 2.25em); */
+		height: 4.125em;
+	}
+	.navbar {
+		/* height: 5rem; */
+	}
+
+	.links__ul {
+		position: initial;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		background-color: transparent;
+		transition: all 0.1s ease-out;
+		margin: 0 6rem 0 0;
+	}
+
+  /* Esconde las lineas de arriba y abajo de los enlaces */
+	.links__a {
+		margin-top: initial;
+		margin-top: 0.2rem;
+		margin-bottom: 0.1rem;
+		--clippy1: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+		--clippy2: polygon(0 0, 0 0, 0 100%, 0% 100%);
+	}
+
+	.links__a:hover {
+		cursor: pointer;
+		color: var(--terciario);
+	}
+
+	/*animacion linea hacia la izquierda*/
+	.links__a::before {
+		content: '';
+		display: block;
+		background: var(--terciario);
+		width: 100%;
+		margin-bottom: 0.1rem;
+		height: 0.2rem;
+		clip-path: var(--clippy1);
+		transition: clip-path 0.4s;
+	}
+
+	/*animacion linea hacia la derecha*/
+	.links__a::after {
+		content: '';
+		display: block;
+		background: var(--terciario);
+		width: 100%;
+		margin-top: 0.1rem;
+		height: 0.2rem;
+		clip-path: var(--clippy2);
+		transition: clip-path 0.4s;
+	}
+
+	/*muestra las lineas horizontales en los enlaces*/
+	.links__a:hover:before {
+		--clippy1: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		color: var(--terciario);
+	}
+	.links__a:hover:after {
+		--clippy2: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		color: var(--terciario);
+	}
+}
+
+/*fin navegación principal pantalla grande*/
+
+/*FIN HEADER---------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 769px) {
+	/*para desplegar y ocultar los enlaces del menu hamburguesa en forma circular*/
+	/*para ocultar el menu*/
+	.ocultarEnlaces {
+		-webkit-clip-path: circle(0% at 100% 0%);
+		clip-path: circle(0% at 100% 0%);
+	}
+
+	/*para mostrar el menu de forma circular*/
+	.circuloEnlace {
+		-webkit-clip-path: circle(150% at 100% 0%);
+		clip-path: circle(150% at 100% 0%);
+	}
+}
+/*--------------------------------------------------------------*/
