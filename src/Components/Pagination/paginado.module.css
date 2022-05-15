@@ -1,0 +1,46 @@
+.container{
+  margin:2rem auto;
+  display: flex;
+  align-items: center;
+}
+
+.pag{
+  background: none;
+  margin: 0 .5rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: .5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: none;
+  color: gray;
+  border-color: rgb(173, 173, 173);
+  border-style: solid;
+}
+
+.pag:disabled{
+  background: linear-gradient(90deg, #FF8008 0%, #FFC837 100%);
+  color: white;
+  border: .1rem solid black;
+}
+
+.disabled{
+  background: none;
+  border: none;
+  height: 3rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 2rem;
+
+}
+
+.previous_and_next_button{
+  background: none;
+  border: none;
+  height: 3rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 2rem;
+}

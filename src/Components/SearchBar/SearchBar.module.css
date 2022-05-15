@@ -10,7 +10,6 @@
 	border-radius: 30px;
 } */
 
-
 .searchInputs {
   display: flex;
 }
@@ -52,5 +51,3 @@ input:focus {
 .search_button {
   display: none;
 }
-
-

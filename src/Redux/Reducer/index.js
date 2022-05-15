@@ -32,7 +32,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case FILTER_BY_CATEGORY:
 			//const filterCategory= state.SneakersCopy.filter((el)=> el.category.includes(payload))
-			const filterCategory = payload === "" ? state.SneakersCopy : state.SneakersCopy.filter((el) => el.category.includes(payload))
+			const filterCategory = payload === "" ? state.SneakersCopy : state.SneakersCopy.filter((el) => el.categories.includes(payload))
 			return {
 				...state,
 				Sneakers: filterCategory,
@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case FILTER_BY_BRAND:
 			// const filterBrand= state.SneakersCopy.filter((el)=> el.brand_name.toLowerCase()===payload)
-			const filterBrand = payload === "" ? state.SneakersCopy : state.SneakersCopy.filter((el) => el.brand_name.toLowerCase() === payload)
+			const filterBrand = payload === "" ? state.SneakersCopy : state.SneakersCopy.filter((el) => el.brand.toLowerCase() === payload)
 			return {
 				...state,
 				Sneakers: filterBrand,

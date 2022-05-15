@@ -1,0 +1,33 @@
+.filters{
+    margin:2rem 0;
+}
+
+.filters select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 3.5rem;
+    width: 15rem;
+    padding: 10px 38px 10px 16px;
+    background-size: 10px;
+    transition: border-color .1s ease-in-out,box-shadow .1s ease-in-out;
+    border: 1px solid rgb(154, 152, 152);
+    border-radius: 1.5rem;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.filters select:hover {
+    border: 1px solid #999;
+}
+.filters select:focus {
+    border: 1px solid #999;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,.2);
+    outline: none;
+}
+/* remove default arrow in IE */
+.filters select::-ms-expand {
+    display:none;
+}

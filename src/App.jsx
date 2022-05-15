@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 import Home from './Pages/Home';
 import Detail from "./Pages/Detail";
+import FormUser from './Pages/FormUser/index.jsx'
 import { getSneakers } from './Redux/Actions';
 
 function App() {
@@ -20,13 +21,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar/>
+      <NavBar />
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/detail/:id" element={<Detail />}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path='/create-user' element={<FormUser />} />
       </Routes>
     </div>
   );
 }
 
-export default App
+export default App;

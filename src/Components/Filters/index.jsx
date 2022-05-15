@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterByBrand, filterByCategory } from '../../Redux/Actions/index';
 
+import s from './filters.module.css'
+
 const Filters = () => {
-  const dispatch = useDispatch();
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+
   const peticion = async () => {
     let resp1 = await fetch(`http://localhost:3001/brands`);
     let brands = await resp1.json();
@@ -32,22 +35,26 @@ const Filters = () => {
   }
 
   return (
-    <>
-      <h1>Filters</h1>
-      <select onChange={handleCategory} >
+    <div className={s.filters}>
+      <select
+        onChange={handleCategory}
+        name="categoryFilters"
+      >
         <option value="">All categories</option>
         {
-          categories.length && categories?.map(({ name }, id) => <option key={id} value={name}>{name}</option>)
+          categories.length && categories?.map(({ nameCategory }, id) => <option key={id} value={nameCategory.toLowerCase()}>{nameCategory}</option>)
         }
       </select>
 
-      <select onChange={handleBrand} >
+      <select
+        onChange={handleBrand}
+      >
         <option value="" >All brands</option>
         {
-          brands.length && brands?.map(({ name }, id) => <option key={id} value={name}>{name}</option>)
+          brands.length && brands?.map(({ nameBrand }, id) => <option key={id} value={nameBrand}>{nameBrand}</option>)
         }
       </select>
-    </>
+    </div>
   );
 }
 
