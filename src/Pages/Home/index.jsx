@@ -20,17 +20,17 @@ const Home = () => {
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
 
-  
   useEffect(() => {
     setCurrentPage(1)
   }, [filteredSneakers]);
+
   useEffect(() => {
     setLoading(true)
 
   }, []);
+
   useEffect(() => {
     filteredSneakers.length !== 0 && setLoading(false)
-
   }, [filteredSneakers]);
 
   // Se corta el array de todas las zapatillas con los dos índices inicial y final de la página,
