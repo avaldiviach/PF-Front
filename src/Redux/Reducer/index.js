@@ -24,10 +24,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			};
 
 		case SEARCH_BY_NAME:
+			const sneakerMatching = state.SneakersCopy.filter(s => s.match.toLowerCase().includes(payload));
 			return {
 				...state,
-				Sneakers: payload,
-				searchSneakers: payload,
+				Sneakers: sneakerMatching,
 			};
 
 		case FILTER_BY_CATEGORY:

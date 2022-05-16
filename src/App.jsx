@@ -8,6 +8,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import Home from './Pages/Home';
 import Detail from "./Pages/Detail";
 import FormUser from './Pages/FormUser/index.jsx'
+import NotFound from "./Components/NotFound/";
 import { getSneakers } from './Redux/Actions';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path='/create-user' element={<FormUser />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -7,30 +7,34 @@
 :root {
 	--color1: #fb5014;
 	--color2: #17b4cc;
-	--negro: #0b2027;
-	--blanco: #f6f1d1;
+	--color3: #606366;
+	--negro: #000000;
+  --negro2: #0b2027;
+  --blanco: #FFFFFF;
+	--blanco2: #f6f1d1;
+  --rojo: red;
 
-
-  --secundario: #40798c;
+	--secundario: #40798c;
 	--terciario: #70a9a1;
 	--cuatro: #cfd7c7;
 	--cinco: #f6f1d1;
-	--botones: #40798c;
-	--botonesSombraPulso: #0b202780;
+
+	--botones: #fb5014;
+	--botonesSombraPulso: #6c2c1599;
 	--negrotransparentado: #00000050;
-	/* --blanco: #f8f3e3;
-    --rojo: #bb2929;
-	--azul: #106ba0;
-	--azulOscuro: #06273a;
-	--otroGris: #757575;
-	--negro: #000000; */
-	/* -primario: #242121;
-	--secundario: #f8c25c;
-	--terciario: #242121; */
-	/* --negro: #242121;
-	--amarillo: #f8c25c;
-	--rojo: #d83863;
-	--blanco: #f8f3e3; */
+}
+
+html {
+	box-sizing: border-box; /*para manejar mejor el box model*/
+}
+
+/*para manejar mejor el box model*/
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
 }
 
 /* body {
@@ -41,7 +45,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

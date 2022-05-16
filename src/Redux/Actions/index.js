@@ -19,7 +19,7 @@ export function getSneakers() {
 	};
 }
 
-export function searchByName(name) {
+/* export function searchByName(name) {
 	return async function (dispatch) {
 		try {
 			if (name) {
@@ -38,14 +38,14 @@ export function searchByName(name) {
 			});
 		}
 	};
-}
+} */
 
-/* export function searchByName(name) {
+export function searchByName(name) {
 	return {
 		type: SEARCH_BY_NAME,
-		payload: name
+		payload: name.toLowerCase()
 	}
-} */
+}
 
 export function filterByCategory(category) {
 	return {

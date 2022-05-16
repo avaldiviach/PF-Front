@@ -41,10 +41,8 @@ export default function Detail() {
               <p className={s.sizes_title}>Selec Size (EUR)</p>
               <div className={s.sizes}>
 
-                {/* {sneaker.sizes?.map(({ size }, i) => (
-                  <div className={s.size} key={i}> <p>{size}</p> </div>
-                ))} */}
-                <div className={s.size}> <p>{sneaker.size}</p> </div>
+                {sneaker.sizes?.map(({ size }, i) => <div className={s.size} key={i}> <p>{size}</p> </div>)}
+                {/* <div className={s.size}> <p>{sneaker.size}</p> </div> */}
               </div>
               <p className={s.subtitle}>Material </p>
               <p className={s.cont}>{sneaker.material}</p>

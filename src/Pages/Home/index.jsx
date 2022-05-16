@@ -13,35 +13,51 @@ const Home = () => {
   const filteredSneakers = useSelector(state => state.Sneakers);
 
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
-  // Se crea la paginación de x zapatillas por pagina
+  // Se crea la paginación de x zapatillas por página
   const SNEAKERS_PER_PAGE = 6; // Constante para setear cantidad de zapatillas por página
-  const [currentPage, setCurrentPage] = useState(1); // Estado para seleccionar pagina actual
+  const [currentPage, setCurrentPage] = useState(1); // Estado para seleccionar página actual
+  const [loading, setLoading] = useState(false); // Estado para esperar la carga de la página actual
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
+  
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1000);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-    setCurrentPage(1)
+    setCurrentPage(1);
   }, [filteredSneakers]);
-  // Se corta el array de todas las zapatillas con los dos indices inicial y final de la página, para obtener las zapatillas 
-  // que se mostraran en la página actual
+
+  // Se corta el array de todas las zapatillas con los dos índices inicial y final de la página,
+  // para obtener las zapatillas que se mostrarán en la página actual
   let currentPageSneakers = filteredSneakers.length ? filteredSneakers.slice(firstSneaker, lastSneaker) : [];
   //---------------------------------------------------------------------------------------------------------------
 
   return (
-    <div className={style.home}>
-      <ImagenPrincipal />
+    <div className={style.home} >
+      {
+        loading
+          ? <img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt={"img"} />
+          : !filteredSneakers.length
+            ? <h2>Sneakers not found</h2>
+            : <>
+              <ImagenPrincipal />
 
-      {/* Componente para filtros */}
-      <Filters />
+              {/* Componente para filtros */}
+              <Filters />
 
-      {/* Componente para paginado */}
-      <Pagination numberOfSneakers={filteredSneakers.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
-      />
+              {/* Componente para paginado */}
+              <Pagination numberOfSneakers={filteredSneakers.length}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
+              />
 
-      <Cards renderSneakers={currentPageSneakers} />
+              <Cards renderSneakers={currentPageSneakers} />
+            </>
+      }
     </div>
   );
 }
