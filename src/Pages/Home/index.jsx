@@ -16,18 +16,21 @@ const Home = () => {
   // Se crea la paginación de x zapatillas por página
   const SNEAKERS_PER_PAGE = 6; // Constante para setear cantidad de zapatillas por página
   const [currentPage, setCurrentPage] = useState(1); // Estado para seleccionar página actual
-  const [loading, setLoading] = useState(false); // Estado para esperar la carga de la página actual
+  const [loading, setLoading] = useState(true); // Estado para esperar la carga de la página actual
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
-  
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [filteredSneakers]);
+
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    setCurrentPage(1);
+    filteredSneakers.length !== 0 && setLoading(false)
   }, [filteredSneakers]);
 
   // Se corta el array de todas las zapatillas con los dos índices inicial y final de la página,
@@ -36,14 +39,14 @@ const Home = () => {
   //---------------------------------------------------------------------------------------------------------------
 
   return (
-    <div className={style.home} >
-      {
-        loading
-          ? <img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt={"img"} />
-          : !filteredSneakers.length
-            ? <h2>Sneakers not found</h2>
-            : <>
-              <ImagenPrincipal />
+    <div className={style.home}>
+
+       {filteredSneakers.length ===0 && loading===false? <h2>Sneakers not found </h2>:
+      
+        loading===true 
+          ? <h2>Loading..</h2>
+          : <>
+            <ImagenPrincipal />
 
               {/* Componente para filtros */}
               <Filters />
