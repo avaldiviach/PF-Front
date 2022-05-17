@@ -26,7 +26,12 @@ const NavBar = () => {
         {/* <img src="https://i.imgur.com/Q9XcQ9I.png" alt="logo" /> */}
       </NavLink>
       <nav className={styles.navbar}>
+<<<<<<< HEAD
         {/* el navlink se utiliza para saber si está activo o no */}
+=======
+
+        {/* el navlink se utiliza para saber si esta activo o no */}
+>>>>>>> 4be80b6f68a7fd7fbff545a0bd3c15608440355a
         <ul className={styles.links__ul}>
           {/* Componente para searchBar */}
 
@@ -40,6 +45,7 @@ const NavBar = () => {
             Sign Up
           </NavLink> */}
 
+<<<<<<< HEAD
           {/* <NavLink className={styles.links__a} to='/user'>
             Crear Usuario
           </NavLink> */}
@@ -51,6 +57,28 @@ const NavBar = () => {
           ) : (
             <LogInButton />
           )}
+=======
+          <NavLink
+            className={styles.links__a}
+            // className={({ isActive }) => {
+            //     return isActive ? 'is-active' : '';
+            // }}
+            to='#'
+          >
+            Sign In
+          </NavLink>
+
+          <NavLink
+            className={styles.links__a}
+            // className={({ isActive }) => {
+            //     return isActive ? 'is-active' : '';
+            // }}
+            to='/cart'
+          >
+            Cart
+          </NavLink>
+
+>>>>>>> 4be80b6f68a7fd7fbff545a0bd3c15608440355a
           <SearchBar />
         </ul>
       </nav>

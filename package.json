@@ -8,8 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@auth0/auth0-react": "^1.10.1",
+=======
+    "autoprefixer": "^10.4.7",
+>>>>>>> 4be80b6f68a7fd7fbff545a0bd3c15608440355a
     "axios": "^0.26.1",
+    "postcss": "^8.4.13",
     "react": "^18.1.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.31.1",
@@ -21,6 +26,7 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "tailwindcss": "^3.0.24",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
