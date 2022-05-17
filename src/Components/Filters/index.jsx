@@ -11,9 +11,9 @@ const Filters = () => {
   const dispatch = useDispatch();
 
   const peticion = async () => {
-    let resp1 = await fetch(`http://localhost:3001/brands`);
+    let resp1 = await fetch(`https://node-api-sneakers.herokuapp.com/brands`);
     let brands = await resp1.json();
-    let resp2 = await fetch(`http://localhost:3001/categories`);
+    let resp2 = await fetch(`https://node-api-sneakers.herokuapp.com/categories`);
     let categories = await resp2.json();
     setBrands(brands);
     setCategories(categories);

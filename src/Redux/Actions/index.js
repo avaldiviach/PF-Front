@@ -9,7 +9,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 export function getSneakers() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get('http://localhost:3001/sneakers');
+			const { data } = await axios.get('https://node-api-sneakers.herokuapp.com/sneakers');
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
@@ -84,7 +84,7 @@ const cartData = [
 export function getDetailSneaker(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/sneaker/${id}`);
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
 			return dispatch({
 				type: GET_DETAIL,
 				payload: data,
