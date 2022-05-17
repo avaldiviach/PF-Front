@@ -6,6 +6,7 @@ import { LogOutButton } from "../../Components/LogOut";
 import { Profile } from "../../Components/Profile";
 import styles from "./NavBar.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import Cart from '../../Components/ShoppingCart/Cart'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
@@ -52,6 +53,7 @@ const NavBar = () => {
             <LogInButton />
           )}
           <SearchBar />
+          <Cart /> 
         </ul>
       </nav>
     </header>
