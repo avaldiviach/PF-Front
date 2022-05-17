@@ -9,7 +9,6 @@ import SearchBar from '../SearchBar'
 import { getSneakers } from '../../Redux/Actions';
 
 const NavBar = () => {
-  
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +19,7 @@ const NavBar = () => {
       </NavLink>
       <nav className={styles.navbar}>
 
-        {/* el navlink se utiliza para saber si está activo o no */}
+        {/* el navlink se utiliza para saber si esta activo o no */}
         <ul className={styles.links__ul}>
           {/* Componente para searchBar */}
 
@@ -34,9 +33,26 @@ const NavBar = () => {
             Sign Up
           </NavLink>
 
-          {/* <NavLink className={styles.links__a} to='/user'>
-            Crear Usuario
-          </NavLink> */}
+          <NavLink
+            className={styles.links__a}
+            // className={({ isActive }) => {
+            //     return isActive ? 'is-active' : '';
+            // }}
+            to='#'
+          >
+            Sign In
+          </NavLink>
+
+          <NavLink
+            className={styles.links__a}
+            // className={({ isActive }) => {
+            //     return isActive ? 'is-active' : '';
+            // }}
+            to='/cart'
+          >
+            Cart
+          </NavLink>
+
           <SearchBar />
         </ul>
       </nav>
