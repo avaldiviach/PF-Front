@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { LogInButton } from "../../Components/LogIn";
 import { LogOutButton } from "../../Components/LogOut";
 import { Profile } from "../../Components/Profile";
+
 import styles from "./NavBar.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
