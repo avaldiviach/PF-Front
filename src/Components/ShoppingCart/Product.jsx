@@ -44,7 +44,7 @@ const Product = ({ data, index }) => {
             <h3 className='text-gray-800 text-xl font-semibold'>{name}</h3>
             <p className='text-sm text-gray-600'>{type}</p>
             <p className='text-sm text-gray-600'>{otras}</p>
-            <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ kg</span></p>
+            <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
           </div>
           <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 text-gray-600 '>
             <div onClick={removeItemHandler} className='flex items-center space-x-1 text-xs lg:text-sm hover:text-gray-400 cursor-pointer'>
