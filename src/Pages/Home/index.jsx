@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 //Componentes y funciones
-import Cards from '../../Components/Cards'
-import ImagenPrincipal from '../../Components/ImagenPrincipal';
-import Filters from '../../Components/Filters';
-import Pagination from '../../Components/Pagination';
+import Cards from "../../Components/Cards";
+import ImagenPrincipal from "../../Components/ImagenPrincipal";
+import Filters from "../../Components/Filters";
+import Pagination from "../../Components/Pagination";
+import { getSneakers } from "../../Redux/Actions";
 //import Carrousel from '../../Components/Carrousel';
-import style from './home.module.css'
+import style from "./home.module.css";
 
 const Home = () => {
-  const filteredSneakers = useSelector(state => state.Sneakers);
+  const filteredSneakers = useSelector((state) => state.SneakersCopy);
 
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
   // Se crea la paginación de x zapatillas por página
@@ -21,7 +23,7 @@ const Home = () => {
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
 
   useEffect(() => {
-    setCurrentPage(1)
+    setCurrentPage(1);
   }, [filteredSneakers]);
 
   useEffect(() => {
@@ -30,39 +32,52 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    filteredSneakers.length !== 0 && setLoading(false)
+    filteredSneakers.length !== 0 && setLoading(false);
   }, [filteredSneakers]);
 
   // Se corta el array de todas las zapatillas con los dos índices inicial y final de la página,
   // para obtener las zapatillas que se mostrarán en la página actual
-  let currentPageSneakers = filteredSneakers.length ? filteredSneakers.slice(firstSneaker, lastSneaker) : [];
+  let currentPageSneakers = filteredSneakers.length
+    ? filteredSneakers.slice(firstSneaker, lastSneaker)
+    : [];
   //---------------------------------------------------------------------------------------------------------------
 
   return (
     <div className={style.home}>
+      {filteredSneakers.length === 0 && loading === false ? (
+        <div>
+          <h1 className={style.not4}>404</h1>
+          <h2 className={style.not}>Sneakers not found </h2>
+          <Link
+            to="/"
+            className={style.btn1}
+            onClick={() => dispatch(getSneakers())}
+          >
+            GO BACK
+          </Link>
+        </div>
+      ) : loading === true ? (
+        <h2>Loading..</h2>
+      ) : (
+        <>
+          <ImagenPrincipal />
 
-       {filteredSneakers.length ===0 && loading===false? <h2>Sneakers not found </h2>:
-      
-        loading===true 
-          ? <h2>Loading..</h2>
-          : <>
-            <ImagenPrincipal />
+          {/* Componente para filtros */}
+          <Filters />
 
-              {/* Componente para filtros */}
-              <Filters />
+          {/* Componente para paginado */}
+          <Pagination
+            numberOfSneakers={filteredSneakers.length}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
+          />
 
-              {/* Componente para paginado */}
-              <Pagination numberOfSneakers={filteredSneakers.length}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
-              />
-
-              <Cards renderSneakers={currentPageSneakers} />
-            </>
-      }
+          <Cards renderSneakers={currentPageSneakers} />
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default Home;

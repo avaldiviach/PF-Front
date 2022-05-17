@@ -4,7 +4,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
 	FILTER_BY_BRAND = 'FILTER_BY_BRAND',
 	GET_DETAIL = 'GET_DETAIL',
-	SET_CART = 'SET_CART';
+	SET_CART = 'SET_CART',
+	CLEAN_DETAIL = 'CLEAN_DETAIL',
+	SORT_PRICE = 'SORT_PRICE';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -44,41 +46,41 @@ export function filterByBrand(brand) {
 //ACA EMPIEZA EL CARRITO DE COMPRAS
 const cartData = [
 	{
-    id: "sneaker1",
-    name: "Black/White-Medium Grey",
-    type: "BLABLA",
-    price: "2000",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png',
-    wishlisted: false
-  },
-  {
-    id: "sneaker2",
-    name: "Air Jordan 11 Retro 'Space Jam' 2016",
-    type: "BLABLA",
-    price: "1000",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png',
-    wishlisted: false
-  },
-  {
-    id: "sneaker3",
-    name: "Rally Pro 'Black'",
-    type: "BLABLA",
-    price: "1500",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
-    wishlisted: false
-  },
+		id: "sneaker1",
+		name: "Black/White-Medium Grey",
+		type: "BLABLA",
+		price: "2000",
+		otras: 'aaaa',
+		notes: "max 100UN",
+		max: 100,
+		qty: 1,
+		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png',
+		wishlisted: false
+	},
+	{
+		id: "sneaker2",
+		name: "Air Jordan 11 Retro 'Space Jam' 2016",
+		type: "BLABLA",
+		price: "1000",
+		otras: 'aaaa',
+		notes: "max 100UN",
+		max: 100,
+		qty: 1,
+		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png',
+		wishlisted: false
+	},
+	{
+		id: "sneaker3",
+		name: "Rally Pro 'Black'",
+		type: "BLABLA",
+		price: "1500",
+		otras: 'aaaa',
+		notes: "max 100UN",
+		max: 100,
+		qty: 1,
+		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
+		wishlisted: false
+	},
 ];
 
 export function getDetailSneaker(id) {
@@ -176,3 +178,35 @@ export const changeCart = (data) => {
 		});
 	};
 };
+
+
+export const cleanDetail = () => {
+	return {
+		type: CLEAN_DETAIL,
+	}
+}
+
+
+export const OrderingByPrice = (payload) => {
+	return {
+		type: SORT_PRICE,
+		payload: payload
+	}
+}
+
+// OrderingByPrice: async (req, res) => {
+// 	const { order } = req.query
+// 	const data = await getData()
+
+// 	try {
+// 			if (order === 'asc') {
+// 					let newOrder = data.sort((a, b) => a.price - b.price)
+// 					res.send(newOrder)
+// 			} else {
+// 					let newOrder = data.sort((a, b) => b.price - a.price)
+// 					res.send(newOrder)
+// 			}
+// 	} catch (error) {
+// 			console.log(error)
+// 	}
+// },

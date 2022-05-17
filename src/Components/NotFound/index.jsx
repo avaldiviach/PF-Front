@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import style from "./NotFound.module.css";
+// import { Link } from 'react-router-dom';
 
-function Notfound() {
+const Notfound = () => {
   return (
-    <div className="NotFound">
-      <h2>404</h2>
-      <h1>Page Not Found</h1>
-      <Link to='/' >Go to Home</Link>
+    <div>
+      <h1 className={style.error}>404 Error</h1>
+      <h1 className={style.Notfound}>Page Not Found</h1>
     </div>
   );
-}
+};
 
 export default Notfound;
