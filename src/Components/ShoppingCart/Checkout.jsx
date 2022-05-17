@@ -27,7 +27,6 @@ const Checkout = () => {
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
   
   useEffect(() => {
-    console.log('NO ENTRO')
     forceUpdate();
   }, [detectChanges])
 
@@ -50,7 +49,7 @@ const Checkout = () => {
             (including VAT)
           </p>
 
-          {/* Si hay cupon de descuento se hace el descuento */}
+          {/* Si hay cupón de descuento se hace el descuento */}
           {discountCodeValid ?
             <div className='flex flex-col space-y-1 text-right'>
               <p className='text-gray-300 font-normal'><span className=' line-through '>${Number(totalPrice).toFixed(2)}</span> <span className=' text-green-600'>+50%</span></p>
@@ -63,7 +62,7 @@ const Checkout = () => {
 
       <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0} className={totalPrice === 0 ?
         'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md' :
-        ' bg-blue-600 text-white text-xs p-4 w-full rounded-md hover:bg-blue-700'} >
+        ' bg-yellow-600 text-white text-xs p-4 w-full rounded-md hover:bg-green-700'} >
         GO TO CHECKOUT
       </button>
     </div>

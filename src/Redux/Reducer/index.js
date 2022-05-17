@@ -5,6 +5,7 @@ import {
 	FILTER_BY_CATEGORY,
 	GET_DETAIL,
 	SET_CART,
+	REMOVE_ITEM_CART,
 } from '../Actions';
 
 const initialState = {
@@ -12,9 +13,9 @@ const initialState = {
 	Sneakers: [],
 	SneakersCopy: [],
 	filters: [],
-	detail: [],
+	detail: {},
 
-	productData: [
+	productData: [/* 
 		{
 			id: 'sneaker1',
 			name: 'Black/White-Medium Grey',
@@ -53,7 +54,7 @@ const initialState = {
 			image:
 				'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
 			wishlisted: false,
-		},
+		}, */
 	],
 
 	showDiscountForm: false,
@@ -97,8 +98,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				payload === ''
 					? state.SneakersCopy
 					: state.SneakersCopy.filter(
-							(el) => el.brand.toLowerCase() === payload
-					  );
+						(el) => el.brand.toLowerCase() === payload
+					);
 			return {
 				...state,
 				Sneakers: filterBrand,
@@ -111,12 +112,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			};
 
 		case SET_CART:
-      return {
-        ...state,
-        ...payload,
-      }
-      // return Object.assign({}, state, payload);
-      
+			return {
+				...state,
+				productData: [... state.productData, ...payload],
+			}
+		//return Object.assign({}, state, payload);
+
+		case REMOVE_ITEM_CART:
+			return {
+				...state,
+				productData: payload,
+			}
 
 		default:
 			return state;

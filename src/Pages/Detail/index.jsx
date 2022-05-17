@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getDetailSneaker } from "../../Redux/Actions";
+import { getDetailSneaker, addItem } from "../../Redux/Actions";
 import s from "./detail.module.css";
 
 export default function Detail() {
@@ -13,6 +13,13 @@ export default function Detail() {
   useEffect(() => {
     dispatch(getDetailSneaker(id));
   }, [dispatch, id]);
+
+  function addToCart() {
+    //flag que indica si seleccionó una talla
+    const size = true;
+    if(size) return alert('Tiene que seleccionar una talla para agregar al carrito');
+    dispatch(addItem(sneaker.id));
+  }
 
   return (
     <div>
@@ -48,7 +55,7 @@ export default function Detail() {
               <p className={s.cont}>{sneaker.material}</p>
               <p className={s.subtitle}>Model</p>
               <p className={s.cont}>{sneaker.model}</p>
-              <button className={s.addCart}>Add to Cart</button>
+              <button onClick={addToCart} className={s.addCart}>Add to Cart</button>
             </section>
           </div>
         )

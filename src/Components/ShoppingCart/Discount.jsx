@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCart } from '../../Redux/Actions'
+import { GrLinkBottom } from 'react-icons/gr'
 
 
 const Discount = () => {
@@ -35,7 +36,7 @@ const Discount = () => {
         <div className='flex items-center justify-between text-gray-600 text-sm'>
           <p>Add a discount code [optional]</p>
           <span onClick={openDiscountForm} className={showDiscountForm ? ' transition duration-700 transform rotate-180 cursor-pointer' : 'transition duration-700 transform rotate-0 cursor-pointer '}>
-            <i className={"fas fa-chevron-down"}>Aceptar</i>
+            <i className={"fas fa-chevron-down"}><GrLinkBottom /></i>
           </span>
         </div>
       </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useReducer, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getSneakers } from '../../Redux/Actions'
+import React, { useReducer, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem } from '../../Redux/Actions'
+import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
@@ -53,12 +54,12 @@ const Product = ({ data, index }) => {
               </span>
               <p>REMOVE ITEM</p>
             </div>
-            <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
+            {/* <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
               <span>
                 <i className="fas fa-heart"></i>
               </span>
               <p>{wishlisted ? "REMOVE FROM WISHLIST" : "MOVE TO WISHLIST"}</p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -68,7 +69,7 @@ const Product = ({ data, index }) => {
           <div className='flex items-center text-gray-800 text-xs lg:text-base '>
             <div onClick={removeProductQtyHandler} className={qty === 1 ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-l-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-l-md'}>
               <span >
-                <i className="fas fa-minus"></i>
+                <GrFormSubtract />
               </span>
             </div>
             <div className='flex justify-center w-12 h-full items-center p-2 border-t border-b'>
@@ -76,7 +77,7 @@ const Product = ({ data, index }) => {
             </div>
             <div onClick={addProductQtyHandler} className={max === qty ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md'}>
               <span>
-                <i className="fas fa-plus"></i>
+                <GrFormAdd />
               </span>
             </div>
           </div>
