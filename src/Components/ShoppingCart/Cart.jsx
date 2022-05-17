@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Checkout from './Checkout.jsx'
 import Discount from './Discount.jsx'
 
-
-
 const Cart = () => {
 
   const dispatch = useDispatch()
@@ -45,6 +43,7 @@ const Cart = () => {
 
       </section>
 
+      {/* llama a los componentes checkout y discount */}
       <section className='lg:w-1/3 h-full space-y-6 '>
         <Checkout />
         <Discount />

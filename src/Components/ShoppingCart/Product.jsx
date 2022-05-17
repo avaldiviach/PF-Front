@@ -1,30 +1,32 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getSneakers } from '../../Redux/Actions'
-// import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem } from '../../../store/actions/shoppingCart'
-
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
   const { id, name, type, price, otras, notes, qty, image, max, wishlisted } = data
+  // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
+  // se borra etc.
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
 
   const addProductQtyHandler = () => {
     dispatch(addItemQuantity(index))
-    // forceUpdate();
+    forceUpdate();
   }
 
   const removeProductQtyHandler = () => {
     dispatch(decreaseItemQuantity(index))
-    // forceUpdate();
+    forceUpdate();
   }
 
+  // agregar a la lista de deseos
   const wishlistHandler = () => {
     dispatch(addWishlist(index))
-    // forceUpdate();
+    forceUpdate();
   }
 
+  // remover item
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
@@ -32,7 +34,6 @@ const Product = ({ data, index }) => {
       setToDelete(false)
     }, 300)
   }
-
 
   return (
     <div key={id} className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>

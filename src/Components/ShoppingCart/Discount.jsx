@@ -10,7 +10,6 @@ const Discount = () => {
   const showDiscountForm = useSelector(state => state.showDiscountForm)
   const discountCode = useSelector(state => state.discountCode)
   const discountCodeValid = useSelector(state => state.discountCodeValid)
-  // const { showDiscountForm, discountCode, discountCodeValid } = rootReducer
 
   const openDiscountForm = () => {
     dispatch(changeCart({
@@ -19,7 +18,7 @@ const Discount = () => {
   }
 
   const sendDiscountCodeValidation = () => {
-    if (discountCode === "RAMEN") {
+    if (discountCode === "ANDRE") {
       dispatch(changeCart({
         discountCodeValid: true
       }))
@@ -36,7 +35,7 @@ const Discount = () => {
         <div className='flex items-center justify-between text-gray-600 text-sm'>
           <p>Add a discount code [optional]</p>
           <span onClick={openDiscountForm} className={showDiscountForm ? ' transition duration-700 transform rotate-180 cursor-pointer' : 'transition duration-700 transform rotate-0 cursor-pointer '}>
-            <i className={"fas fa-chevron-down"}></i>
+            <i className={"fas fa-chevron-down"}>Aceptar</i>
           </span>
         </div>
       </div>

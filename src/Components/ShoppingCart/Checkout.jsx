@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCart } from '../../Redux/Actions'
 
@@ -18,11 +18,18 @@ const Checkout = () => {
 
   const productData = useSelector(state => state.productData)
   const discountCodeValid = useSelector(state => state.discountCodeValid)
-  // const { productData, discountCodeValid } = state
+  const detectChanges = useSelector(state => state.productData.map(product => product.qty))
 
   const totalPrice = productData.reduce((value, acc) => {
     return value + (acc.price * acc.qty)
   }, 0)
+
+  const [any, forceUpdate] = useReducer(num => num + 1, 0);
+  
+  useEffect(() => {
+    console.log('NO ENTRO')
+    forceUpdate();
+  }, [detectChanges])
 
   return (
     <div className='bg-white p-4 rounded-md shadow-lg h-full space-y-6 '>
@@ -37,10 +44,13 @@ const Checkout = () => {
           <p>Gratis</p>
         </div>
         <hr />
+
         <div className='flex justify-between font-bold'>
           <p >The total amount of <br />
             (including VAT)
           </p>
+
+          {/* Si hay cupon de descuento se hace el descuento */}
           {discountCodeValid ?
             <div className='flex flex-col space-y-1 text-right'>
               <p className='text-gray-300 font-normal'><span className=' line-through '>${Number(totalPrice).toFixed(2)}</span> <span className=' text-green-600'>+50%</span></p>
@@ -50,6 +60,7 @@ const Checkout = () => {
           }
         </div>
       </div>
+
       <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0} className={totalPrice === 0 ?
         'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md' :
         ' bg-blue-600 text-white text-xs p-4 w-full rounded-md hover:bg-blue-700'} >

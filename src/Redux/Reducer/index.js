@@ -4,6 +4,7 @@ import {
 	FILTER_BY_BRAND,
 	FILTER_BY_CATEGORY,
 	GET_DETAIL,
+  SET_CART,
 } from '../Actions';
 
 const initialState = {
@@ -51,6 +52,7 @@ const initialState = {
     wishlisted: false
   }
   ],
+
   showDiscountForm: false,
   discountCode: "",
   discountCodeValid: null,
@@ -106,7 +108,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				detail: payload,
 			};
 
-		case 'SET_CART':
+		case SET_CART:
 			return Object.assign({}, state, payload);
 
 		default:
