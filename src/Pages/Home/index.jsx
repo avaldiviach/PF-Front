@@ -25,8 +25,8 @@ const Home = () => {
   }, [filteredSneakers]);
 
   useEffect(() => {
-    setLoading(true)
-
+    setLoading(true);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
