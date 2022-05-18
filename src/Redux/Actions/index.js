@@ -22,6 +22,21 @@ export function getSneakers() {
 	};
 }
 
+export function getDetailSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			return dispatch({
+				type: GET_DETAIL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in getDetailSneaker action', error);
+		}
+	};
+}
+
+
 export function searchByName(name) {
 	return {
 		type: SEARCH_BY_NAME,
@@ -40,20 +55,6 @@ export function filterByBrand(brand) {
 	return {
 		type: FILTER_BY_BRAND,
 		payload: brand.toLowerCase(),
-	};
-}
-
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`http://localhost:3001/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
 	};
 }
 
@@ -216,20 +217,4 @@ export const getTotalPrice = () => {
 			payload: total,
 		});
 	};
-  
-
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
-}
-
 };

@@ -30,7 +30,7 @@ function Card({ sneaker }) {
           </div>
         </div>
       </Link>
-      <button onClick={() => dispatch(addItem(id))}><AiFillPlusCircle />Add to Cart</button>
+      {/* <button onClick={() => dispatch(addItem(id))}><AiFillPlusCircle />Add to Cart</button> */}
     </div>
   );
 }

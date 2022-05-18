@@ -15,10 +15,8 @@ export default function Detail() {
   }, [dispatch, id]);
 
   function addToCart() {
-    //flag que indica si seleccionó una talla
-    const size = true;
-    if(size) return alert('Tiene que seleccionar una talla para agregar al carrito');
     dispatch(addItem(sneaker.id));
+    alert('Agregado al carrito');
   }
 
   return (
