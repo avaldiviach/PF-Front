@@ -46,7 +46,6 @@ const Home = () => {
     <div className={style.home}>
       {filteredSneakers.length === 0 && loading === false ? (
         <div>
-          <h1 className={style.not4}>404</h1>
           <h2 className={style.not}>Sneakers not found </h2>
           <Link
             to="/"
