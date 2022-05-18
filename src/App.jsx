@@ -24,11 +24,11 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/create-user" element={<FormUser />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/404" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
