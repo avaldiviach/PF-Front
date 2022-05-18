@@ -4,7 +4,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
 	FILTER_BY_BRAND = 'FILTER_BY_BRAND',
 	GET_DETAIL = 'GET_DETAIL',
-	SET_CART = 'SET_CART';
+	SET_CART = 'SET_CART',
+	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART', 
+  SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -41,9 +43,23 @@ export function filterByBrand(brand) {
 	};
 }
 
+export function getDetailSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`http://localhost:3001/sneaker/${id}`);
+			return dispatch({
+				type: GET_DETAIL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in getDetailSneaker action', error);
+		}
+	};
+}
+
 //ACA EMPIEZA EL CARRITO DE COMPRAS
-const cartData = [
-	{
+/* const cartData = [
+  {
     id: "sneaker1",
     name: "Black/White-Medium Grey",
     type: "BLABLA",
@@ -79,21 +95,7 @@ const cartData = [
     image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
     wishlisted: false
   },
-];
-
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`http://localhost:3001/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
-}
+]; */
 
 export const addWishlist = (index) => {
 	return async (dispatch, getState) => {
@@ -141,16 +143,44 @@ export const decreaseItemQuantity = (index) => {
 	};
 };
 
-export const addItem = () => {
-	return async (dispatch) => {
-		dispatch({
-			type: SET_CART,
-			payload: {
-				productData: cartData,
-			},
-		});
-	};
+export const addItem = (id) => (dispatch, getState) => {
+	const rootReducer = getState();
+	const { productData } = rootReducer;
+	const check = productData?.some((product) => product.id === id);
+	if (check) return;
+	return fetch(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
+		.then((resp) => resp.json())
+		.then((data) =>
+			dispatch({
+				type: SET_CART,
+				payload: [
+					{
+						id: data.id,
+						name: data.model,
+						type: data.categories.join(', '),
+						price: data.price,
+						otras: data.description,
+						notes: data.match,
+						max: 100,
+						qty: 1,
+						image: data.image,
+						wishlisted: false,
+					},
+				],
+			})
+		);
 };
+
+/* export const addItem = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: SET_CART,
+      payload: {
+        productData: cartData,
+      },
+    });
+  };
+}; */
 
 export const removeItem = (id) => {
 	return async (dispatch, getState) => {
@@ -158,12 +188,8 @@ export const removeItem = (id) => {
 		const { productData } = rootReducer;
 
 		dispatch({
-			type: SET_CART,
-			payload: {
-				productData: productData.filter((item) => {
-					return item.id !== id;
-				}),
-			},
+			type: REMOVE_ITEM_CART,
+			payload: productData.filter((item) => item.id !== id),
 		});
 	};
 };
@@ -173,6 +199,20 @@ export const changeCart = (data) => {
 		dispatch({
 			type: SET_CART,
 			payload: data,
+		});
+	};
+};
+export const getTotalPrice = () => {
+	return async (dispatch, getState) => {
+		const rootReducer = getState();
+		const { productData } = rootReducer;
+		let total = 0;
+		productData.forEach((item) => {
+			total += item.price * item.qty;
+		});
+		dispatch({
+			type: SET_TOTAL_PRICE,
+			payload: total,
 		});
 	};
 };

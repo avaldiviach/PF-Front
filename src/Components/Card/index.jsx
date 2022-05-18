@@ -1,10 +1,14 @@
 import React from "react";
+import { useDispatch } from 'react-redux';
+import { addItem } from "../../Redux/Actions/";
 import style from './Card.module.css'
 import { Link } from "react-router-dom"
+import { AiFillPlusCircle } from "react-icons/ai";
 
 function Card({ sneaker }) {
-  
+
   const { model, price, image, brand, id } = sneaker;
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -26,6 +30,7 @@ function Card({ sneaker }) {
           </div>
         </div>
       </Link>
+      <button onClick={() => dispatch(addItem(id))}><AiFillPlusCircle />Add to Cart</button>
     </div>
   );
 }
