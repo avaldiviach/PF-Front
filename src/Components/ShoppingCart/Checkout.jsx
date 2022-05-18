@@ -19,7 +19,7 @@ const Checkout = () => {
   const productData = useSelector(state => state.productData)
   const discountCodeValid = useSelector(state => state.discountCodeValid)
   const detectChanges = useSelector(state => state.productData.map(product => product.qty))
-
+//[2,5,8]
   const totalPrice = productData.reduce((value, acc) => {
     return value + (acc.price * acc.qty)
   }, 0)

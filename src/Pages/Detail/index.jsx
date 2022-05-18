@@ -47,9 +47,10 @@ export default function Detail() {
               <p className={s.details}>Details: {sneaker.description}</p>
               <p className={s.sizes_title}>Selec Size (EUR)</p>
               <div className={s.sizes}>
-
+                < select onChange>
                 {sneaker.sizes?.map(({ size }, i) => <div className={s.size} key={i}> <p>{size}</p> </div>)}
                 {/* <div className={s.size}> <p>{sneaker.size}</p> </div> */}
+                </select>
               </div>
               <p className={s.subtitle}>Material </p>
               <p className={s.cont}>{sneaker.material}</p>
