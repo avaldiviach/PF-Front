@@ -6,6 +6,7 @@ import {
 	GET_DETAIL,
 	SET_CART,
 	REMOVE_ITEM_CART,
+  SET_TOTAL_PRICE,
 } from '../Actions';
 
 const initialState = {
@@ -56,11 +57,14 @@ const initialState = {
 			wishlisted: false,
 		}, */
 	],
+  totalPrice: 0,
 
-	showDiscountForm: false,
-	discountCode: '',
-	discountCodeValid: null,
-	showCheckoutScreen: false,
+  // Las propiedades de abajo son para el carrito en caso de que se quiera 
+  // implementar cupones de descuento
+	// showDiscountForm: false,
+	// discountCode: '',
+	// discountCodeValid: null,
+	// showCheckoutScreen: false,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -114,7 +118,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		case SET_CART:
 			return {
 				...state,
-				productData: [... state.productData, ...payload],
+				productData: [...state.productData, ...payload],
 			}
 		//return Object.assign({}, state, payload);
 
@@ -124,6 +128,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				productData: payload,
 			}
 
+    case SET_TOTAL_PRICE:
+      return {
+        ...state,
+        totalPrice: payload,
+      }
+      
 		default:
 			return state;
 	}

@@ -1,10 +1,11 @@
 import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeCart } from '../../Redux/Actions'
+import { changeCart, getTotalPrice } from '../../Redux/Actions'
 
 const Checkout = () => {
   const dispatch = useDispatch()
 
+  //por si queremos hacer descuento con cupones
   const showCheckoutScreen = () => {
     dispatch(
       changeCart({
@@ -15,20 +16,20 @@ const Checkout = () => {
       })
     )
   }
-
-  const productData = useSelector(state => state.productData)
   const discountCodeValid = useSelector(state => state.discountCodeValid)
-  const detectChanges = useSelector(state => state.productData.map(product => product.qty))
-//[2,5,8]
-  const totalPrice = productData.reduce((value, acc) => {
-    return value + (acc.price * acc.qty)
-  }, 0)
 
-  const [any, forceUpdate] = useReducer(num => num + 1, 0);
-  
+  const totalPrice = useSelector(state => state.totalPrice);
+
   useEffect(() => {
-    forceUpdate();
-  }, [detectChanges])
+    dispatch(getTotalPrice())
+  }, [])
+
+
+  // const productData = useSelector(state => state.productData)
+  // const totalPrice = productData.reduce((value, acc) => {
+  //   return value + (acc.price * acc.qty)
+  // }, 0)
+  // const detectChanges = useSelector(state => state.productData.map(product => product.qty))
 
   return (
     <div className='bg-white p-4 rounded-md shadow-lg h-full space-y-6 '>
@@ -60,9 +61,11 @@ const Checkout = () => {
         </div>
       </div>
 
-      <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0} className={totalPrice === 0 ?
-        'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md' :
-        ' bg-yellow-600 text-white text-xs p-4 w-full rounded-md hover:bg-green-700'} >
+      <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0}
+        className={totalPrice === 0 
+          ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md' 
+          : ' bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
+          {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
         GO TO CHECKOUT
       </button>
     </div>

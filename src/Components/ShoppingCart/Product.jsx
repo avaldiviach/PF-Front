@@ -1,23 +1,27 @@
 import React, { useReducer, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem } from '../../Redux/Actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
   const { id, name, type, price, otras, notes, qty, image, max, wishlisted } = data
+
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
 
+
   const addProductQtyHandler = () => {
     dispatch(addItemQuantity(index))
+    dispatch(getTotalPrice());
     forceUpdate();
   }
 
   const removeProductQtyHandler = () => {
     dispatch(decreaseItemQuantity(index))
+    dispatch(getTotalPrice());
     forceUpdate();
   }
 
@@ -32,6 +36,7 @@ const Product = ({ data, index }) => {
     setToDelete(true)
     setTimeout(() => {
       dispatch(removeItem(id))
+      dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)
   }
@@ -54,6 +59,7 @@ const Product = ({ data, index }) => {
               </span>
               <p>REMOVE ITEM</p>
             </div>
+            {/* por si queremos agregar lista de deseos */}
             {/* <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
               <span>
                 <i className="fas fa-heart"></i>
