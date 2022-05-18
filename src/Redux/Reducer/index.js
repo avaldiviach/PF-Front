@@ -9,11 +9,12 @@ import {
 } from '../Actions';
 
 const initialState = {
-	searchSneakers: [],
+	searchSneakers: '',
 	Sneakers: [],
 	SneakersCopy: [],
 	filters: [],
 	detail: [],
+	allsneakers: [],
 
 	productData: [
 		{
@@ -67,15 +68,20 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				Sneakers: payload,
 				SneakersCopy: payload,
+				allsneakers: payload
 			};
 
 		case SEARCH_BY_NAME:
-			const sneakerMatching = state.SneakersCopy.filter((s) =>
-				s.match.toLowerCase().includes(payload.toLowerCase())
-			);
+			const words = payload.split(' ');
+			let sneakerMatching = state.allsneakers
+			words.forEach(w => {
+				sneakerMatching = sneakerMatching.filter((s) =>s.match.toLowerCase().includes(w.toLowerCase()))
+			});
+			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match whit our sneakers, try again ` : "finded";
 			return {
 				...state,
 				SneakersCopy: sneakerMatching,
+				searchSneakers: msg
 			};
 
 		case FILTER_BY_CATEGORY:

@@ -34,6 +34,7 @@ export default function SearchBar() {
       <form onSubmit={handleOnSubmit} className={styles.searchInputs}>
         <input
           type="text"
+          id="input"
           placeholder="Search here.."
           onChange={handleChange}
           pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,100}"
