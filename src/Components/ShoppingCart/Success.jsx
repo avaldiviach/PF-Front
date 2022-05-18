@@ -9,7 +9,6 @@ const Home = () => {
 
   const { showCheckoutScreen } = rootReducer
 
-
   useEffect(() => {
     if (showCheckoutScreen) {
       const setShowCheckout = setTimeout(() => {
