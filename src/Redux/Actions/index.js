@@ -11,7 +11,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 export function getSneakers() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get('http://localhost:3001/sneakers');
+			const { data } = await axios.get('https://node-api-sneakers.herokuapp.com/sneakers');
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
@@ -95,7 +95,8 @@ export function getDetailSneaker(id) {
     image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
     wishlisted: false
   },
-]; */
+  ]*/
+
 
 export const addWishlist = (index) => {
 	return async (dispatch, getState) => {
@@ -215,4 +216,20 @@ export const getTotalPrice = () => {
 			payload: total,
 		});
 	};
+  
+
+export function getDetailSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			return dispatch({
+				type: GET_DETAIL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in getDetailSneaker action', error);
+		}
+	};
+}
+
 };

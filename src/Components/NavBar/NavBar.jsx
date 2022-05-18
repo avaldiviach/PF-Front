@@ -6,6 +6,7 @@ import { LogOutButton } from "../../Components/LogOut";
 import { Profile } from "../../Components/Profile";
 import styles from "./NavBar.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import Cart from '../ShoppingCart/Cart'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
@@ -40,9 +41,9 @@ const NavBar = () => {
             Sign Up
           </NavLink> */}
 
-          {/* <NavLink className={styles.links__a} to='/user'>
-            Crear Usuario
-          </NavLink> */}
+          <NavLink className={styles.links__a} to='/cart'>
+            cart 🛒
+          </NavLink>
           {isAuthenticated ? (
             <>
               <Profile />
@@ -52,6 +53,8 @@ const NavBar = () => {
             <LogInButton />
           )}
           <SearchBar />
+          
+          
         </ul>
       </nav>
     </header>
