@@ -4,18 +4,19 @@ import {
 	FILTER_BY_BRAND,
 	FILTER_BY_CATEGORY,
 	GET_DETAIL,
+	CLEAN_DETAIL,
+	SORT_PRICE,
 	SET_CART,
 	REMOVE_ITEM_CART,
 	SET_TOTAL_PRICE,
 } from '../Actions';
 
 const initialState = {
-	searchSneakers: [],
+	searchSneakers: '',
 	Sneakers: [],
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-
 	productData: [],
 	totalPrice: 0,
 
@@ -34,26 +35,31 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				Sneakers: payload,
 				SneakersCopy: payload,
+				allsneakers: payload
 			};
 
 		case SEARCH_BY_NAME:
-			const sneakerMatching = state.SneakersCopy.filter((s) =>
-				s.match.toLowerCase().includes(payload.toLowerCase())
-			);
+			const words = payload.split(' ');
+			let sneakerMatching = state.allsneakers
+			words.forEach(w => {
+				sneakerMatching = sneakerMatching.filter((s) =>s.match.toLowerCase().includes(w.toLowerCase()))
+			});
+			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match whit our sneakers, try again ` : "finded";
 			return {
 				...state,
-				Sneakers: sneakerMatching,
+				SneakersCopy: sneakerMatching,
+				searchSneakers: msg
 			};
 
 		case FILTER_BY_CATEGORY:
 			//const filterCategory= state.SneakersCopy.filter((el)=> el.category.includes(payload))
 			const filterCategory =
 				payload === ''
-					? state.SneakersCopy
-					: state.SneakersCopy.filter((el) => el.categories?.includes(payload));
+					? state.Sneakers
+					: state.Sneakers.filter((el) => el.categories?.includes(payload));
 			return {
 				...state,
-				Sneakers: filterCategory,
+				SneakersCopy: filterCategory,
 			};
 
 		case FILTER_BY_BRAND:
@@ -66,7 +72,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 					);
 			return {
 				...state,
-				Sneakers: filterBrand,
+				SneakersCopy: filterBrand,
 			};
 
 		case GET_DETAIL:
@@ -75,6 +81,23 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				detail: payload,
 			};
 
+		case CLEAN_DETAIL: return { ...state, detail: [] }
+
+		case SORT_PRICE:
+
+			let sortByPrice = [...state.SneakersCopy];
+			console.log(sortByPrice)
+
+			if (payload === 'asc') {
+				sortByPrice.sort((a, b) => a.price - b.price)
+			} else {
+				sortByPrice.sort((a, b) => b.price - a.price)
+			}
+
+			return {
+				...state, SneakersCopy: [...sortByPrice]
+			}
+			
 		case SET_CART:
 			return {
 				...state,

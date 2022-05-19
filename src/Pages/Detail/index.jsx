@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getDetailSneaker, addItem } from "../../Redux/Actions";
+import { getDetailSneaker, cleanDetail, addItem } from "../../Redux/Actions";
+
 import s from "./detail.module.css";
 
 export default function Detail() {
-
   const { id } = useParams();
   const dispatch = useDispatch();
   const sneaker = useSelector((state) => state.detail);
@@ -13,7 +13,10 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
-  }, [dispatch, id]);
+    return () => {
+      dispatch(cleanDetail());
+    };
+  }, [id]);
 
   function addToCart() {
     //verifica si se seleccionó una talla
