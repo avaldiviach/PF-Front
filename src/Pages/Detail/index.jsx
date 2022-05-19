@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDetailSneaker, cleanDetail, addItem } from "../../Redux/Actions";
+import ModalCart from "../../Components/Modal/modalCart"
 
 import s from "./detail.module.css";
 
@@ -9,7 +10,9 @@ export default function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const sneaker = useSelector((state) => state.detail);
-  const [selectSneaker, setSelectSneaker] = useState("");
+  const [selectSneaker, setSelectSneaker] = useState(false);
+  const [alert, setAlert] = useState('');
+
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
@@ -20,10 +23,27 @@ export default function Detail() {
 
   function addToCart() {
     //verifica si se seleccionó una talla
-    if (!selectSneaker) return alert('Select a size to add to cart');
+    if (!selectSneaker) {
+      setAlert({
+        title: 'An option is missing',
+        msg:'Select a size to add to cart',
+        goCart: false
+      })
+      return 
+    };
     //verifica si ya existe la zapatilla con esa talla en el carrito
     let exist = dispatch(addItem(selectSneaker));
-    !exist ? alert('Item successfully added to cart') : alert("Item is already in your cart");
+    !exist 
+    ? setAlert({
+      title: 'Done',
+      msg:'Item successfully added to cart',
+      goCart: true
+    })
+    : setAlert({
+      title: 'Warning',
+      msg:'Item is already in your cart',
+      goCart: true
+    })
   }
 
   function selectSize(e) {
@@ -35,6 +55,9 @@ export default function Detail() {
   return (
     <div>
       {
+        alert && <ModalCart active={true} msg={alert.msg} title={alert.title} reset={setAlert} goCart={alert.goCart}/>
+      }
+      { 
         !sneaker.price ? (
           <img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt={"img"} />
         ) : (

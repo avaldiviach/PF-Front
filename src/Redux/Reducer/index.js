@@ -44,7 +44,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			words.forEach(w => {
 				sneakerMatching = sneakerMatching.filter((s) =>s.match.toLowerCase().includes(w.toLowerCase()))
 			});
-			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match whit our sneakers, try again ` : "finded";
+			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match with our sneakers, try again ` : "finded";
 			return {
 				...state,
 				SneakersCopy: sneakerMatching,
