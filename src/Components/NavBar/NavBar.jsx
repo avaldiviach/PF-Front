@@ -31,30 +31,31 @@ const NavBar = () => {
         <ul className={styles.links__ul}>
           {/* Componente para searchBar */}
 
-          {/* <NavLink
-            className={styles.links__a}
-            // className={({ isActive }) => {
-            //     return isActive ? 'is-active' : '';
-            // }}
-            to='/create-user'
-          >
-            Sign Up
-          </NavLink> */}
 
           <NavLink className={styles.links__a} to='/cart'>
             cart 🛒
           </NavLink>
+
           {isAuthenticated ? (
             <>
               <Profile />
               <LogOutButton />
             </>
           ) : (
-            <LogInButton />
+            <LogInButton className={styles.links__a} />
           )}
-          <SearchBar />
           
+          <NavLink
+            className={styles.links__a}
+            // className={({ isActive }) => {
+              //     return isActive ? 'is-active' : '';
+            // }}
+            to='/create-user'
+          >
+            Sign Up✔
+          </NavLink>
           
+            <SearchBar />
         </ul>
       </nav>
     </header>

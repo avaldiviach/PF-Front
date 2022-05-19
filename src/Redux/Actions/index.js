@@ -5,8 +5,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	FILTER_BY_BRAND = 'FILTER_BY_BRAND',
 	GET_DETAIL = 'GET_DETAIL',
 	SET_CART = 'SET_CART',
-	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART', 
-  SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
+	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
+	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -21,6 +21,21 @@ export function getSneakers() {
 		}
 	};
 }
+
+export function getDetailSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			return dispatch({
+				type: GET_DETAIL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in getDetailSneaker action', error);
+		}
+	};
+}
+
 
 export function searchByName(name) {
 	return {
@@ -43,61 +58,7 @@ export function filterByBrand(brand) {
 	};
 }
 
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`http://localhost:3001/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
-}
-
 //ACA EMPIEZA EL CARRITO DE COMPRAS
-/* const cartData = [
-  {
-    id: "sneaker1",
-    name: "Black/White-Medium Grey",
-    type: "BLABLA",
-    price: "2000",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png',
-    wishlisted: false
-  },
-  {
-    id: "sneaker2",
-    name: "Air Jordan 11 Retro 'Space Jam' 2016",
-    type: "BLABLA",
-    price: "1000",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png',
-    wishlisted: false
-  },
-  {
-    id: "sneaker3",
-    name: "Rally Pro 'Black'",
-    type: "BLABLA",
-    price: "1500",
-    otras: 'aaaa',
-    notes: "max 100UN",
-    max: 100,
-    qty: 1,
-    image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
-    wishlisted: false
-  },
-  ]*/
-
-
 export const addWishlist = (index) => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
@@ -144,44 +105,31 @@ export const decreaseItemQuantity = (index) => {
 	};
 };
 
-export const addItem = (id) => (dispatch, getState) => {
+export const addItem = (data) => (dispatch, getState) => {
 	const rootReducer = getState();
 	const { productData } = rootReducer;
-	const check = productData?.some((product) => product.id === id);
-	if (check) return;
-	return fetch(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
-		.then((resp) => resp.json())
-		.then((data) =>
-			dispatch({
-				type: SET_CART,
-				payload: [
-					{
-						id: data.id,
-						name: data.model,
-						type: data.categories.join(', '),
-						price: data.price,
-						otras: data.description,
-						notes: data.match,
-						max: 100,
-						qty: 1,
-						image: data.image,
-						wishlisted: false,
-					},
-				],
-			})
-		);
+	const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+	const exist = productData?.some(product => product.id === data.id && product.size === data.sizes.size);
+	if (exist) return exist;
+	dispatch({
+		type: SET_CART,
+		payload: {
+			productData: [...productData, {
+				id: data.id,
+				name: data.model,
+				brand: data.brand,
+				categories: formatter.format(data.categories),
+				price: data.price,
+				description: data.description,
+				size: data.sizes.size,
+				max: data.sizes.stock,
+				qty: 1,
+				image: data.image,
+				wishlisted: false
+			}]
+		},
+	})
 };
-
-/* export const addItem = () => {
-  return async (dispatch) => {
-    dispatch({
-      type: SET_CART,
-      payload: {
-        productData: cartData,
-      },
-    });
-  };
-}; */
 
 export const removeItem = (id) => {
 	return async (dispatch, getState) => {
@@ -203,6 +151,7 @@ export const changeCart = (data) => {
 		});
 	};
 };
+
 export const getTotalPrice = () => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
@@ -216,20 +165,4 @@ export const getTotalPrice = () => {
 			payload: total,
 		});
 	};
-  
-
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
-}
-
 };

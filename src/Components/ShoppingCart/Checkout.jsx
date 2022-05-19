@@ -24,7 +24,6 @@ const Checkout = () => {
     dispatch(getTotalPrice())
   }, [])
 
-
   // const productData = useSelector(state => state.productData)
   // const totalPrice = productData.reduce((value, acc) => {
   //   return value + (acc.price * acc.qty)
@@ -47,7 +46,7 @@ const Checkout = () => {
 
         <div className='flex justify-between font-bold'>
           <p >The total amount of <br />
-            (including VAT)
+            (including IVA)
           </p>
 
           {/* Si hay cupón de descuento se hace el descuento */}
@@ -62,10 +61,10 @@ const Checkout = () => {
       </div>
 
       <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0}
-        className={totalPrice === 0 
-          ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md' 
+        className={totalPrice === 0
+          ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md'
           : ' bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
-          {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
+        {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
         GO TO CHECKOUT
       </button>
     </div>

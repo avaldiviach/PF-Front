@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { changeCart } from '../../Redux/Actions'
 import { GrLinkBottom } from 'react-icons/gr'
 
-
 const Discount = () => {
 
   const dispatch = useDispatch()

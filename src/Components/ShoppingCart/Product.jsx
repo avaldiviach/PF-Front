@@ -1,12 +1,12 @@
 import React, { useReducer, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
-  const { id, name, type, price, otras, notes, qty, image, max, wishlisted } = data
+  const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
@@ -26,10 +26,10 @@ const Product = ({ data, index }) => {
   }
 
   // agregar a la lista de deseos
-  const wishlistHandler = () => {
+  /* const wishlistHandler = () => {
     dispatch(addWishlist(index))
     forceUpdate();
-  }
+  } */
 
   // remover item
   const removeItemHandler = () => {
@@ -48,8 +48,10 @@ const Product = ({ data, index }) => {
         <div className='space-y-6'>
           <div className='space-y-2'>
             <h3 className='text-gray-800 text-xl font-semibold'>{name}</h3>
-            <p className='text-sm text-gray-600'>{type}</p>
-            <p className='text-sm text-gray-600'>{otras}</p>
+            <h3 className='text-gray-800 text-xl font-semibold'>{brand}</h3>
+            <h4 className='text-sm text-gray-900'>Talla {size}</h4>
+            <p className='text-sm text-gray-600'>{categories}</p>
+            <p className='text-sm text-gray-600'>{description}</p>
             <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
           </div>
           <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 text-gray-600 '>
@@ -87,7 +89,7 @@ const Product = ({ data, index }) => {
               </span>
             </div>
           </div>
-          <p className='text-xs text-gray-600 mt-2'>(Note, {notes})</p>
+          {/*  <p className='text-xs text-gray-600 mt-2'>(Note, {notes})</p> */}
         </div>
         <p className='items-center text-gray-800 text-right text-lg font-semibold'>${Number(price * qty).toFixed(2)}</p>
       </div>
