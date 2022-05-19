@@ -6,7 +6,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_DETAIL = 'GET_DETAIL',
 	SET_CART = 'SET_CART',
 	CLEAN_DETAIL = 'CLEAN_DETAIL',
-	SORT_PRICE = 'SORT_PRICE';
+	SORT_PRICE = 'SORT_PRICE',
 	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
 	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 
@@ -61,20 +61,6 @@ export function filterByBrand(brand) {
 }
 
 //ACA EMPIEZA EL CARRITO DE COMPRAS
-
-export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
-}
 
 export const addWishlist = (index) => {
 	return async (dispatch, getState) => {
