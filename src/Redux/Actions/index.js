@@ -7,6 +7,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	SET_CART = 'SET_CART',
 	CLEAN_DETAIL = 'CLEAN_DETAIL',
 	SORT_PRICE = 'SORT_PRICE';
+	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
+	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -21,6 +23,21 @@ export function getSneakers() {
 		}
 	};
 }
+
+export function getDetailSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			return dispatch({
+				type: GET_DETAIL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in getDetailSneaker action', error);
+		}
+	};
+}
+
 
 export function searchByName(name) {
 	return {
@@ -44,44 +61,6 @@ export function filterByBrand(brand) {
 }
 
 //ACA EMPIEZA EL CARRITO DE COMPRAS
-const cartData = [
-	{
-		id: "sneaker1",
-		name: "Black/White-Medium Grey",
-		type: "BLABLA",
-		price: "2000",
-		otras: 'aaaa',
-		notes: "max 100UN",
-		max: 100,
-		qty: 1,
-		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png',
-		wishlisted: false
-	},
-	{
-		id: "sneaker2",
-		name: "Air Jordan 11 Retro 'Space Jam' 2016",
-		type: "BLABLA",
-		price: "1000",
-		otras: 'aaaa',
-		notes: "max 100UN",
-		max: 100,
-		qty: 1,
-		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png',
-		wishlisted: false
-	},
-	{
-		id: "sneaker3",
-		name: "Rally Pro 'Black'",
-		type: "BLABLA",
-		price: "1500",
-		otras: 'aaaa',
-		notes: "max 100UN",
-		max: 100,
-		qty: 1,
-		image: 'https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png',
-		wishlisted: false
-	},
-];
 
 export function getDetailSneaker(id) {
 	return async function (dispatch) {
@@ -143,15 +122,30 @@ export const decreaseItemQuantity = (index) => {
 	};
 };
 
-export const addItem = () => {
-	return async (dispatch) => {
-		dispatch({
-			type: SET_CART,
-			payload: {
-				productData: cartData,
-			},
-		});
-	};
+export const addItem = (data) => (dispatch, getState) => {
+	const rootReducer = getState();
+	const { productData } = rootReducer;
+	const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+	const exist = productData?.some(product => product.id === data.id && product.size === data.sizes.size);
+	if (exist) return exist;
+	dispatch({
+		type: SET_CART,
+		payload: {
+			productData: [...productData, {
+				id: data.id,
+				name: data.model,
+				brand: data.brand,
+				categories: formatter.format(data.categories),
+				price: data.price,
+				description: data.description,
+				size: data.sizes.size,
+				max: data.sizes.stock,
+				qty: 1,
+				image: data.image,
+				wishlisted: false
+			}]
+		},
+	})
 };
 
 export const removeItem = (id) => {
@@ -160,12 +154,8 @@ export const removeItem = (id) => {
 		const { productData } = rootReducer;
 
 		dispatch({
-			type: SET_CART,
-			payload: {
-				productData: productData.filter((item) => {
-					return item.id !== id;
-				}),
-			},
+			type: REMOVE_ITEM_CART,
+			payload: productData.filter((item) => item.id !== id),
 		});
 	};
 };
@@ -210,3 +200,17 @@ export const OrderingByPrice = (payload) => {
 // 			console.log(error)
 // 	}
 // },
+export const getTotalPrice = () => {
+	return async (dispatch, getState) => {
+		const rootReducer = getState();
+		const { productData } = rootReducer;
+		let total = 0;
+		productData.forEach((item) => {
+			total += item.price * item.qty;
+		});
+		dispatch({
+			type: SET_TOTAL_PRICE,
+			payload: total,
+		});
+	};
+};

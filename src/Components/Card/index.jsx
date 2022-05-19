@@ -1,9 +1,10 @@
 import React from "react";
-import style from './Card.module.css'
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom"
+import style from './Card.module.css'
 
 function Card({ sneaker }) {
-  
+
   const { model, price, image, brand, id } = sneaker;
 
   return (

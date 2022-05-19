@@ -1,38 +1,45 @@
-import React, { useEffect, useReducer, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getSneakers } from '../../Redux/Actions'
-// import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem } from '../../../store/actions/shoppingCart'
-
+import React, { useReducer, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
+import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
-  const { id, name, type, price, otras, notes, qty, image, max, wishlisted } = data
+  const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
+
+  // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
+  // se borra etc.
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
+
 
   const addProductQtyHandler = () => {
     dispatch(addItemQuantity(index))
-    // forceUpdate();
+    dispatch(getTotalPrice());
+    forceUpdate();
   }
 
   const removeProductQtyHandler = () => {
     dispatch(decreaseItemQuantity(index))
-    // forceUpdate();
+    dispatch(getTotalPrice());
+    forceUpdate();
   }
 
-  const wishlistHandler = () => {
+  // agregar a la lista de deseos
+  /* const wishlistHandler = () => {
     dispatch(addWishlist(index))
-    // forceUpdate();
-  }
+    forceUpdate();
+  } */
 
+  // remover item
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
       dispatch(removeItem(id))
+      dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)
   }
-
 
   return (
     <div key={id} className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
@@ -41,9 +48,11 @@ const Product = ({ data, index }) => {
         <div className='space-y-6'>
           <div className='space-y-2'>
             <h3 className='text-gray-800 text-xl font-semibold'>{name}</h3>
-            <p className='text-sm text-gray-600'>{type}</p>
-            <p className='text-sm text-gray-600'>{otras}</p>
-            <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ kg</span></p>
+            <h3 className='text-gray-800 text-xl font-semibold'>{brand}</h3>
+            <h4 className='text-sm text-gray-900'>Talla {size}</h4>
+            <p className='text-sm text-gray-600'>{categories}</p>
+            <p className='text-sm text-gray-600'>{description}</p>
+            <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
           </div>
           <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 text-gray-600 '>
             <div onClick={removeItemHandler} className='flex items-center space-x-1 text-xs lg:text-sm hover:text-gray-400 cursor-pointer'>
@@ -52,12 +61,13 @@ const Product = ({ data, index }) => {
               </span>
               <p>REMOVE ITEM</p>
             </div>
-            <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
+            {/* por si queremos agregar lista de deseos */}
+            {/* <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
               <span>
                 <i className="fas fa-heart"></i>
               </span>
               <p>{wishlisted ? "REMOVE FROM WISHLIST" : "MOVE TO WISHLIST"}</p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -67,7 +77,7 @@ const Product = ({ data, index }) => {
           <div className='flex items-center text-gray-800 text-xs lg:text-base '>
             <div onClick={removeProductQtyHandler} className={qty === 1 ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-l-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-l-md'}>
               <span >
-                <i className="fas fa-minus"></i>
+                <GrFormSubtract />
               </span>
             </div>
             <div className='flex justify-center w-12 h-full items-center p-2 border-t border-b'>
@@ -75,11 +85,11 @@ const Product = ({ data, index }) => {
             </div>
             <div onClick={addProductQtyHandler} className={max === qty ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md'}>
               <span>
-                <i className="fas fa-plus"></i>
+                <GrFormAdd />
               </span>
             </div>
           </div>
-          <p className='text-xs text-gray-600 mt-2'>(Note, {notes})</p>
+          {/*  <p className='text-xs text-gray-600 mt-2'>(Note, {notes})</p> */}
         </div>
         <p className='items-center text-gray-800 text-right text-lg font-semibold'>${Number(price * qty).toFixed(2)}</p>
       </div>
