@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { changeCart, getTotalPrice } from '../../Redux/Actions'
 
 const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //por si queremos hacer descuento con cupones
   const showCheckoutScreen = () => {
@@ -15,7 +16,8 @@ const Checkout = () => {
         discountCode: "",
         discountCodeValid: null,
       })
-    )
+    );
+    navigate('payment');
   }
   const discountCodeValid = useSelector(state => state.discountCodeValid)
 
@@ -41,7 +43,7 @@ const Checkout = () => {
         </div>
         <div className='flex items-center justify-between'>
           <p>Shipping</p>
-          <p>Gratis</p>
+          <p>Free</p>
         </div>
         <hr />
 
@@ -66,7 +68,7 @@ const Checkout = () => {
           ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md'
           : ' bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
         {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
-        <Link to='payment'>GO TO CHECKOUT</Link>
+        GO TO CHECKOUT
       </button>
     </div>
   )

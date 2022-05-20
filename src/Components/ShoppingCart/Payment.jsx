@@ -1,9 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 function Payment() {
 
+  const [loading, setLoading] = useState(false);
   const totalPrice = useSelector(state => state.totalPrice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -14,6 +19,8 @@ function Payment() {
       type: 'card',
       card: elements.getElement(CardElement)
     });
+    setLoading(true);
+    elements.getElement(CardElement).clear();
     if (!error) {
       return fetch(`http://localhost:3001/payment`, {
         method: 'POST',
@@ -24,9 +31,21 @@ function Payment() {
           id: paymentMethod.id,
           amount: totalPrice
         })
-      }).then(resp => resp.json()).then(resp => console.log(resp))
+      })
+        .then(resp => resp.json())
+        .then(({ msg, received }) => {
+          setLoading(false);
+          alert(msg);
+          if (received) {
+            //falta agregar una ruta para recibir los productos que han sido comprados y registrar en la BD
+            dispatch({ type: 'SET_CART', payload: { productData: [] } });
+            dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
+            navigate('/cart');
+          }
+        });
     }
-    alert(error);
+    setLoading(false);
+    alert(error.message);
   }
 
   return (
@@ -38,11 +57,12 @@ function Payment() {
         type="submit"
         disabled={!stripe || !elements}
       >
-        PAGAR
+        {
+          loading ? <>VERIFYING</> : <>BUY</>
+        }
       </button>
     </div>
   )
 }
-
 
 export default Payment;

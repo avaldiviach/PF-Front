@@ -2,6 +2,7 @@ import React, { useReducer, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
+import s from './cart.module.css'
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ const Product = ({ data, index }) => {
   return (
     <div key={id} className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
       <div className='space-y-4 lg:space-y-0 lg:space-x-4 flex flex-col lg:flex-row'>
-        <img style={{ content: `url(${image})` }} alt='img-product' className='w-full lg:w-48' />
+        <img src={image}  alt='img-product' className={`w-full lg:w-48 ${s.img} `}/>
         <div className='space-y-6'>
           <div className='space-y-2'>
             <h3 className='text-gray-800 text-xl font-semibold'>{name}</h3>
@@ -59,7 +60,7 @@ const Product = ({ data, index }) => {
               <span>
                 <i className="fas fa-trash"></i>
               </span>
-              <p>REMOVE ITEM</p>
+              <p style={{color: 'red'}}>REMOVE ITEM</p>
             </div>
             {/* por si queremos agregar lista de deseos */}
             {/* <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
