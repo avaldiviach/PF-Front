@@ -1,9 +1,10 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { changeCart, getTotalPrice } from '../../Redux/Actions'
 
 const Checkout = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //por si queremos hacer descuento con cupones
   const showCheckoutScreen = () => {
@@ -65,7 +66,7 @@ const Checkout = () => {
           ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md'
           : ' bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
         {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
-        GO TO CHECKOUT
+        <Link to='payment'>GO TO CHECKOUT</Link>
       </button>
     </div>
   )

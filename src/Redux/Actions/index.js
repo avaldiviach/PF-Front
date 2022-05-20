@@ -131,14 +131,13 @@ export const addItem = (data) => (dispatch, getState) => {
 	})
 };
 
-export const removeItem = (id) => {
+export const removeItem = (id, size) => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
 		const { productData } = rootReducer;
-
 		dispatch({
 			type: REMOVE_ITEM_CART,
-			payload: productData.filter((item) => item.id !== id),
+			payload: productData.filter(product => product.id !== id || product.size !== size),
 		});
 	};
 };

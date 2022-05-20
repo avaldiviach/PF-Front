@@ -4,15 +4,21 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Checkout from './Checkout.jsx'
 import Discount from './Discount.jsx'
+import { Outlet, useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 const Cart = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const stripePromise = loadStripe('pk_test_51L1JdXFZiSHIoXAAAndrHsoSn3sisOhE0eaNxnNL0dvtv7O8BBAGO0AgyB1r2EjojYKl8QtSA3GJfKXDnCrSLbzE00VAlNOvG7');
   const productData = useSelector(state => state.productData)
   // const { productData } = state
 
   const addItemHandler = () => {
-    dispatch(addItemQuantity())
+    //dispatch(addItemQuantity())
+    navigate('/');
   }
 
   return (
@@ -46,6 +52,9 @@ const Cart = () => {
       {/* llama a los componentes checkout y discount */}
       <section className='lg:w-1/3 h-full space-y-6 '>
         <Checkout />
+        <Elements stripe={stripePromise}>
+          <Outlet />
+        </Elements>
         {/* <Discount /> */}
       </section>
     </main>

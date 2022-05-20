@@ -35,7 +35,7 @@ const Product = ({ data, index }) => {
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
-      dispatch(removeItem(id))
+      dispatch(removeItem(id, size))
       dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)
