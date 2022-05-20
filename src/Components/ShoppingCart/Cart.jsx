@@ -1,19 +1,17 @@
-import { addItem, addItemQuantity } from '../../Redux/Actions/index.js'
-import Product from './Product.jsx'
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import Product from './Product.jsx'
 import Checkout from './Checkout.jsx'
 import Discount from './Discount.jsx'
 
 const Cart = () => {
 
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const stripePromise = loadStripe('pk_test_51L1JdXFZiSHIoXAAAndrHsoSn3sisOhE0eaNxnNL0dvtv7O8BBAGO0AgyB1r2EjojYKl8QtSA3GJfKXDnCrSLbzE00VAlNOvG7');
   const productData = useSelector(state => state.productData)
-  // const { productData } = state
-
-  const addItemHandler = () => {
-    dispatch(addItemQuantity())
-  }
 
   return (
     <main className='py-6 px-12 w-full flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6'>
@@ -29,7 +27,7 @@ const Cart = () => {
             <>
               <div className='flex items-center space-y-4 flex-col'>
                 <h3 className='text-gray-500 text-lg font-semibold'>Oops... Seems your cart is empty</h3>
-                <button onClick={addItemHandler} className=' bg-white text-orange-600 text-xs p-4 w-full lg:w-auto rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'>
+                <button onClick={() => navigate('/')} className=' bg-white text-orange-600 text-xs p-4 w-full lg:w-auto rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'>
                   ADD ITEMS
                 </button>
               </div>
@@ -46,6 +44,9 @@ const Cart = () => {
       {/* llama a los componentes checkout y discount */}
       <section className='lg:w-1/3 h-full space-y-6 '>
         <Checkout />
+        <Elements stripe={stripePromise}>
+          <Outlet />
+        </Elements>
         {/* <Discount /> */}
       </section>
     </main>

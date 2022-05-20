@@ -4,3 +4,21 @@
     flex-direction: column;
     align-items: center;
 }
+
+.not{
+    font-size: 500%;
+	font-family: 'Montserrat', 'Roboto', sans-serif;
+}
+
+.not4{
+    font-size: 700%;
+    margin-left: 35%;    
+}
+
+.btn1{
+    margin-left: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #FB5014;
+}
