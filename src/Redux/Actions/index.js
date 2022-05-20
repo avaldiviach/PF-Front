@@ -8,7 +8,13 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	CLEAN_DETAIL = 'CLEAN_DETAIL',
 	SORT_PRICE = 'SORT_PRICE',
 	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
-	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
+	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE',
+	GET_ALL_USERS = "GET_ALL_USERS",
+	DELETE_USER = "DELETE_USER",
+	CREATE_MODEL = "CREATE_MODEL",
+	CREATE_CATEGORY = "CREATE_CATEGORY",
+	DELETE_CATEGORY = "DELETE_CATEGORY";
+	
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -200,3 +206,82 @@ export const getTotalPrice = () => {
 		});
 	};
 };
+//------------ADMIN----------------ADMIN------------ADMIN
+export function getAllUsers() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getUser`)
+			return dispatch({
+				type: GET_ALL_USERS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//deleteUsers
+
+export function deleteUser(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
+			return dispatch({
+				type: DELETE_USER,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//createModel
+
+export function createSneaker(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
+			return dispatch({
+				type: CREATE_MODEL,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//reducer
+//create category para el form de create model
+
+export function createCategory(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createCate`, payload)
+			return dispatch({
+				type: CREATE_CATEGORY,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//delete category
+
+export function deleteCategory(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteCat/${id}`)
+			return dispatch({
+				type: DELETE_CATEGORY,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}

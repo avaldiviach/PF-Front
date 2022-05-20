@@ -11,6 +11,7 @@ import FormUser from "./Pages/FormUser/index.jsx";
 import { getSneakers } from "./Redux/Actions";
 import Cart from "./Components/ShoppingCart/Cart";
 import NotFound from "./Pages/Notfound/NotFound";
+import Admin from "./Pages/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/create-user" element={<FormUser />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

@@ -9,6 +9,11 @@ import {
 	SET_CART,
 	REMOVE_ITEM_CART,
 	SET_TOTAL_PRICE,
+	GET_ALL_USERS,
+	DELETE_USER,
+	CREATE_MODEL,
+	CREATE_CATEGORY,
+	DELETE_CATEGORY
 } from '../Actions';
 
 const initialState = {
@@ -19,6 +24,9 @@ const initialState = {
 	detail: {},
 	productData: [],
 	totalPrice: 0,
+	users: [],
+	categories: [],
+	createModel: []
 
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
@@ -42,7 +50,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			const words = payload.split(' ');
 			let sneakerMatching = state.allsneakers
 			words.forEach(w => {
-				sneakerMatching = sneakerMatching.filter((s) =>s.match.toLowerCase().includes(w.toLowerCase()))
+				sneakerMatching = sneakerMatching.filter((s) => s.match.toLowerCase().includes(w.toLowerCase()))
 			});
 			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match with our sneakers, try again ` : "finded";
 			return {
@@ -97,7 +105,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state, SneakersCopy: [...sortByPrice]
 			}
-			
+
 		case SET_CART:
 			return {
 				...state,
@@ -115,6 +123,43 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				totalPrice: payload,
+			}
+		//-------------------ADMIN------------------ADMIN--------------------ADMIN
+		case GET_ALL_USERS:
+			return {
+				...state,
+				users: payload
+			};
+
+		case DELETE_USER:
+			let user = state.users
+
+			return {
+				...state,
+				users: user.filter(el => el.id !== payload)
+			}
+
+		case CREATE_MODEL:
+
+			return {
+				...state,
+				createModel: payload
+			}
+
+		case CREATE_CATEGORY:
+
+			return {
+				...state,
+				categories: payload
+			}
+
+		case DELETE_CATEGORY:
+
+			let category = state.categories
+
+			return {
+				...state,
+				categories: category.filter(el => el.id !== payload)
 			}
 
 		default:

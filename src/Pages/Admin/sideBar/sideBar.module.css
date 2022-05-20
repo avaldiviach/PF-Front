@@ -1,0 +1,29 @@
+.sideBar{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: solid .05rem rgba(80, 80, 80, 0.239);;
+}
+
+.type{
+    background-color: white;
+    margin: 0 auto;
+    height: 4rem;
+    width: 80%;
+    margin-bottom: 2rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #b2b2b2;
+    border: solid 1px rgba(80, 80, 80, 0.239);
+    transition: background .3s, color .4s, border .1s;
+}
+
+.type:hover{
+    background-color: #efeded88;
+    border:solid 2px var(--secundario);
+    color: var(--secundario);
+    
+}
