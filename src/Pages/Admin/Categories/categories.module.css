@@ -2,6 +2,10 @@
 
 } */
 
+.categories{
+    padding-bottom: 2rem;
+}
+
 .tbody{
     border-top: solid red;
 }
@@ -29,8 +33,29 @@
     transition: width 1s, background 1s;
 }
 
-/* .delete:hover{
-    width: 50%;
+
+
+.delete:hover{
+    width: 30%;
     background-color: rgb(255, 120, 120);
 
-} */
+}
+
+.btnAdd{
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(27, 161, 0);
+    color: whitesmoke;
+    width: 10rem;
+    height: 3rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    transition: width 1s, background 1s;
+}
+
+.btnAdd:hover{
+    background-color: rgb(23, 129, 1);
+
+}

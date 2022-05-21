@@ -7,10 +7,11 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Pages/Home";
 import Detail from "./Pages/Detail";
-import FormUser from "./Pages/FormUser/index.jsx";
-import { getSneakers } from "./Redux/Actions";
+import FormUser from './Pages/FormUser/index.jsx'
 import Cart from "./Components/ShoppingCart/Cart";
+import Payment from "./Components/ShoppingCart/Payment";
 import NotFound from "./Pages/Notfound/NotFound";
+import { getSneakers } from "./Redux/Actions";
 import Admin from "./Pages/Admin";
 import AddProduct from "./Pages/Admin/Products/AddProduct";
 

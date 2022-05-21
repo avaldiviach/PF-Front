@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
     border-radius: .6rem;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .data_container{

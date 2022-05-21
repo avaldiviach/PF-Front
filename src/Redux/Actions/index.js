@@ -24,163 +24,159 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 
 
 export function getSneakers() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get('https://node-api-sneakers.herokuapp.com/sneakers');
-			return dispatch({
-				type: GET_SNEAKERS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getsneakers action', error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get('https://node-api-sneakers.herokuapp.com/sneakers');
+      return dispatch({
+        type: GET_SNEAKERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log('There is an error in getsneakers action', error);
+    }
+  };
 }
 
 export function getDetailSneaker(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
-			return dispatch({
-				type: GET_DETAIL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log('There is an error in getDetailSneaker action', error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+      return dispatch({
+        type: GET_DETAIL,
+        payload: data,
+      });
+    } catch (error) {
+      console.log('There is an error in getDetailSneaker action', error);
+    }
+  };
 }
 
-
 export function searchByName(name) {
-	return {
-		type: SEARCH_BY_NAME,
-		payload: name,
-	};
+  return {
+    type: SEARCH_BY_NAME,
+    payload: name,
+  };
 }
 
 export function filterByCategory(category) {
-	return {
-		type: FILTER_BY_CATEGORY,
-		payload: category,
-	};
+  return {
+    type: FILTER_BY_CATEGORY,
+    payload: category,
+  };
 }
 
 export function filterByBrand(brand) {
-	return {
-		type: FILTER_BY_BRAND,
-		payload: brand.toLowerCase(),
-	};
+  return {
+    type: FILTER_BY_BRAND,
+    payload: brand.toLowerCase(),
+  };
 }
 
 //ACA EMPIEZA EL CARRITO DE COMPRAS
 
 export const addWishlist = (index) => {
-	return async (dispatch, getState) => {
-		const rootReducer = getState();
-		const { productData } = rootReducer;
-		let wishlistData = productData[index].wishlisted;
+  return async (dispatch, getState) => {
+    const rootReducer = getState();
+    const { productData } = rootReducer;
+    let wishlistData = productData[index].wishlisted;
 
-		dispatch({
-			type: SET_CART,
-			payload: (productData[index].wishlisted = !wishlistData),
-		});
-	};
+    dispatch({
+      type: SET_CART,
+      payload: (productData[index].wishlisted = !wishlistData),
+    });
+  };
 };
 
 export const addItemQuantity = (index) => {
-	return async (dispatch, getState) => {
-		const rootReducer = getState();
-		const { productData } = rootReducer;
-		let maxData = productData[index].max;
+  return async (dispatch, getState) => {
+    const rootReducer = getState();
+    const { productData } = rootReducer;
+    let maxData = productData[index].max;
 
-		if (productData[index].qty >= maxData) {
-			return false;
-		} else {
-			dispatch({
-				type: SET_CART,
-				payload: (productData[index].qty = productData[index].qty + 1),
-			});
-		}
-	};
+    if (productData[index].qty >= maxData) {
+      return false;
+    } else {
+      dispatch({
+        type: SET_CART,
+        payload: (productData[index].qty = productData[index].qty + 1),
+      });
+    }
+  };
 };
 
 export const decreaseItemQuantity = (index) => {
-	return async (dispatch, getState) => {
-		const rootReducer = getState();
-		const { productData } = rootReducer;
+  return async (dispatch, getState) => {
+    const rootReducer = getState();
+    const { productData } = rootReducer;
 
-		if (productData[index].qty <= 1) {
-			return false;
-		} else {
-			dispatch({
-				type: SET_CART,
-				payload: (productData[index].qty = productData[index].qty - 1),
-			});
-		}
-	};
+    if (productData[index].qty <= 1) {
+      return false;
+    } else {
+      dispatch({
+        type: SET_CART,
+        payload: (productData[index].qty = productData[index].qty - 1),
+      });
+    }
+  };
 };
 
 export const addItem = (data) => (dispatch, getState) => {
-	const rootReducer = getState();
-	const { productData } = rootReducer;
-	const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-	const exist = productData?.some(product => product.id === data.id && product.size === data.sizes.size);
-	if (exist) return exist;
-	dispatch({
-		type: SET_CART,
-		payload: {
-			productData: [...productData, {
-				id: data.id,
-				name: data.model,
-				brand: data.brand,
-				categories: formatter.format(data.categories),
-				price: data.price,
-				description: data.description,
-				size: data.sizes.size,
-				max: data.sizes.stock,
-				qty: 1,
-				image: data.image,
-				wishlisted: false
-			}]
-		},
-	})
+  const rootReducer = getState();
+  const { productData } = rootReducer;
+  const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+  const exist = productData?.some(product => product.id === data.id && product.size === data.sizes.size);
+  if (exist) return exist;
+  dispatch({
+    type: SET_CART,
+    payload: {
+      productData: [...productData, {
+        id: data.id,
+        name: data.model,
+        brand: data.brand,
+        categories: formatter.format(data.categories),
+        price: data.price,
+        description: data.description,
+        size: data.sizes.size,
+        max: data.sizes.stock,
+        qty: 1,
+        image: data.image,
+        wishlisted: false
+      }]
+    },
+  })
 };
 
-export const removeItem = (id) => {
-	return async (dispatch, getState) => {
-		const rootReducer = getState();
-		const { productData } = rootReducer;
-
-		dispatch({
-			type: REMOVE_ITEM_CART,
-			payload: productData.filter((item) => item.id !== id),
-		});
-	};
+export const removeItem = (id, size) => {
+  return async (dispatch, getState) => {
+    const rootReducer = getState();
+    const { productData } = rootReducer;
+    dispatch({
+      type: REMOVE_ITEM_CART,
+      payload: productData.filter(product => product.id !== id || product.size !== size),
+    });
+  };
 };
 
 export const changeCart = (data) => {
-	return async (dispatch) => {
-		dispatch({
-			type: SET_CART,
-			payload: data,
-		});
-	};
+  return async (dispatch) => {
+    dispatch({
+      type: SET_CART,
+      payload: data,
+    });
+  };
 };
 
-
 export const cleanDetail = () => {
-	return {
-		type: CLEAN_DETAIL,
-	}
+  return {
+    type: CLEAN_DETAIL,
+  }
 }
 
-
 export const OrderingByPrice = (payload) => {
-	return {
-		type: SORT_PRICE,
-		payload: payload
-	}
+  return {
+    type: SORT_PRICE,
+    payload: payload
+  }
 }
 
 // OrderingByPrice: async (req, res) => {
@@ -199,6 +195,7 @@ export const OrderingByPrice = (payload) => {
 // 			console.log(error)
 // 	}
 // },
+
 export const getTotalPrice = () => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
@@ -281,7 +278,8 @@ export function getCategories() {
 export function createCategory(payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createCate`, payload)
+      const newCategory = { nameCategory: payload }
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createCate`, newCategory)
 			return dispatch({
 				type: CREATE_CATEGORY,
 				payload: data

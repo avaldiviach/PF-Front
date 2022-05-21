@@ -6,8 +6,8 @@ import { LogOutButton } from "../../Components/LogOut";
 import { Profile } from "../../Components/Profile";
 
 import styles from "./NavBar.module.css";
+import logo from '../../Assets/Images/logo.svg';
 import { useAuth0 } from "@auth0/auth0-react";
-import Cart from '../ShoppingCart/Cart'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
@@ -24,8 +24,7 @@ const NavBar = () => {
         className={styles.logo}
         onClick={() => dispatch(getSneakers())}
       >
-        Henry's
-        {/* <img src="https://i.imgur.com/Q9XcQ9I.png" alt="logo" /> */}
+        <img src={logo} alt="logo" />
       </NavLink>
       <nav className={styles.navbar}>
         {/* el navlink se utiliza para saber si está activo o no */}

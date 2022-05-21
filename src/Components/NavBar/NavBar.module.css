@@ -32,6 +32,11 @@
 	/* text-align: center; */
 }
 
+.logo img {
+  margin-bottom: .3em;
+
+}
+
 .navbar {
 	width: 68%;
 	height: 100%;
