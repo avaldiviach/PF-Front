@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const GET_SNEAKERS = 'GET_SNEAKERS',
+<<<<<<< HEAD
   SEARCH_BY_NAME = 'SEARCH_BY_NAME',
   FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
   FILTER_BY_BRAND = 'FILTER_BY_BRAND',
@@ -9,6 +10,26 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
   SORT_PRICE = 'SORT_PRICE',
   REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
   SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
+=======
+	SEARCH_BY_NAME = 'SEARCH_BY_NAME',
+	FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
+	FILTER_BY_BRAND = 'FILTER_BY_BRAND',
+	GET_DETAIL = 'GET_DETAIL',
+	SET_CART = 'SET_CART',
+	CLEAN_DETAIL = 'CLEAN_DETAIL',
+	SORT_PRICE = 'SORT_PRICE',
+	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
+	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE',
+	GET_ALL_USERS = "GET_ALL_USERS",
+	DELETE_USER = "DELETE_USER",
+	CREATE_MODEL = "CREATE_MODEL",
+	GET_CATEGORIES = "GET_CATEGORIES",
+	GET_MODELS = "GET_MODELS",
+	CREATE_CATEGORY = "CREATE_CATEGORY",
+	DELETE_CATEGORY = "DELETE_CATEGORY";
+
+
+>>>>>>> 415a5bb245f7e5d0932ece06e1ce7188cef12d9b
 
 export function getSneakers() {
   return async function (dispatch) {
@@ -184,6 +205,7 @@ export const OrderingByPrice = (payload) => {
 // },
 
 export const getTotalPrice = () => {
+<<<<<<< HEAD
   return async (dispatch, getState) => {
     const rootReducer = getState();
     const { productData } = rootReducer;
@@ -197,3 +219,129 @@ export const getTotalPrice = () => {
     });
   };
 };
+=======
+	return async (dispatch, getState) => {
+		const rootReducer = getState();
+		const { productData } = rootReducer;
+		let total = 0;
+		productData.forEach((item) => {
+			total += item.price * item.qty;
+		});
+		dispatch({
+			type: SET_TOTAL_PRICE,
+			payload: total,
+		});
+	};
+};
+//------------ADMIN----------------ADMIN------------ADMIN
+export function getAllUsers() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getUser`)
+			return dispatch({
+				type: GET_ALL_USERS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//deleteUsers
+
+export function deleteUser(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
+			return dispatch({
+				type: DELETE_USER,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//createModel
+
+export function createSneaker(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
+			return dispatch({
+				type: CREATE_MODEL,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//getCategories
+
+export function getCategories() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/categories`)
+			return dispatch({
+				type: GET_CATEGORIES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//create category para el form de create model
+
+export function createCategory(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createCate`, payload)
+			return dispatch({
+				type: CREATE_CATEGORY,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//delete category
+
+export function deleteCategory(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteCat/${id}`)
+			return dispatch({
+				type: DELETE_CATEGORY,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+
+//getModels
+
+export function getModels() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
+			return dispatch({
+				type: GET_CATEGORIES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+>>>>>>> 415a5bb245f7e5d0932ece06e1ce7188cef12d9b
