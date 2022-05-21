@@ -4,8 +4,8 @@ import { deleteCategory, getCategories } from "../../../Redux/Actions";
 import s from "./categories.module.css";
 
 const TableCategories = () => {
-  const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories);
 
   const deleteCat = (e) => {
     e.preventDefault();
@@ -13,6 +13,7 @@ const TableCategories = () => {
     alert(`the category ${e.target.value} will be deleted`);
     dispatch(getCategories());
   };
+
 
   return (
     <Table bordered striped hover className={s.table}>

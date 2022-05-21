@@ -1,16 +1,5 @@
 import axios from 'axios';
 export const GET_SNEAKERS = 'GET_SNEAKERS',
-<<<<<<< HEAD
-  SEARCH_BY_NAME = 'SEARCH_BY_NAME',
-  FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
-  FILTER_BY_BRAND = 'FILTER_BY_BRAND',
-  GET_DETAIL = 'GET_DETAIL',
-  SET_CART = 'SET_CART',
-  CLEAN_DETAIL = 'CLEAN_DETAIL',
-  SORT_PRICE = 'SORT_PRICE',
-  REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
-  SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
-=======
 	SEARCH_BY_NAME = 'SEARCH_BY_NAME',
 	FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY',
 	FILTER_BY_BRAND = 'FILTER_BY_BRAND',
@@ -29,7 +18,6 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	DELETE_CATEGORY = "DELETE_CATEGORY";
 
 
->>>>>>> 415a5bb245f7e5d0932ece06e1ce7188cef12d9b
 
 export function getSneakers() {
   return async function (dispatch) {
@@ -205,21 +193,6 @@ export const OrderingByPrice = (payload) => {
 // },
 
 export const getTotalPrice = () => {
-<<<<<<< HEAD
-  return async (dispatch, getState) => {
-    const rootReducer = getState();
-    const { productData } = rootReducer;
-    let total = 0;
-    productData.forEach((item) => {
-      total += item.price * item.qty;
-    });
-    dispatch({
-      type: SET_TOTAL_PRICE,
-      payload: total,
-    });
-  };
-};
-=======
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
 		const { productData } = rootReducer;
@@ -301,7 +274,8 @@ export function getCategories() {
 export function createCategory(payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createCate`, payload)
+      const newCategory = { nameCategory: payload }
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createCate`, newCategory)
 			return dispatch({
 				type: CREATE_CATEGORY,
 				payload: data
@@ -344,4 +318,3 @@ export function getModels() {
 		}
 	}
 }
->>>>>>> 415a5bb245f7e5d0932ece06e1ce7188cef12d9b
