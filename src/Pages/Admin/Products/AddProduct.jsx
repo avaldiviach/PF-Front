@@ -1,24 +1,26 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import FormValidation from "./FormValidation";
 import s from "./AddProduct.module.css";
-import { createSneaker } from "../../../Redux/Actions";
+import { createSneaker, getColors, getModels } from "../../../Redux/Actions";
 
 const AddProduct = () => {
   const initialValues = {
-    modelId: [],
-    colorId: [],
+    model: [],
+    color: [],
     image: "",
     price: "",
   };
 
   const [input, setInput] = useState(initialValues);
+  const dispatch = useDispatch();
   const models = useSelector((state) => state.getModels);
-  console.log(models);
+  const colors = useSelector((state) => state.getColors);
 
   useEffect(() => {
-    getModels();
-  });
+    dispatch(getModels());
+    dispatch(getColors());
+  }, [dispatch]);
 
   const handleInputChange = (e) => {
     setInput({
@@ -32,8 +34,8 @@ const AddProduct = () => {
     if (
       input.image &&
       input.price &&
-      input.modelId.length > 0 &&
-      input.colorId.length > 0
+      input.model.length > 0 &&
+      input.color.length > 0
     ) {
       e.preventDefault();
       dispatch(createSneaker(input));
@@ -68,9 +70,9 @@ const AddProduct = () => {
 
       <label className={s.text}>Color:</label>
       <select>
-        {models.map((el) => (
-          <option name={el.nameModel} value={el.id} key={el.id}>
-            {el.nameModel}
+        {colors.map((el) => (
+          <option name={el.nameColor} value={el.id} key={el.id}>
+            {el.nameColor}
           </option>
         ))}
       </select>
