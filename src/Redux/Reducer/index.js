@@ -15,7 +15,11 @@ import {
 	GET_CATEGORIES,
 	CREATE_CATEGORY,
 	DELETE_CATEGORY,
-	GET_MODELS
+	GET_MODELS,
+	GET_BRANDS,
+	GET_MATERIALS,
+	GET_COLORS,
+	GET_SIZES
 } from '../Actions';
 
 const initialState = {
@@ -29,7 +33,11 @@ const initialState = {
 	users: [],
 	categories: [],
 	createModel: [],
-	getModels: []
+	getModels: [],
+	getBrands: [],
+	getMaterials: [],
+	getColors: [],
+	getSizes: []
 
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
@@ -151,6 +159,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case GET_CATEGORIES:
 
+			let catego = state.categories
+
+			console.log(catego)
 			return {
 				...state,
 				categories: payload
@@ -177,6 +188,35 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				getModels: payload
+			}
+
+		case GET_BRANDS:
+
+			return {
+				...state,
+				getBrands: payload
+			}
+
+		case GET_MATERIALS:
+
+			return {
+				...state,
+				getMaterials: payload
+			}
+
+
+		case GET_COLORS:
+
+			return {
+				...state,
+				getColors: payload
+			}
+
+		case GET_SIZES:
+
+			return {
+				...state,
+				getSizes: payload
 			}
 
 		default:

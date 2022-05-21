@@ -15,7 +15,11 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_CATEGORIES = "GET_CATEGORIES",
 	GET_MODELS = "GET_MODELS",
 	CREATE_CATEGORY = "CREATE_CATEGORY",
-	DELETE_CATEGORY = "DELETE_CATEGORY";
+	DELETE_CATEGORY = "DELETE_CATEGORY",
+	GET_MATERIALS = "GET_MATERIALS",
+	GET_COLORS = "GET_COLORS",
+	GET_SIZES = "GET_SIZES",
+	GET_BRANDS = "GET_BRANDS";
 
 
 
@@ -305,7 +309,7 @@ export function deleteCategory(id) {
 }
 
 
-//getModels
+//getModels con heroku no anda
 
 export function getModels() {
 	return async function (dispatch) {
@@ -313,6 +317,84 @@ export function getModels() {
 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
 			return dispatch({
 				type: GET_CATEGORIES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//getBrands anda con heroku
+
+export function getBrands() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/brands`)
+			return dispatch({
+				type: GET_BRANDS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//getMaterials
+
+// export function getMaterials() {
+// 	return async function (dispatch) {
+// 		try {
+// 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/materials`)
+// 			return dispatch({
+// 				type: GET_BRANDS,
+// 				payload: data,
+// 			})
+// 		} catch (error) {
+// 			console.log(error)
+// 		}
+// 	}
+// }
+
+//materials con localhost
+export function getMaterials() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`http://localhost:3001/materials`)
+			return dispatch({
+				type: GET_MATERIALS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//get colors cambiar a heroku cuando se suba al back
+export function getColors() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`http://localhost:3001/getColors`)
+			return dispatch({
+				type: GET_COLORS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+//getSizes cambiar a heroku
+
+export function getSizes() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`http://localhost:3001/sizes`)
+			return dispatch({
+				type: GET_SIZES,
 				payload: data,
 			})
 		} catch (error) {

@@ -3,7 +3,13 @@ import { useDispatch } from "react-redux";
 import SideBar from "./sideBar";
 import s from "./Admin.module.css";
 import UserContent from "./Users";
-import { getAllUsers, getCategories, getSneakers } from "../../Redux/Actions";
+import {
+  getAllUsers,
+  getCategories,
+  getSneakers,
+  getMaterials,
+  getBrands,
+} from "../../Redux/Actions";
 import Products from "./Products";
 import CategoriesContent from "./Categories";
 
@@ -21,7 +27,15 @@ export default function Admin() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getBrands());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getMaterials());
+  }, [dispatch]);
 
   return (
     <div className={s.admin_page}>

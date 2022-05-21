@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getSneakers } from "../../../Redux/Actions";
+import React from "react";
+import { useSelector } from "react-redux";
 import Cards from "../../../Components/Cards";
 import { Link } from "react-router-dom";
 
 export default function Products() {
-  const dispatch = useDispatch();
-
   const sneakers = useSelector((state) => state.Sneakers);
 
   return (
