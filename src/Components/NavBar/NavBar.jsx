@@ -1,22 +1,27 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { LogInButton } from "../../Components/LogIn";
-import { LogOutButton } from "../../Components/LogOut";
-import { Profile } from "../../Components/Profile";
-
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
+import Cart from '../ShoppingCart/Cart'
 import logo from '../../Assets/Images/logo.svg';
 import { useAuth0 } from "@auth0/auth0-react";
+
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
 import { getSneakers } from "../../Redux/Actions";
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const { isAuthenticated, user, isLoading } = useAuth0();
-
+  const dispatch = useDispatch();  
+  const {user, logout, loading} = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = async()=>{
+    await logout();
+    navigate("/")
+  }
+  
   return (
     <header className={styles.header}>
       <NavLink
@@ -25,36 +30,30 @@ const NavBar = () => {
         onClick={() => dispatch(getSneakers())}
       >
         <img src={logo} alt="logo" />
-      </NavLink>
+        {/* <img src="https://i.imgur.com/Q9XcQ9I.png" alt="logo" /> */}
+      </NavLink>      
       <nav className={styles.navbar}>
         {/* el navlink se utiliza para saber si está activo o no */}
         <ul className={styles.links__ul}>
           {/* Componente para searchBar */}
-
-
           <NavLink className={styles.links__a} to='/cart'>
             cart 🛒
-          </NavLink>
+          </NavLink> 
 
-          {isAuthenticated ? (
-            <>
-              <Profile />
-              <LogOutButton />
-            </>
-          ) : (
-            <LogInButton className={styles.links__a} />
-          )}
-          
+          {!user ? <>       
+          <NavLink className={styles.links__a} to='/registerfb'>
+            Sign Up👆
+          </NavLink> 
           <NavLink
-            className={styles.links__a}
-            // className={({ isActive }) => {
-              //     return isActive ? 'is-active' : '';
-            // }}
-            to='/create-user'
+            className={styles.links__a}            
+            to='/loginfb'
           >
-            Sign Up✔
+            Sign In✔
           </NavLink>
-          
+          </>:<> <span>Estás logueado como{user.email}</span>          
+          <button onClick={handleLogout}>Logout</button>
+      </>
+          }
             <SearchBar />
         </ul>
       </nav>
