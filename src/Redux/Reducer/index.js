@@ -12,8 +12,10 @@ import {
 	GET_ALL_USERS,
 	DELETE_USER,
 	CREATE_MODEL,
+	GET_CATEGORIES,
 	CREATE_CATEGORY,
-	DELETE_CATEGORY
+	DELETE_CATEGORY,
+	GET_MODELS
 } from '../Actions';
 
 const initialState = {
@@ -26,7 +28,8 @@ const initialState = {
 	totalPrice: 0,
 	users: [],
 	categories: [],
-	createModel: []
+	createModel: [],
+	getModels: []
 
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
@@ -132,7 +135,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			};
 
 		case DELETE_USER:
-			let user = state.users
+			let user = [...state.users]
 
 			return {
 				...state,
@@ -144,6 +147,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				createModel: payload
+			}
+
+		case GET_CATEGORIES:
+
+			return {
+				...state,
+				categories: payload
 			}
 
 		case CREATE_CATEGORY:
@@ -160,6 +170,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				categories: category.filter(el => el.id !== payload)
+			}
+
+		case GET_MODELS:
+
+			return {
+				...state,
+				getModels: payload
 			}
 
 		default:

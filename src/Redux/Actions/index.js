@@ -12,9 +12,12 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_ALL_USERS = "GET_ALL_USERS",
 	DELETE_USER = "DELETE_USER",
 	CREATE_MODEL = "CREATE_MODEL",
+	GET_CATEGORIES = "GET_CATEGORIES",
+	GET_MODELS = "GET_MODELS",
 	CREATE_CATEGORY = "CREATE_CATEGORY",
 	DELETE_CATEGORY = "DELETE_CATEGORY";
-	
+
+
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -253,7 +256,22 @@ export function createSneaker(payload) {
 	}
 }
 
-//reducer
+//getCategories
+
+export function getCategories() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/categories`)
+			return dispatch({
+				type: GET_CATEGORIES,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
 //create category para el form de create model
 
 export function createCategory(payload) {
@@ -279,6 +297,23 @@ export function deleteCategory(id) {
 			return dispatch({
 				type: DELETE_CATEGORY,
 				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+
+//getModels
+
+export function getModels() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
+			return dispatch({
+				type: GET_CATEGORIES,
+				payload: data,
 			})
 		} catch (error) {
 			console.log(error)
