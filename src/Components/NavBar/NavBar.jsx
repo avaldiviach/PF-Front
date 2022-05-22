@@ -37,7 +37,7 @@ const NavBar = () => {
         <ul className={styles.links__ul}>
           {/* Componente para searchBar */}
           <NavLink className={styles.links__a} to='/cart'>
-            cart 🛒
+            Cart 🛒
           </NavLink> 
 
           {!user ? <>       
