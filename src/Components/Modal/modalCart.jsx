@@ -15,7 +15,6 @@ const style = {
 function ModalCart({msg, active, title, reset, goCart}){
     const dispatch = useDispatch()
 
-
     const [open, setOpen] = useState(active);
     const handleOpen = () => setOpen(true);
     const handleClose = () =>{
