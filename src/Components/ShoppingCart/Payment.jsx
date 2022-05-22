@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import ModalCart from "../Modal/modalCart";
 
 function Payment() {
 
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
   const totalPrice = useSelector(state => state.totalPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,12 +17,12 @@ function Payment() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement)
     });
-    setLoading(true);
-    elements.getElement(CardElement).clear();
+    console.log(paymentMethod)
     if (!error) {
       return fetch(`http://localhost:3001/payment`, {
         method: 'POST',
@@ -35,21 +37,34 @@ function Payment() {
         .then(resp => resp.json())
         .then(({ msg, received }) => {
           setLoading(false);
-          alert(msg);
+          setAlert({
+            title: 'Transaction',
+            msg,
+            goCart: false
+          });
+          elements.getElement(CardElement).clear();
           if (received) {
             //falta agregar una ruta para recibir los productos que han sido comprados y registrar en la BD
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
-            navigate('/cart');
+            setTimeout(() => navigate('/cart'), 2000);
           }
         });
     }
+    elements.getElement(CardElement).clear();
     setLoading(false);
-    alert(error.message);
+    setAlert({
+      title: 'Error',
+      msg: error.message,
+      goCart: false
+    });
   }
 
   return (
     <div>
+      {
+        alert && <ModalCart active={true} msg={alert.msg} title={alert.title} reset={setAlert} goCart={alert.goCart} />
+      }
       <CardElement />
       <button
         className={`bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-green-700`}
