@@ -6,15 +6,22 @@ import styles from './RecoverPassword.module.css';
 const RecoverPassword = () => {
   const { resetPassword } = useAuth();
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
   }
+
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    await resetPassword(email);
-    alert('Revisa tu correo');
-    navigate('/loginfb')
+    try {
+      await resetPassword(email);
+      alert('Revisa tu correo');
+      navigate('/loginfb')
+    } catch (error) {
+      setError(error.message);
+    }
   }
   return (
     <section className={styles.main_createUser}>
@@ -28,7 +35,8 @@ const RecoverPassword = () => {
                 <input type="email" onChange={handleEmail} className={styles.formulario__campo__inputTexto} placeholder="Ingrese su correo" />
               </div>
             </div>
-      
+            <span>{error}</span>
+            
             <div className={styles.contenedorBotones}>
               <button onClick={handleResetPassword} className={styles.contenedorBotones__boton}>Send</button>
             </div>
