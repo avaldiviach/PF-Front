@@ -65,7 +65,7 @@ export default function CreateUser() {
                   {errors.password?.type === "required" && <p className={styles.leyenda}>Password is required</p>}
                   {errors.password?.type === "pattern" && <p className={styles.leyenda}>Password must have at least one number, one lowercase and one uppercase letter, one special character and no spaces</p>}
                   {errors.password?.type === "maxLength" && <p className={styles.leyenda}>Password must be between 8 and 20 characters</p>}
-                  <span>{error}</span>
+                  <span className={styles.leyenda}>{error}</span>
                 </div>
 
               </div>
