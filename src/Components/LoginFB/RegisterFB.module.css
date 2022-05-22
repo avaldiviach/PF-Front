@@ -187,6 +187,14 @@ border-radius: 1rem; */
   text-align: center;
   font-weight: bold;
 }
+
+.label_account span {
+  color: var(--color1);
+  font-family: 'Montserrat', 'PT Sans', sans-serif;
+  font-weight: 700;
+  margin-left: 0.5em;
+}
+
 /*fin formulario------------------------------------------------------------*/
 
 /*Boton formulario----------------------------------------------------*/

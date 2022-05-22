@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,6 +19,7 @@ export default function CreateUser() {
   const onSubmit = async (data) => {
     try {
       await signup(data.email, data.password);
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -94,12 +95,18 @@ export default function CreateUser() {
                 </div>
               </div>
 
-              <span>{error}</span>
+              <span className={styles.leyenda}>{error}</span>
               <div className={styles.contenedorBotones}>
                 <button type="submit" className={styles.contenedorBotones__boton}>SIGN UP</button>
               </div>
               <div className={styles.account}>
-                <label className={styles.label_account}>Already have an account? Log in</label>
+                <label className={styles.label_account}>Already have an account?
+                  <Link to="/loginfb">
+                    <span>
+                      Log in
+                    </span>
+                  </Link>
+                </label>
               </div>
             </fieldset>
           </form>
@@ -117,17 +124,3 @@ export default function CreateUser() {
     </section>
   );
 }
-
-// <div className={styles.formulario__contenedorCampos__campo}>
-//   <input id="termsAndConditions"
-//     type="checkbox"
-//     className={styles.input_checkBox}
-//     placeholder="termsAndConditions"
-//     {...register("termsAndConditions", {
-//       required: true
-//     })
-//     }
-//   />
-//   <label htmlFor="termsAndConditions">I agree with Terms and Privacy</label>
-//   {errors.termsAndConditions?.type === "required" && <p className={styles.leyenda}>You must accept the terms and privacy</p>}
-// </div>
