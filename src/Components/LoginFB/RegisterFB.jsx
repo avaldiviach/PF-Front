@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import styles from './RegisterFB.module.css';
 import image from '../../Assets/Images/3.svg';
