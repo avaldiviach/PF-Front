@@ -67,7 +67,7 @@ function Payment() {
       }
       <CardElement />
       <button
-        className={`bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-green-700`}
+        className={`bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700`}
         onClick={handleSubmit}
         type="submit"
         disabled={!stripe || !elements}
