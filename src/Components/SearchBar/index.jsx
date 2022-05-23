@@ -38,7 +38,7 @@ export default function SearchBar() {
           placeholder="Search here.."
           onChange={handleChange}
           pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,100}"
-          title="Search must be between 3 and 100 characters"
+          title="Search must be between 5 and 100 characters"
         />
         <button type="submit" className={styles.search_button}>
           Search

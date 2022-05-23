@@ -68,7 +68,7 @@ const Home = () => {
             
           }
           {filteredSneakers.length < 1 && <ModalSearch active={true} msg={searchResponse}/>}
-          <Cards renderSneakers={currentPageSneakers} />
+          <Cards renderSneakers={currentPageSneakers} admin={false}/>
         </>
       )}
     </div>

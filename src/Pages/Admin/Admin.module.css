@@ -1,0 +1,13 @@
+.admin_page{
+    display: flex;
+    height: 90vh;
+    width: 100%;
+    padding-top: 2rem;
+}
+
+.content{
+    margin: 0 auto;
+    width: 75%;
+    height: 100%;
+    overflow-x: none;
+}
