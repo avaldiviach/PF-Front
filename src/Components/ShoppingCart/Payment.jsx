@@ -24,7 +24,7 @@ function Payment() {
     });
     console.log(paymentMethod)
     if (!error) {
-      return fetch(`http://localhost:3001/payment`, {
+      return fetch(`https://node-api-sneakers.herokuapp.com/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
