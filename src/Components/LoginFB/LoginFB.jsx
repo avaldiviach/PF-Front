@@ -27,7 +27,8 @@ export default function CreateUser() {
 
   const handleGoogleSignin = async () => {
     await loginWithGoogle();
-    navigate("/");
+    // navigate("/");
+    navigate(-1);
   }
 
   return (

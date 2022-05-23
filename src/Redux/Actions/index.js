@@ -21,8 +21,6 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_SIZES = "GET_SIZES",
 	GET_BRANDS = "GET_BRANDS";
 
-
-
 export function getSneakers() {
 	return async function (dispatch) {
 		try {
@@ -123,27 +121,35 @@ export const decreaseItemQuantity = (index) => {
 export const addItem = (data) => (dispatch, getState) => {
 	const rootReducer = getState();
 	const { productData } = rootReducer;
-	const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-	const exist = productData?.some(product => product.id === data.id && product.size === data.sizes.size);
+	const formatter = new Intl.ListFormat('en', {
+		style: 'long',
+		type: 'conjunction',
+	});
+	const exist = productData?.some(
+		(product) => product.id === data.id && product.size === data.sizes.size
+	);
 	if (exist) return exist;
 	dispatch({
 		type: SET_CART,
 		payload: {
-			productData: [...productData, {
-				id: data.id,
-				name: data.model,
-				brand: data.brand,
-				categories: formatter.format(data.categories),
-				price: data.price,
-				description: data.description,
-				size: data.sizes.size,
-				max: data.sizes.stock,
-				qty: 1,
-				image: data.image,
-				wishlisted: false
-			}]
+			productData: [
+				...productData,
+				{
+					id: data.id,
+					name: data.model,
+					brand: data.brand,
+					categories: formatter.format(data.categories),
+					price: data.price,
+					description: data.description,
+					size: data.sizes.size,
+					max: data.sizes.stock,
+					qty: 1,
+					image: data.image,
+					wishlisted: false,
+				},
+			],
 		},
-	})
+	});
 };
 
 export const removeItem = (id, size) => {
@@ -204,6 +210,10 @@ export const getTotalPrice = () => {
 		productData.forEach((item) => {
 			total += item.price * item.qty;
 		});
+
+		//agregar productData al local storage
+		localStorage.setItem('productData', JSON.stringify(productData));
+
 		dispatch({
 			type: SET_TOTAL_PRICE,
 			payload: total,
@@ -428,3 +438,4 @@ export function getModels() {
 // 	});
 // }
 // };
+

@@ -18,7 +18,7 @@ const Home = () => {
   
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
   // Se crea la paginación de x zapatillas por página
-  const SNEAKERS_PER_PAGE = 6; // Constante para setear cantidad de zapatillas por página
+  const SNEAKERS_PER_PAGE = 8; // Constante para setear cantidad de zapatillas por página
   const [currentPage, setCurrentPage] = useState(1); // Estado para seleccionar página actual
   const [loading, setLoading] = useState(true); // Estado para esperar la carga de la página actual
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;

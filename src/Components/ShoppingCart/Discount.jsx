@@ -50,7 +50,7 @@ const Discount = () => {
 
             }} placeholder='Type discount code...'
               className='rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent p-2 w-full bg-white border border-gray-400' />
-            <button onClick={sendDiscountCodeValidation} title={discountCode === "" ? "Please, type discount code first" : ""} disabled={discountCode === ""} className={discountCode === '' ? "bg-gray-200 text-black cursor-not-allowed text-xs py-2 px-4 w-auto rounded-md" : 'bg-blue-600 text-white text-xs py-2 px-4 w-auto rounded-md hover:bg-blue-700'}>
+            <button onClick={sendDiscountCodeValidation} title={discountCode === "" ? "Please, type discount code first" : ""} disabled={discountCode === ""} className={discountCode === '' ? "bg-gray-200 text-black cursor-not-allowed text-xs py-2 px-4 w-auto rounded-md" : 'bg-orange-600 text-white text-xs p-4 rounded-md hover:bg-orange-700'}>
               ADD
             </button>
           </div>
