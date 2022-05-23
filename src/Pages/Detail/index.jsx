@@ -53,13 +53,13 @@ export default function Detail() {
   }
 
   return (
-    <div>
+    <div className={s.loading}>
       {
         alert && <ModalCart active={true} msg={alert.msg} title={alert.title} reset={setAlert} goCart={alert.goCart}/>
       }
       { 
         !sneaker.price ? (
-          <img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt={"img"} />
+          <img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt="img loading"/>
         ) : (
           <div className={s.detail}>
             <section className={s.left} >
