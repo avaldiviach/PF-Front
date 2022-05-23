@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { changeCart, getTotalPrice } from '../../Redux/Actions'
+import { useAuth } from "../../context/authContext";
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   //por si queremos hacer descuento con cupones
   const showCheckoutScreen = () => {
@@ -17,7 +19,13 @@ const Checkout = () => {
         discountCodeValid: null,
       })
     );
-    navigate('payment');
+
+    if (user) {
+      navigate("/cart/payment");
+    } else {
+      navigate("/loginfb");
+    }
+    // navigate('payment');
   }
   const discountCodeValid = useSelector(state => state.discountCodeValid)
 
@@ -67,7 +75,7 @@ const Checkout = () => {
         className={totalPrice === 0
           ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md'
           : 'bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
-        {/* : ' bg-white text-orange-600 text-xs p-4 w-full rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'} > */}
+
         GO TO CHECKOUT
       </button>
     </div>
