@@ -13,7 +13,7 @@ import Payment from "./Components/ShoppingCart/Payment";
 import NotFound from "./Pages/Notfound/NotFound";
 import { getSneakers } from "./Redux/Actions";
 import Admin from "./Pages/Admin";
-import AddProduct from "./Pages/Admin/Products/AddProduct";
+// import AddProduct from "./Pages/Admin/Products/AddProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function App() {
         <Route path="/create-user" element={<FormUser />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/addProd" element={<AddProduct />} />
+        {/* <Route path="/addProd" element={<AddProduct />} /> */}
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
