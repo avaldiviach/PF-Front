@@ -17,8 +17,8 @@ const initialState = {
   SneakersCopy: [],
   filters: [],
   detail: {},
-  productData: [],
   totalPrice: 0,
+  productData: [...JSON.parse(localStorage.getItem('productData')) || []],
 
   // Las propiedades de abajo son para el carrito en caso de que se quiera 
   // implementar cupones de descuento
