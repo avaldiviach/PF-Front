@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/create-user" element={<FormUser />} />
+        {/* <Route path="/create-user" element={<FormUser />} /> */}
         <Route path="/cart" element={<Cart />} />
         {/* <Route path="/addProd" element={<AddProduct />} /> */}
         <Route path="/registerfb" element={<RegisterFB />} />
@@ -40,6 +40,7 @@ function App() {
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment />} />
         </Route>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
