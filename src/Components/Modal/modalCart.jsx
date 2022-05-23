@@ -11,7 +11,6 @@ const style = {
     bgcolor: 'background.paper',
     p: 4,
 };
-
 function ModalCart({msg, active, title, reset, goCart}){
     const dispatch = useDispatch()
 

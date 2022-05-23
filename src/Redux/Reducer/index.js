@@ -94,8 +94,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			// const filterBrand= state.SneakersCopy.filter((el)=> el.brand_name.toLowerCase()===payload)
 			const filterBrand =
 				payload === ''
-					? state.SneakersCopy
-					: state.SneakersCopy.filter(
+					? state.Sneakers
+					: state.Sneakers.filter(
 						(el) => el.brand.toLowerCase() === payload
 					);
 			return {
