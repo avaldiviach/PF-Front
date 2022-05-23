@@ -82,6 +82,22 @@
 	color: var(--terciario);
 }
 
+.welcome {
+	font-family: 'Montserrat';
+	font-size: calc(0.48vw + .7vh + 0.4vmin);
+	letter-spacing: 0.05em;
+	margin-top: 0.2em;
+	margin-left: 0.25em;
+  margin-right: 0.25em;
+	text-decoration: none;
+	color: var(--negro);
+	font-weight: 600;
+}
+
+.emailName {
+  color: var(--color1);
+}
+
 /*Navegacion principal para pantalla grande--------*/
 @media (min-width: 769px) {
 	.header {
