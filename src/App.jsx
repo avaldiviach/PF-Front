@@ -7,13 +7,16 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Pages/Home";
 import Detail from "./Pages/Detail";
-import FormUser from './Pages/FormUser/index.jsx'
+
 import Cart from "./Components/ShoppingCart/Cart";
 import Payment from "./Components/ShoppingCart/Payment";
 import NotFound from "./Pages/Notfound/NotFound";
 import { getSneakers } from "./Redux/Actions";
 import Admin from "./Pages/Admin";
 // import AddProduct from "./Pages/Admin/Products/AddProduct";
+import LoginFB from "./Components/LoginFB/LoginFB";
+import RegisterFB from "./Components/LoginFB/RegisterFB";
+import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +34,12 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/create-user" element={<FormUser />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/admin" element={<Admin />} />
         {/* <Route path="/addProd" element={<AddProduct />} /> */}
+        <Route path="/registerfb" element={<RegisterFB />} />
+        <Route path="/loginfb" element={<LoginFB />} />
+        <Route path="/cart/*" element={<Cart />}>
+          <Route path="payment" element={<Payment />} />
+        </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

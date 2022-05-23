@@ -414,3 +414,17 @@ export function getModels() {
 		}
 	}
 }
+// return async (dispatch, getState) => {
+// 	const rootReducer = getState();
+// 	const { productData } = rootReducer;
+// 	localStorage.setItem('productData', JSON.stringify(productData));
+// 	let total = 0;
+// 	productData.forEach((item) => {
+// 		total += item.price * item.qty;
+// 	});
+// 	dispatch({
+// 		type: SET_TOTAL_PRICE,
+// 		payload: total,
+// 	});
+// }
+// };

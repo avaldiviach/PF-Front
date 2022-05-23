@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
 //Componentes y funciones
 import Cards from "../../Components/Cards";
 import ImagenPrincipal from "../../Components/ImagenPrincipal";
@@ -24,7 +23,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true); // Estado para esperar la carga de la página actual
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
-
   useEffect(() => {
     setCurrentPage(1);
   }, [filteredSneakers]);

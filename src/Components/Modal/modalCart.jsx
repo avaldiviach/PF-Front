@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { getSneakers } from "../../Redux/Actions";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -15,7 +14,6 @@ const style = {
 
 function ModalCart({msg, active, title, reset, goCart}){
     const dispatch = useDispatch()
-
 
     const [open, setOpen] = useState(active);
     const handleOpen = () => setOpen(true);

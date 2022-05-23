@@ -37,7 +37,9 @@ const initialState = {
 	getBrands: [],
 	getMaterials: [],
 	getColors: [],
-	getSizes: []
+	getSizes: [],
+	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
+	totalPrice: 0,
 
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento

@@ -7,6 +7,8 @@ import image from '../../Assets/Images/3.svg';
 export default function App() {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
 
+
+  //ACA SE MANDA LA INFORMACION EN data 
   const onSubmit = data => console.log(data);
 
   return (
