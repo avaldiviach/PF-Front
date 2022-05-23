@@ -37,6 +37,7 @@ function App() {
         {/* <Route path="/addProd" element={<AddProduct />} /> */}
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
+        <Route path='/resetpass' element={<RecoverPassword />} />
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment />} />
         </Route>
