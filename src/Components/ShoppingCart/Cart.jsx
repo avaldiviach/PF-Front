@@ -44,10 +44,10 @@ const Cart = () => {
       {/* llama a los componentes checkout y discount */}
       <section className='lg:w-1/3 h-full space-y-6 '>
         <Checkout />
+        <Discount />
         <Elements stripe={stripePromise}>
           <Outlet />
         </Elements>
-        {/* <Discount /> */}
       </section>
     </main>
   )

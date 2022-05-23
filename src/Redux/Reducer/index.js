@@ -22,10 +22,10 @@ const initialState = {
 
   // Las propiedades de abajo son para el carrito en caso de que se quiera 
   // implementar cupones de descuento
-  // showDiscountForm: false,
-  // discountCode: '',
-  // discountCodeValid: null,
-  // showCheckoutScreen: false,
+  showDiscountForm: false,
+  discountCode: '',
+  discountCodeValid: null,
+  showCheckoutScreen: false,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
