@@ -12,7 +12,7 @@ const FormValidation = (e) => {
   const descriptionVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*)$/);
   const nameVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*){1,}$/);
 
-  if (!descriptionVal.test(description)) error.description = message;
+  if (!descriptionVal.test(e.description)) error.description = message;
   if (!nameVal.test(e.name)) error.name = message;
 
   if (e.categories.length === "" || e.categories.length === 0)
@@ -44,6 +44,16 @@ const FormValidation = (e) => {
     for (let y = i + 1; y <= e.material.length; y++) {
       if (e.material[i] === e.material[y])
         error.material = "The materials can not be repeated";
+    }
+  }
+
+  if (e.sizes.length === "" || e.sizes.length === 0)
+    error.sizes = "A size is required";
+
+  for (let i = 0; i < e.sizes.length; i++) {
+    for (let y = i + 1; y <= e.sizes.length; y++) {
+      if (e.sizes[i] === e.sizes[y])
+        error.sizes = "The sizes can not be repeated";
     }
   }
 

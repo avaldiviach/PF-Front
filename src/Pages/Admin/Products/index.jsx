@@ -20,7 +20,9 @@ export default function Products() {
   return (
     <div className="userPage">
       <h1>Products</h1>
-      <Link to="/addProd">ADD PRODUCT</Link>
+      <Link to="/addProd">ADD MODEL</Link>
+      <Link to="/addPro">ADD PRODUCT</Link>
+
       <Cards renderSneakers={sneakers} admin={true} />
     </div>
   );

@@ -19,6 +19,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_MATERIALS = "GET_MATERIALS",
 	GET_COLORS = "GET_COLORS",
 	GET_SIZES = "GET_SIZES",
+	CREATE_SNEAKER = "GET_SIZES",
 	GET_BRANDS = "GET_BRANDS";
 
 export function getSneakers() {
@@ -253,10 +254,11 @@ export function deleteUser(id) {
 
 //createModel
 
-export function createSneaker(payload) {
+export function createModel(payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
+			console.log(payload)
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
 			return dispatch({
 				type: CREATE_MODEL,
 				payload: data
@@ -266,6 +268,22 @@ export function createSneaker(payload) {
 		}
 	}
 }
+
+export function createSneaker(payload) {
+	return async function (dispatch) {
+		try {
+			console.log(payload)
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createSneaker`, payload)
+			return dispatch({
+				type: CREATE_SNEAKER,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
 
 //getCategories
 
