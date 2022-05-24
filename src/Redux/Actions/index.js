@@ -135,7 +135,7 @@ export const addItem = (data) => (dispatch, getState) => {
 			productData: [
 				...productData,
 				{
-					id: data.id,
+					sneakerId: data.id,
 					name: data.model,
 					brand: data.brand,
 					categories: formatter.format(data.categories),
