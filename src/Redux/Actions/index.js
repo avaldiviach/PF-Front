@@ -411,19 +411,19 @@ export function getSizes() {
 	}
 }
 
-// export function getModels() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`http://localhost:3001/getModels`)
-// 			return dispatch({
-// 				type: GET_MODELS,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
+export function getModels() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
+			return dispatch({
+				type: GET_MODELS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
 // return async (dispatch, getState) => {
 // 	const rootReducer = getState();
 // 	const { productData } = rootReducer;
