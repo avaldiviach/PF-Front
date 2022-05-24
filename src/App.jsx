@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context/authContext";
+import axios from "axios";
 
 //Componentes y funciones
 import NavBar from "./Components/NavBar/NavBar";
@@ -28,47 +29,20 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect para cuando se desmonte componente enviar post de productData de productos en carrito a la base de datos
+  // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   useEffect(() => {
-    if (isAuthenticated && productData.length > 0) {
+    if (user && productData.length > 0) {
       const { email } = user;
-      // const product1 = productData[0];
       const data = {
-        email, ...productData
+        email,
+        productData
       };
-      fetch("http://localhost:3001/addsneakerscart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      async function fetchear() {
+        return await axios.post("http://localhost:3001/addsneakerscart", data);
+      }
+      fetchear()
     }
-    return () => {
-      
-      // eslint-disable-next-line
-    };
-  }, [isAuthenticated, productData]);
-
-
-
-    // if (productData.cart.length > 0) {
-    //   const data = {
-    //     cart: productData.cart,
-    //   };
-    //   fetch("http://localhost:3001/addsneakerscart", {
-    //     method: "POST", 
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //     .then((res) => res.json())  
-    //     .then((data) => console.log(data))
-    //     .catch((err) => console.log(err));
-    // }
-    // eslint-disable-next-line
-  // }, [productData]);
+  }, [user, productData]);
 
   return (
     <div className="App">

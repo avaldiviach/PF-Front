@@ -9,22 +9,25 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	SORT_PRICE = 'SORT_PRICE',
 	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
 	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE',
-	GET_ALL_USERS = "GET_ALL_USERS",
-	DELETE_USER = "DELETE_USER",
-	CREATE_MODEL = "CREATE_MODEL",
-	GET_CATEGORIES = "GET_CATEGORIES",
-	GET_MODELS = "GET_MODELS",
-	CREATE_CATEGORY = "CREATE_CATEGORY",
-	DELETE_CATEGORY = "DELETE_CATEGORY",
-	GET_MATERIALS = "GET_MATERIALS",
-	GET_COLORS = "GET_COLORS",
-	GET_SIZES = "GET_SIZES",
-	GET_BRANDS = "GET_BRANDS";
+	GET_ALL_USERS = 'GET_ALL_USERS',
+	DELETE_USER = 'DELETE_USER',
+	CREATE_MODEL = 'CREATE_MODEL',
+	GET_CATEGORIES = 'GET_CATEGORIES',
+	GET_MODELS = 'GET_MODELS',
+	CREATE_CATEGORY = 'CREATE_CATEGORY',
+	DELETE_CATEGORY = 'DELETE_CATEGORY',
+	GET_MATERIALS = 'GET_MATERIALS',
+	GET_COLORS = 'GET_COLORS',
+	GET_SIZES = 'GET_SIZES',
+	GET_BRANDS = 'GET_BRANDS';
+
+// const url = 'https://node-api-sneakers.herokuapp.com'
+const url = 'http://localhost:3001';
 
 export function getSneakers() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get('https://node-api-sneakers.herokuapp.com/sneakers');
+			const { data } = await axios.get(`${url}/sneakers`);
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
@@ -38,7 +41,9 @@ export function getSneakers() {
 export function getDetailSneaker(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			const { data } = await axios.get(
+				`${url}/sneaker/${id}`
+			);
 			return dispatch({
 				type: GET_DETAIL,
 				payload: data,
@@ -158,7 +163,9 @@ export const removeItem = (id, size) => {
 		const { productData } = rootReducer;
 		dispatch({
 			type: REMOVE_ITEM_CART,
-			payload: productData.filter(product => product.id !== id || product.size !== size),
+			payload: productData.filter(
+				(product) => product.id !== id || product.size !== size
+			),
 		});
 	};
 };
@@ -175,15 +182,15 @@ export const changeCart = (data) => {
 export const cleanDetail = () => {
 	return {
 		type: CLEAN_DETAIL,
-	}
-}
+	};
+};
 
 export const OrderingByPrice = (payload) => {
 	return {
 		type: SORT_PRICE,
-		payload: payload
-	}
-}
+		payload: payload,
+	};
+};
 
 // OrderingByPrice: async (req, res) => {
 // 	const { order } = req.query
@@ -224,15 +231,17 @@ export const getTotalPrice = () => {
 export function getAllUsers() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getUser`)
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getUser`
+			);
 			return dispatch({
 				type: GET_ALL_USERS,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //deleteUsers
@@ -240,15 +249,17 @@ export function getAllUsers() {
 export function deleteUser(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
+			const { data } = await axios.delete(
+				`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`
+			);
 			return dispatch({
 				type: DELETE_USER,
-				payload: data
-			})
+				payload: data,
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //createModel
@@ -256,15 +267,18 @@ export function deleteUser(id) {
 export function createSneaker(payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
+			const { data } = await axios.put(
+				`https://node-api-sneakers.herokuapp.com/createModel`,
+				payload
+			);
 			return dispatch({
 				type: CREATE_MODEL,
-				payload: data
-			})
+				payload: data,
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //getCategories
@@ -272,15 +286,17 @@ export function createSneaker(payload) {
 export function getCategories() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/categories`)
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/categories`
+			);
 			return dispatch({
 				type: GET_CATEGORIES,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //create category para el form de create model
@@ -288,16 +304,19 @@ export function getCategories() {
 export function createCategory(payload) {
 	return async function (dispatch) {
 		try {
-			const newCategory = { nameCategory: payload }
-			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createCate`, newCategory)
+			const newCategory = { nameCategory: payload };
+			const { data } = await axios.post(
+				`https://node-api-sneakers.herokuapp.com/createCate`,
+				newCategory
+			);
 			return dispatch({
 				type: CREATE_CATEGORY,
-				payload: data
-			})
+				payload: data,
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //delete category
@@ -305,17 +324,18 @@ export function createCategory(payload) {
 export function deleteCategory(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteCat/${id}`)
+			const { data } = await axios.delete(
+				`https://node-api-sneakers.herokuapp.com/deleteCat/${id}`
+			);
 			return dispatch({
 				type: DELETE_CATEGORY,
-				payload: data
-			})
+				payload: data,
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
-
 
 //getModels con heroku no anda
 
@@ -338,15 +358,17 @@ export function deleteCategory(id) {
 export function getBrands() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/brands`)
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/brands`
+			);
 			return dispatch({
 				type: GET_BRANDS,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //getMaterials
@@ -369,30 +391,30 @@ export function getBrands() {
 export function getMaterials() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/materials`)
+			const { data } = await axios.get(`http://localhost:3001/materials`);
 			return dispatch({
 				type: GET_MATERIALS,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //get colors cambiar a heroku cuando se suba al back
 export function getColors() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/getColors`)
+			const { data } = await axios.get(`http://localhost:3001/getColors`);
 			return dispatch({
 				type: GET_COLORS,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 //getSizes cambiar a heroku
@@ -400,29 +422,29 @@ export function getColors() {
 export function getSizes() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/sizes`)
+			const { data } = await axios.get(`http://localhost:3001/sizes`);
 			return dispatch({
 				type: GET_SIZES,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 
 export function getModels() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/getModels`)
+			const { data } = await axios.get(`http://localhost:3001/getModels`);
 			return dispatch({
 				type: GET_MODELS,
 				payload: data,
-			})
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 }
 // return async (dispatch, getState) => {
 // 	const rootReducer = getState();
@@ -438,4 +460,3 @@ export function getModels() {
 // 	});
 // }
 // };
-
