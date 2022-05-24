@@ -14,6 +14,7 @@ import NotFound from "./Pages/Notfound/NotFound";
 import { getSneakers } from "./Redux/Actions";
 import Admin from "./Pages/Admin";
 // import AddProduct from "./Pages/Admin/Products/AddProduct";
+import AddModel from "./Pages/Admin/Products/AddModel";
 import LoginFB from "./Components/LoginFB/LoginFB";
 import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
@@ -35,6 +36,7 @@ function App() {
         {/* <Route path="/create-user" element={<FormUser />} /> */}
         <Route path="/cart" element={<Cart />} />
         {/* <Route path="/addProd" element={<AddProduct />} /> */}
+        <Route path="/addProd" element={<AddModel />} />
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path="/cart/*" element={<Cart />}>

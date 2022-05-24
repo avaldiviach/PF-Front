@@ -319,19 +319,19 @@ export function deleteCategory(id) {
 
 //getModels con heroku no anda
 
-// export function getModels() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
-// 			return dispatch({
-// 				type: GET_CATEGORIES,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
+export function getModels() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getmodels`)
+			return dispatch({
+				type: GET_MODELS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
 
 //getBrands anda con heroku
 
@@ -369,7 +369,7 @@ export function getBrands() {
 export function getMaterials() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/materials`)
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/materials`)
 			return dispatch({
 				type: GET_MATERIALS,
 				payload: data,
@@ -384,7 +384,7 @@ export function getMaterials() {
 export function getColors() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/getColors`)
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getColors`)
 			return dispatch({
 				type: GET_COLORS,
 				payload: data,
@@ -400,7 +400,7 @@ export function getColors() {
 export function getSizes() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/sizes`)
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sizes`)
 			return dispatch({
 				type: GET_SIZES,
 				payload: data,
@@ -411,19 +411,19 @@ export function getSizes() {
 	}
 }
 
-export function getModels() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`http://localhost:3001/getModels`)
-			return dispatch({
-				type: GET_MODELS,
-				payload: data,
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
-}
+// export function getModels() {
+// 	return async function (dispatch) {
+// 		try {
+// 			const { data } = await axios.get(`http://localhost:3001/getModels`)
+// 			return dispatch({
+// 				type: GET_MODELS,
+// 				payload: data,
+// 			})
+// 		} catch (error) {
+// 			console.log(error)
+// 		}
+// 	}
+// }
 // return async (dispatch, getState) => {
 // 	const rootReducer = getState();
 // 	const { productData } = rootReducer;

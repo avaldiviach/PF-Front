@@ -25,23 +25,25 @@ const FormValidation = (e) => {
     }
   }
 
-  if (e.brands.length === "" || e.brands.length === 0)
-    error.brands = "A brand is required";
+  if (e.brand.length === "" || e.brand.length === 0)
+    error.brand = "A brand is required";
 
-  for (let i = 0; i < e.brands.length; i++) {
-    for (let y = i + 1; y <= e.brands.length; y++) {
-      if (e.brands[i] === e.brands[y])
-        error.brands = "The categories can not be repeated";
-    }
-  }
+  if (e.brand.length > 1) error.brand = "Only one brand can be selected";
 
-  if (e.materials.length === "" || e.materials.length === 0)
-    error.materials = "A material is required";
+  // for (let i = 0; i < e.brand.length; i++) {
+  //   for (let y = i + 1; y <= e.brand.length; y++) {
+  //     if (e.brand[i] === e.brand[y])
+  //       error.brand = "The categories can not be repeated";
+  //   }
+  // }
 
-  for (let i = 0; i < e.materials.length; i++) {
-    for (let y = i + 1; y <= e.materials.length; y++) {
-      if (e.materials[i] === e.materials[y])
-        error.materials = "The materials can not be repeated";
+  if (e.material.length === "" || e.material.length === 0)
+    error.material = "A material is required";
+
+  for (let i = 0; i < e.material.length; i++) {
+    for (let y = i + 1; y <= e.material.length; y++) {
+      if (e.material[i] === e.material[y])
+        error.material = "The materials can not be repeated";
     }
   }
 
