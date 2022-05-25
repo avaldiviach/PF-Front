@@ -32,13 +32,14 @@ export default function CreateSneaker(props) {
     const handleSelectChange = (value, meta)=> {
         setInput({
             ...input,
-            [meta.name]: value
+            [meta.name]: value.value
         })
     }
 
     const createClick =async (e) => {
         e.preventDefault()
         if (input.model && input.color && input.image && input.price) {
+            console.log(input)
             await dispatch(createSneaker(input))
             alert("The sneaker was succesfully Created!");
             setInput({
