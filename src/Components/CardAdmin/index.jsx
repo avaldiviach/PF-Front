@@ -1,15 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteUser } from "../../Redux/Actions";
 import style from "./Card.module.css";
 
 function Card({ sneaker }) {
   const { model, price, image, brand, id } = sneaker;
+  const dispatch = useDispatch();
 
   const deleteSneaker = (e) => {
     e.preventDefault();
-
-    alert("sneaker has deleted", id);
+    dispatch(deleteUser(e.target.value));
+    alert("sneaker has been deleted", id);
   };
 
   const updateSneaker = () => {

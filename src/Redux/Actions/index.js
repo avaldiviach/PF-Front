@@ -241,7 +241,7 @@ export function getAllUsers() {
 export function deleteUser(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
 			return dispatch({
 				type: DELETE_USER,
 				payload: data
@@ -335,7 +335,6 @@ export function deleteCategory(id) {
 }
 
 
-//getModels con heroku no anda
 
 export function getModels() {
 	return async function (dispatch) {
@@ -351,7 +350,6 @@ export function getModels() {
 	}
 }
 
-//getBrands anda con heroku
 
 export function getBrands() {
 	return async function (dispatch) {
@@ -367,23 +365,6 @@ export function getBrands() {
 	}
 }
 
-//getMaterials
-
-// export function getMaterials() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/materials`)
-// 			return dispatch({
-// 				type: GET_BRANDS,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
-
-//materials con localhost
 export function getMaterials() {
 	return async function (dispatch) {
 		try {
@@ -398,7 +379,6 @@ export function getMaterials() {
 	}
 }
 
-//get colors cambiar a heroku cuando se suba al back
 export function getColors() {
 	return async function (dispatch) {
 		try {
@@ -429,31 +409,4 @@ export function getSizes() {
 	}
 }
 
-// export function getModels() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`http://localhost:3001/getModels`)
-// 			return dispatch({
-// 				type: GET_MODELS,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
-// return async (dispatch, getState) => {
-// 	const rootReducer = getState();
-// 	const { productData } = rootReducer;
-// 	localStorage.setItem('productData', JSON.stringify(productData));
-// 	let total = 0;
-// 	productData.forEach((item) => {
-// 		total += item.price * item.qty;
-// 	});
-// 	dispatch({
-// 		type: SET_TOTAL_PRICE,
-// 		payload: total,
-// 	});
-// }
-// };
 
