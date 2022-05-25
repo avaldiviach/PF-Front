@@ -4,6 +4,7 @@ import FormValidationProduct from "./FormValidationProduct";
 import s from "./AddProduct.module.css";
 import { createSneaker, getColors, getSneakers } from "../../../Redux/Actions";
 import { useNavigate } from "react-router-dom";
+import SelectColors from "./createModel/select/Colors";
 
 const AddProduct = () => {
   const initialValues = {
@@ -94,6 +95,8 @@ const AddProduct = () => {
         value={input.price}
         onChange={handleInputChange}
       />
+
+      <SelectColors/>
 
       <button type="submit" onClick={(e) => handleSubmit(e)}>
         CREATE
