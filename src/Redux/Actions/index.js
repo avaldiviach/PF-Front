@@ -409,34 +409,4 @@ export function getSizes() {
 	}
 }
 
-<<<<<<< HEAD
-export function getModels() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
-			return dispatch({
-				type: GET_MODELS,
-				payload: data,
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
-}
-// return async (dispatch, getState) => {
-// 	const rootReducer = getState();
-// 	const { productData } = rootReducer;
-// 	localStorage.setItem('productData', JSON.stringify(productData));
-// 	let total = 0;
-// 	productData.forEach((item) => {
-// 		total += item.price * item.qty;
-// 	});
-// 	dispatch({
-// 		type: SET_TOTAL_PRICE,
-// 		payload: total,
-// 	});
-// }
-// };
-=======
->>>>>>> 2b8bcadebcab30079dd3531b3b08d2959246bdc2
 
