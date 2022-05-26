@@ -83,7 +83,7 @@ export default function Detail() {
               <div className={s.sizes}>
                 <select onChange={selectSize}>
                   <option value="" >Select Size</option>
-                  {sneaker.sizes?.map(({ size }, i) => <option className={s.size} key={i} value={i} >{size}</option>)}
+                  {sneaker.sizes?.map(({ size, stock }, i) => stock && <option className={s.size} key={i} value={i} >{size}</option>)}
                 </select>
               </div>
               <p className={s.subtitle}>Material </p>
