@@ -410,20 +410,6 @@ export function getSizes() {
 	}
 }
 
-export function getModels() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
-			return dispatch({
-				type: GET_MODELS,
-				payload: data,
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
-}
-
 export function deleteSneaker(id) {
 	return async function (dispatch) {
 		try {
