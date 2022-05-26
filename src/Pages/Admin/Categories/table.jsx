@@ -25,8 +25,9 @@ const TableCategories = () => {
         </tr>
       </thead>
       <tbody className={s.tbody}>
-        {categories.length > 0 &&
+        {categories.length > 0  &&
           categories.map((cat) => (
+            !cat.deleted &&
             <tr key={cat.id}>
               <td>{cat.id}</td>
               <td>{cat.nameCategory}</td>

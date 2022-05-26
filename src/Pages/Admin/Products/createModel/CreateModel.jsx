@@ -2,22 +2,15 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { getSneakers, getSizes, createModel, getCategories } from "../../../../Redux/Actions";
+import { getSneakers} from "../../../../Redux/Actions";
 import { useDispatch } from "react-redux";
 import SelectCategories from "./select/Categories";
 import SelectSizes from "./select/Sizes";
+import SelecBrand from "./select/Brands";
 
 export default function CreateModel(props) {
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        async function auto() {
-            await dispatch(getSizes());
-            await dispatch(getCategories());
-        }
-        auto()
-        
-    }, [dispatch]);
 
     const [input, setInput] = useState({
         brand: "",
@@ -56,10 +49,9 @@ export default function CreateModel(props) {
             input.material &&
             input.name &&
             input.description &&
-            input.categories > 0 &&
-            input.sizes > 0
+            input.categories.length > 0 &&
+            input.sizes.length > 0
         ) {
-            console.log(input);
             dispatch(createModel(input));
             alert("The model was succesfully Created!");
             setInput({
@@ -94,12 +86,7 @@ export default function CreateModel(props) {
             <Modal.Body>
                 <Form.Group>
                     <Form.Label id="label">Brand</Form.Label>
-                    <Form.Control
-                        name="brand"
-                        type="text"
-                        placeholder="Enter a brand"
-                        onChange={handleInputChange}
-                    />
+                    <SelecBrand handleSelectChange={handleSelectChange}/>
                 </Form.Group>
 
                 <Form.Group>
@@ -131,11 +118,6 @@ export default function CreateModel(props) {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-
-                {/* <Form.Group>
-          <Form.Label id="label">Model</Form.Label>
-          <SelectModels handleSelectChange={handleSelectChange} />
-        </Form.Group> */}
                 <Form.Group>
                     <Form.Label id="label">Categories</Form.Label>
                     <SelectCategories handleSelectMultiChange={handleSelectMultiChange} />
