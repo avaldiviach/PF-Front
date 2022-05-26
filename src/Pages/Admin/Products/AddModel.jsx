@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategories,
   getBrands,
-  getMaterials,
   getSizes,
+  createModel,
 } from "../../../Redux/Actions/index";
 import FormValidation from "./FormValidation";
 import s from "./AddProduct.module.css";
 
 const AddModel = () => {
   const initialValues = {
-    brands: [],
-    materials: [],
+    brand: "",
+    material: "",
     categories: [],
     sizes: [],
     name: "",
     description: "",
   };
   const [input, setInput] = useState(initialValues);
-  const brands = useSelector((state) => state.getBrands);
-  const materials = useSelector((state) => state.getMaterials);
+  const [error, setError] = useState("");
+  const brand = useSelector((state) => state.getBrands);
+  const material = useSelector((state) => state.getMaterials);
   const categories = useSelector((state) => state.categories);
   const sizes = useSelector((state) => state.getSizes);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCategories());
@@ -31,10 +34,6 @@ const AddModel = () => {
 
   useEffect(() => {
     dispatch(getBrands());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getMaterials());
   }, [dispatch]);
 
   useEffect(() => {
@@ -46,25 +45,28 @@ const AddModel = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(e.target.value, "aquiiii");
     setError(FormValidation({ ...input, [e.target.name]: e.target.value }));
   };
 
-  const handleSelectBrands = (e) => {
+  const handleSelectSizes = (e) => {
     e.preventDefault();
+    console.log(e.target.value, "sizes");
     setInput({
       ...input,
-      brands: [...new Set([...input.brands, e.target.value])],
+      sizes: [...new Set([...input.sizes, { size: e.target.value, stock: 5 }])],
     });
     setError(
       FormValidation({
         ...input,
-        brands: [...input.brands, e.target.value],
+        sizes: [...input.sizes, e.target.value],
       })
     );
   };
 
   const handleSelectCategories = (e) => {
     e.preventDefault();
+    console.log(e.target.value, "catego");
     setInput({
       ...input,
       categories: [...new Set([...input.categories, e.target.value])],
@@ -77,26 +79,47 @@ const AddModel = () => {
     );
   };
 
-  const handleSelectMaterials = (e) => {
-    e.preventDefault();
+  const deleteSelectCategory = (item) => {
     setInput({
       ...input,
-      materials: [...new Set([...input.materials, e.target.value])],
+      categories: input.categories.filter((el) => el !== item),
     });
-    setError(
-      FormValidation({
-        ...input,
-        materials: [...input.materials, e.target.value],
-      })
-    );
+  };
+
+  const handleSubmit = (e) => {
+    if (
+      input.name &&
+      input.description &&
+      input.material &&
+      input.brand &&
+      input.categories.length > 0
+    ) {
+      e.preventDefault();
+      dispatch(createModel(input));
+      alert("The model was succesfully Created!");
+
+      setInput({
+        brand: "",
+        categories: [],
+        sizes: [],
+        material: "",
+        name: "",
+        description: "",
+      });
+
+      navigate("/");
+    } else {
+      e.preventDefault();
+      alert("You must complete every field!");
+    }
   };
 
   return (
     <form className={s.containerr}>
       <label className={s.text}>BRAND:</label>
-      <select name="brands" value={input.brands} onChange={handleSelectBrands}>
-        {brands.map((el) => (
-          <option name={el.nameBrand} value={el.id} key={el.id}>
+      <select name="brand" value={input.brand} onChange={handleInputChange}>
+        {brand.map((el) => (
+          <option name={el.nameBrand} value={el.nameBrand} key={el.id}>
             {el.nameBrand}
           </option>
         ))}
@@ -104,12 +127,12 @@ const AddModel = () => {
 
       <label className={s.text}>MATERIALS:</label>
       <select
-        name="materials"
-        value={input.materials}
-        onChange={handleSelectMaterials}
+        name="material"
+        value={input.material}
+        onChange={handleInputChange}
       >
-        {materials.map((el) => (
-          <option name={el.nameMaterial} value={el.id} key={el.id}>
+        {material.map((el) => (
+          <option name={el.nameMaterial} value={el.nameMaterial} key={el.id}>
             {el.nameMaterial}
           </option>
         ))}
@@ -122,16 +145,25 @@ const AddModel = () => {
         value={input.name}
         onChange={handleInputChange}
       />
-
       <label className={s.text}>SIZE:</label>
-      <select name="sizes" value={input.sizes}>
+      <select name="sizes" value={input.sizes} onChange={handleSelectSizes}>
         {sizes.map((el) => (
-          <option name={el.numberSize} value={el.id} key={el.id}>
+          <option name={el.numberSize} value={el.numberSize} key={el.id}>
             {el.numberSize}
           </option>
         ))}
       </select>
-
+      {/* {input.sizes.length > 0
+        ? input.sizes?.map((item) => {
+            let size = sizes.find((el) => el.numberSize == item);
+            return (
+              <div key={size.id}>
+                <div>{size.numberSize}</div>
+                <button>X</button>
+              </div>
+            );
+          })
+        : ""} */}
       <label className={s.text}>CATEGORIES:</label>
       <select
         name="categories"
@@ -139,12 +171,22 @@ const AddModel = () => {
         onChange={handleSelectCategories}
       >
         {categories.map((el) => (
-          <option name={el.nameCategory} value={el.id} key={el.id}>
+          <option name={el.nameCategory} value={el.nameCategory} key={el.id}>
             {el.nameCategory}
           </option>
         ))}
       </select>
-
+      {/* {input.categories.length > 0
+        ? input.categories?.map((item) => {
+            let catego = categories.find((el) => el.id == item);
+            return (
+              <div key={catego.id}>
+                <div>{catego.nameCategory}</div>
+                <button onClick={() => deleteSelectCategory(item)}>X</button>
+              </div>
+            );
+          })
+        : ""} */}
       <label className={s.text}>DESCRIPTION:</label>
       <input
         className={s.input}
@@ -152,7 +194,7 @@ const AddModel = () => {
         value={input.description}
         onChange={handleInputChange}
       />
-      <button>CREATE</button>
+      <button onClick={handleSubmit}>CREATE</button>
     </form>
   );
 };

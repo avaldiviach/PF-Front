@@ -13,11 +13,14 @@ import Cart from "./Components/ShoppingCart/Cart";
 import Payment from "./Components/ShoppingCart/Payment";
 import NotFound from "./Pages/Notfound/NotFound";
 import Admin from "./Pages/Admin";
+import AddProduct from "./Pages/Admin/Products/AddProduct";
+import AddModel from "./Pages/Admin/Products/AddModel";
 import LoginFB from "./Components/LoginFB/LoginFB";
 import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
+import Reviews from "./Components/Reviews";
 import { getSneakers } from "./Redux/Actions";
-// import AddProduct from "./Pages/Admin/Products/AddProduct";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -52,13 +55,15 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         {/* <Route path="/create-user" element={<FormUser />} /> */}
         <Route path="/cart" element={<Cart />} />
-        {/* <Route path="/addProd" element={<AddProduct />} /> */}
+        <Route path="/addPro" element={<AddProduct />} />
+        <Route path="/addProd" element={<AddModel />} />
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment />} />
         </Route>
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>

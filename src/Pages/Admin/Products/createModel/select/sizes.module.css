@@ -1,0 +1,11 @@
+.size{
+    
+    display: flex;
+
+}
+
+.container{
+    height: 10rem;
+    padding: 1rem;
+    overflow-y: scroll;
+}

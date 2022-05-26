@@ -9,20 +9,23 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	SORT_PRICE = 'SORT_PRICE',
 	REMOVE_ITEM_CART = 'REMOVE_ITEM_CART',
 	SET_TOTAL_PRICE = 'SET_TOTAL_PRICE',
-	GET_ALL_USERS = 'GET_ALL_USERS',
-	DELETE_USER = 'DELETE_USER',
-	CREATE_MODEL = 'CREATE_MODEL',
-	GET_CATEGORIES = 'GET_CATEGORIES',
-	GET_MODELS = 'GET_MODELS',
-	CREATE_CATEGORY = 'CREATE_CATEGORY',
-	DELETE_CATEGORY = 'DELETE_CATEGORY',
-	GET_MATERIALS = 'GET_MATERIALS',
-	GET_COLORS = 'GET_COLORS',
-	GET_SIZES = 'GET_SIZES',
-	GET_BRANDS = 'GET_BRANDS';
 
 // const url = 'https://node-api-sneakers.herokuapp.com'
 const url = 'http://localhost:3001';
+
+	GET_ALL_USERS = "GET_ALL_USERS",
+	DELETE_USER = "DELETE_USER",
+	CREATE_MODEL = "CREATE_MODEL",
+	GET_CATEGORIES = "GET_CATEGORIES",
+	GET_MODELS = "GET_MODELS",
+	CREATE_CATEGORY = "CREATE_CATEGORY",
+	DELETE_CATEGORY = "DELETE_CATEGORY",
+	GET_MATERIALS = "GET_MATERIALS",
+	GET_COLORS = "GET_COLORS",
+	GET_SIZES = "GET_SIZES",
+	CREATE_SNEAKER = "GET_SIZES",
+	GET_BRANDS = "GET_BRANDS";
+
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -249,9 +252,8 @@ export function getAllUsers() {
 export function deleteUser(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(
-				`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`
-			);
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`)
+
 			return dispatch({
 				type: DELETE_USER,
 				payload: data,
@@ -264,13 +266,11 @@ export function deleteUser(id) {
 
 //createModel
 
-export function createSneaker(payload) {
+export function createModel(payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(
-				`https://node-api-sneakers.herokuapp.com/createModel`,
-				payload
-			);
+			console.log(payload)
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createModel`, payload)
 			return dispatch({
 				type: CREATE_MODEL,
 				payload: data,
@@ -280,6 +280,22 @@ export function createSneaker(payload) {
 		}
 	};
 }
+
+export function createSneaker(payload) {
+	return async function (dispatch) {
+		try {
+			console.log(payload)
+			const { data } = await axios.post(`https://node-api-sneakers.herokuapp.com/createSneaker`, payload)
+			return dispatch({
+				type: CREATE_SNEAKER,
+				payload: data
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
 
 //getCategories
 
@@ -324,9 +340,8 @@ export function createCategory(payload) {
 export function deleteCategory(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(
-				`https://node-api-sneakers.herokuapp.com/deleteCat/${id}`
-			);
+			const { data } = await axios.delete(`https://node-api-sneakers.herokuapp.com/deleteCategory/${id}`)
+
 			return dispatch({
 				type: DELETE_CATEGORY,
 				payload: data,
@@ -337,23 +352,21 @@ export function deleteCategory(id) {
 	};
 }
 
-//getModels con heroku no anda
 
-// export function getModels() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getModels`)
-// 			return dispatch({
-// 				type: GET_CATEGORIES,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
+export function getModels() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getmodels`)
+			return dispatch({
+				type: GET_MODELS,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
 
-//getBrands anda con heroku
 
 export function getBrands() {
 	return async function (dispatch) {
@@ -371,27 +384,12 @@ export function getBrands() {
 	};
 }
 
-//getMaterials
-
-// export function getMaterials() {
-// 	return async function (dispatch) {
-// 		try {
-// 			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/materials`)
-// 			return dispatch({
-// 				type: GET_BRANDS,
-// 				payload: data,
-// 			})
-// 		} catch (error) {
-// 			console.log(error)
-// 		}
-// 	}
-// }
-
-//materials con localhost
 export function getMaterials() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/materials`);
+
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/materials`)
+
 			return dispatch({
 				type: GET_MATERIALS,
 				payload: data,
@@ -402,11 +400,11 @@ export function getMaterials() {
 	};
 }
 
-//get colors cambiar a heroku cuando se suba al back
 export function getColors() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/getColors`);
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/getColors`)
+
 			return dispatch({
 				type: GET_COLORS,
 				payload: data,
@@ -422,7 +420,8 @@ export function getColors() {
 export function getSizes() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/sizes`);
+			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sizes`)
+
 			return dispatch({
 				type: GET_SIZES,
 				payload: data,
@@ -433,30 +432,3 @@ export function getSizes() {
 	};
 }
 
-export function getModels() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(`http://localhost:3001/getModels`);
-			return dispatch({
-				type: GET_MODELS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-}
-// return async (dispatch, getState) => {
-// 	const rootReducer = getState();
-// 	const { productData } = rootReducer;
-// 	localStorage.setItem('productData', JSON.stringify(productData));
-// 	let total = 0;
-// 	productData.forEach((item) => {
-// 		total += item.price * item.qty;
-// 	});
-// 	dispatch({
-// 		type: SET_TOTAL_PRICE,
-// 		payload: total,
-// 	});
-// }
-// };

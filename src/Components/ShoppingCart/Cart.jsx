@@ -27,7 +27,9 @@ const Cart = () => {
             <>
               <div className='flex items-center space-y-4 flex-col'>
                 <h3 className='text-gray-500 text-lg font-semibold'>Oops... Seems your cart is empty</h3>
-                <button onClick={() => navigate('/')} className=' bg-white text-orange-600 text-xs p-4 w-full lg:w-auto rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white'>
+                <button onClick={() => navigate('/')} className='bg-orange-600 text-white text-xs p-3 lg:w-auto rounded-md hover:bg-orange-700'>
+                
+                {/* bg-white text-orange-600 text-xs p-4 w-full lg:w-auto rounded-md hover:bg-orange-600 border border-orange-600 hover:border-white hover:text-white' */}
                   ADD ITEMS
                 </button>
               </div>

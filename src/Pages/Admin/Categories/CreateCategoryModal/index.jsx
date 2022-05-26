@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import { createCategory, getCategories } from '../../../../Redux/Actions';
 import { useDispatch } from 'react-redux';
 
-export default function CreateModal(props) {
+export default function CreateModalCate(props) {
     const dispatch = useDispatch()
 
     const createClick =async (e) => {
