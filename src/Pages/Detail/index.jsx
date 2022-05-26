@@ -16,9 +16,11 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
+    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
+    
   }, [id]);
 
   function addToCart() {
@@ -79,11 +81,11 @@ export default function Detail() {
               <p className={s.brand}> {sneaker.brand}</p>
               <p className={s.price} >${sneaker.price}</p>
               <p className={s.details}>Details: {sneaker.description}</p>
-              <p className={s.sizes_title}>Selec Size (EUR)</p>
+              <p className={s.sizes_title}>Select Size (EUR)</p>
               <div className={s.sizes}>
                 <select onChange={selectSize}>
                   <option value="" >Select Size</option>
-                  {sneaker.sizes?.map(({ size }, i) => <option className={s.size} key={i} value={i} >{size}</option>)}
+                  {sneaker.sizes?.map(({ size, stock }, i) => stock && <option className={s.size} key={i} value={i} >{size}</option>)}
                 </select>
               </div>
               <p className={s.subtitle}>Material </p>
