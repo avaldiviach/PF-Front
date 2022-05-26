@@ -61,7 +61,7 @@ export default function CreateSneaker({onHide, show, model}) {
 
     return (
         <Modal
-            onHide
+            onHide={onHide}
             show={show}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
