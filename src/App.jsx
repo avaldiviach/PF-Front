@@ -33,19 +33,23 @@ function App() {
   }, []);
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
-  // useEffect(() => {
-  //   if (user && productData.length > 0) {
-  //     const { email } = user;
-  //     const data = {
-  //       email,
-  //       productData
-  //     };
-  //     async function fetchear() {
-  //       return await axios.post("http://localhost:3001/addCart", data);
-  //     }
-  //     fetchear()
-  //   }
-  // }, [user, productData]);
+  useEffect(() => {
+    if (user && productData.length > 0) {
+      const { email } = user;
+      const data = {
+        email,
+        productData
+      };
+      try {
+        async function postCart() {
+          return await axios.post("http://localhost:3001/addCart", data);
+        }
+        postCart();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [user, productData]);
 
   return (
     <div className="App">
