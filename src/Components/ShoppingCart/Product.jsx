@@ -81,7 +81,7 @@ const Product = ({ data, index }) => {
                 <GrFormSubtract />
               </span>
             </div>
-            <div className='flex justify-center w-12 h-full items-center p-2 border-t border-b'>
+            <div className='flex justify-center w-12 h-full items-center p-1 border-t border-b'>
               {qty}
             </div>
             <div onClick={addProductQtyHandler} className={max === qty ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md'}>

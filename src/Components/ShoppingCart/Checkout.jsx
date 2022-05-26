@@ -63,7 +63,7 @@ const Checkout = () => {
           {/* Si hay cupón de descuento se hace el descuento */}
           {discountCodeValid ?
             <div className='flex flex-col space-y-1 text-right'>
-              <p className='text-gray-300 font-normal'><span className=' line-through '>${Number(totalPrice).toFixed(2)}</span> <span className=' text-green-600'>+50%</span></p>
+              <p className='text-gray-300 font-normal'><span className=' line-through '>${Number(totalPrice).toFixed(2)}</span> <span className=' text-green-600'>-50%</span></p>
               <p>${Number(totalPrice * 0.5).toFixed(2)}</p>
             </div> :
             <p>${Number(totalPrice).toFixed(2)}</p>
@@ -73,8 +73,8 @@ const Checkout = () => {
 
       <button onClick={showCheckoutScreen} title={totalPrice === 0 ? "Please add item to your cart first" : ""} disabled={totalPrice === 0}
         className={totalPrice === 0
-          ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-4 w-full rounded-md'
-          : 'bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700'} >
+          ? 'bg-gray-200 text-black cursor-not-allowed text-xs p-3 w-full rounded-md'
+          : 'bg-orange-600 text-white text-xs p-3 w-full rounded-md hover:bg-orange-700'} >
 
         GO TO CHECKOUT
       </button>
