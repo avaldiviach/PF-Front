@@ -48,8 +48,8 @@ const initialState = {
 	// discountCodeValid: null,
 	// showCheckoutScreen: false,
 
-  // Las propiedades de abajo son para el carrito en caso de que se quiera 
-  // implementar cupones de descuento
+	// Las propiedades de abajo son para el carrito en caso de que se quiera 
+	// implementar cupones de descuento
 	showDiscountForm: false,
 	discountCode: '',
 	discountCodeValid: null,
@@ -146,6 +146,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//-------------------ADMIN------------------ADMIN--------------------ADMIN
 		case GET_ALL_USERS:
+
 			return {
 				...state,
 				users: payload

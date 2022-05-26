@@ -1,52 +1,56 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import FormValidation from "./FormValidation";
+import FormValidationProduct from "./FormValidationProduct";
 import s from "./AddProduct.module.css";
-import { createSneaker, getColors } from "../../../Redux/Actions";
+import { createSneaker, getColors, getSneakers } from "../../../Redux/Actions";
+import { useNavigate } from "react-router-dom";
+import SelectColors from "./createModel/select/Colors";
 
 const AddProduct = () => {
   const initialValues = {
-    model: [],
-    color: [],
+    model: "",
+    color: "",
     image: "",
     price: "",
   };
 
   const [input, setInput] = useState(initialValues);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const modelsAll = useSelector((state) => state.getModels);
   const colors = useSelector((state) => state.getColors);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getColors());
   }, [dispatch]);
 
   const handleInputChange = (e) => {
+    console.log(e.target.value);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    setError(FormValidation({ ...input, [e.target.name]: e.target.value }));
+    setError(
+      FormValidationProduct({ ...input, [e.target.name]: e.target.value })
+    );
   };
 
   const handleSubmit = (e) => {
-    if (
-      input.image &&
-      input.price &&
-      input.model.length > 0 &&
-      input.color.length > 0
-    ) {
+    console.log(input);
+    if (input.image && input.price && input.model && input.color) {
       e.preventDefault();
       dispatch(createSneaker(input));
       alert("The sneaker was succesfully Created!");
 
       setInput({
-        model: [],
-        color: [],
+        model: "",
+        color: "",
         image: "",
         price: "",
       });
 
+      dispatch(getSneakers());
       navigate("/");
     } else {
       e.preventDefault();
@@ -59,18 +63,18 @@ const AddProduct = () => {
       <h1>Create Sneaker</h1>
 
       <label className={s.text}> Model:</label>
-      <select>
+      <select name="model" value={input.model} onChange={handleInputChange}>
         {modelsAll?.map((el) => (
-          <option name={el.nameModel} value={el.id} key={el.id}>
+          <option name={el.nameModel} value={el.nameModel} key={el.id}>
             {el.nameModel}
           </option>
         ))}
       </select>
 
       <label className={s.text}>Color:</label>
-      <select>
+      <select name="color" value={input.color} onChange={handleInputChange}>
         {colors.map((el) => (
-          <option name={el.nameColor} value={el.id} key={el.id}>
+          <option name={el.nameColor} value={el.nameColor} key={el.id}>
             {el.nameColor}
           </option>
         ))}
@@ -91,6 +95,8 @@ const AddProduct = () => {
         value={input.price}
         onChange={handleInputChange}
       />
+
+      <SelectColors/>
 
       <button type="submit" onClick={(e) => handleSubmit(e)}>
         CREATE

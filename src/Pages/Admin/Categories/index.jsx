@@ -4,7 +4,7 @@ import TableCategories from "./table";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../../Redux/Actions";
 import s from "./categories.module.css";
-import CreateModal from "./CreateCategoryModal";
+import CreateModalCate from "./CreateCategoryModal";
 
 export default function CategoriesContent() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export default function CategoriesContent() {
       <div className={s.categories}>
         <h1>Categories</h1>
         <button className={s.btnAdd} onClick={() => setModalShow(true)}>ADD CATEGORY</button>
-        <CreateModal
+        <CreateModalCate
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
