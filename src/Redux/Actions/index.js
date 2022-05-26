@@ -409,6 +409,7 @@ export function getSizes() {
 		}
 	}
 }
+
 export function deleteSneaker(id) {
 	return async function (dispatch) {
 		try {
@@ -422,4 +423,19 @@ export function deleteSneaker(id) {
 		}
 	}
 }
+// return async (dispatch, getState) => {
+// 	const rootReducer = getState();
+// 	const { productData } = rootReducer;
+// 	localStorage.setItem('productData', JSON.stringify(productData));
+// 	let total = 0;
+// 	productData.forEach((item) => {
+// 		total += item.price * item.qty;
+// 	});
+// 	dispatch({
+// 		type: SET_TOTAL_PRICE,
+// 		payload: total,
+// 	});
+// }
+// };
+
 
