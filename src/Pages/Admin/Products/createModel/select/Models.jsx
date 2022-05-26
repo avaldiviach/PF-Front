@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 
 export default function SelectModels({ handleSelectChange }){
     
@@ -9,7 +9,7 @@ export default function SelectModels({ handleSelectChange }){
 
     return(
         <div>
-            <CreatableSelect
+            <Select
             name='model'
                 options={options}
                 onChange={(opt, meta) => handleSelectChange(opt, meta)}

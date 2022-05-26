@@ -11,7 +11,10 @@ export default function Products() {
   const sneakers = useSelector((state) => state.Sneakers);
   const dispatch = useDispatch();
 
-  const [modalShow, setModalShow] = useState(false);
+  const [showModalSneaker, setshowModalSneaker] = useState(false);
+  const [showModalModel, setshowModalModel] = useState(false);
+
+
 
   useEffect(() => {
     dispatch(getModels());
@@ -24,15 +27,15 @@ export default function Products() {
   return (
     <div className="userPage">
       <h1>Products</h1>
-      <button className={s.btnAdd} onClick={() => setModalShow(true)}>
+      <button className={s.btnAdd} onClick={() => setshowModalSneaker(true)}>
         ADD PRODUCT
       </button>
-      <CreateSneaker show={modalShow} onHide={() => setModalShow(false)} />
+      <CreateSneaker show={showModalSneaker} onHide={() => setshowModalSneaker(false)} />
 
-      <button className={s.btnAdd} onClick={() => setModalShow(true)}>
+      <button className={s.btnAdd} onClick={() => setshowModalModel(true)}>
         ADD MODEL
       </button>
-      <CreateModel show={modalShow} onHide={() => setModalShow(false)} />
+      <CreateModel show={showModalModel} onHide={() => setshowModalModel(false)} />
 
       <Cards renderSneakers={sneakers} admin={true} />
     </div>

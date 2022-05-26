@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CreatableSelect from "react-select/creatable";
 
-export default function SelectCategories({ handleSelectChange }) {
+export default function SelectCategories({ handleSelectMultiChange }) {
   const categories = useSelector((state) => state.categories);
   const options = categories.map((c) => ({
     value: c.nameCategory,
@@ -14,7 +14,8 @@ export default function SelectCategories({ handleSelectChange }) {
       <CreatableSelect
         name="categories"
         options={options}
-        onChange={(opt, meta) => handleSelectChange(opt, meta)}
+        isMulti
+        onChange={(opt, meta) => handleSelectMultiChange(opt, meta)}
       />
     </div>
   );
