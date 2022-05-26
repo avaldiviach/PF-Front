@@ -1,0 +1,242 @@
+.main_createUser {
+	margin-top: 0;
+	min-height: calc(80vh - 5rem);
+	background-color: var(--blanco);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	width: 95%;
+	/* height: 25rem; */
+	min-height: 40vh;
+	display: flex;
+	/* background-color: var(--color3); */
+	/* box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 75%); */
+	border-radius: 1rem;
+}
+
+/* Para ocultar la parte derecha cuando esta en pantalla chica */
+.rightBox {
+	display: none;
+	width: 100%;
+	/* position: relative; */
+}
+
+.form_container {
+	padding-top: 1.8em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+/* Para pantallas mayores a 769 pixeles*/
+@media (min-width: 769px) {
+	.container {
+		width: max(70%, 756px);
+		height: 40rem;
+	}
+
+	.rightBox {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+  .rotate {
+    transform: rotate(-17deg);
+    font-size: calc(2.8vw + 2.8vh + 2.4vmin);
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 34%;
+    right: 0;
+    color: var(--color1);
+  }
+
+  /* Para se mueva con el padre con sobre las letras */
+	.position_relative {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.image_container {
+		position: absolute;
+    top: 8%;
+    right: 0;
+    width: 100%;
+    height: 84%;
+	}
+
+	.image_container img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+/*FORMULARIO---------------------------------------------------------------*/
+.formulario {
+	opacity: 0.9;
+	/* background-color: white;
+box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 75%);
+border-radius: 1rem; */
+	width: min(60em, 100%);
+	padding: 0.7em;
+}
+
+.formulario .formulario__fieldset {
+	/* padding: 0; */
+	border: none;
+}
+
+.formulario .formulario__fieldset .formulario__legend {
+	text-align: left;
+	font-family: 'Montserrat', 'PT Sans', sans-serif;
+	/* font-size: 0.65em; */
+	font-size: calc(0.6vw + 0.6vh + 0.3vmin);
+	font-weight: 700;
+	color: black;
+	margin-bottom: 1em;
+}
+
+.formulario__contenedorCampos__campo {
+	margin-bottom: 0.5em;
+}
+
+.formulario
+	.formulario__fieldset
+	.formulario__contenedorCampos__campo
+	.formulario__campo__inputTexto {
+	opacity: 1;
+	color: var(--primario);
+	background-color: white;
+	border-color: #242121;
+	font-family: 'Montserrat', 'PT Sans', sans-serif;
+	font-size: 1em;
+	font-weight: 400;
+	width: 100%;
+	border: 2px solid #242121;
+	/* border: none; */
+	padding: 1em;
+	border-radius: 0.2em;
+	margin-bottom: 0.2em;
+}
+
+.formulario
+	.formulario__fieldset
+	.formulario__contenedorCampos__campo
+	.formulario__campo__inputTexto:focus {
+	/* Outline -> quita el borde de color */
+	outline: none;
+	border: 3px solid var(--secundario);
+	box-shadow: 0em 0em 2em var(--primario);
+}
+
+.input_checkBox {
+	margin-left: 0.5em;
+  margin-right: 0.8em;
+  cursor: pointer;
+}
+
+.formulario__contenedorCampos__campo label{
+  cursor: pointer;
+}
+
+.leyenda {
+  margin-left: 0.5em;
+	font-size: 0.92em;
+	color: var(--rojo);
+	font-family: 'Montserrat', 'PT Sans', sans-serif;
+	font-weight: 700;
+}
+
+/* Mensajes de error y exito al enviar */
+.msg_error {
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	margin: 0 auto;
+	margin-top: 0.8em;
+	padding: 0 1em;
+	border-radius: 0.2rem;
+	background-color: #bb2929;
+}
+
+.msg_error p,
+.msg_success p {
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+.msg_success {
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	margin: 0 auto;
+	margin-top: 0.8em;
+	padding: 0 1em;
+	border-radius: 0.2rem;
+	background-color: green;
+}
+
+.account {
+  margin-top: .9em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.label_account span {
+  color: var(--color1);
+  font-family: 'Montserrat', 'PT Sans', sans-serif;
+  font-weight: 700;
+  margin-left: 0.5em;
+}
+
+/*fin formulario------------------------------------------------------------*/
+
+/*Boton formulario----------------------------------------------------*/
+.contenedorBotones {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.contenedorBotones .contenedorBotones__boton {
+	width: 100%;
+	/* position: relative; */
+	padding: 1em 2em;
+	margin-top: 0.7em;
+	font-family: 'Montserrat', 'PT Sans', sans-serif;
+	font-size: 1em;
+	font-weight: 700;
+	border-radius: 0.5em;
+	color: var(--negro);
+	background-color: transparent;
+	border: 2px solid var(--botones);
+	z-index: 0;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.contenedorBotones .contenedorBotones__boton:hover {
+	animation: sombra_pulso 1000ms 1;
+	background-color: var(--botones);
+	color: var(--cuatro);
+}
+
+/*animación de boton---------------------------------*/
+@keyframes sombra_pulso {
+	0% {
+		box-shadow: 0 0 0 0 var(--botonesSombraPulso);
+	}
+	100% {
+		box-shadow: 0 0 0.8em 1.6em #20e2d700;
+	}
+}
+
+/*Fin Efectos de botones --------------------------*/
+/*Fin Boton-----------------------------------------------*/

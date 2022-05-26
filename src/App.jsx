@@ -17,6 +17,7 @@ import Admin from "./Pages/Admin";
 import LoginFB from "./Components/LoginFB/LoginFB";
 import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
+import Reviews from "./Components/Reviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment />} />
         </Route>
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
