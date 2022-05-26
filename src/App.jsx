@@ -41,7 +41,7 @@ function App() {
   //       productData
   //     };
   //     async function fetchear() {
-  //       return await axios.post("http://localhost:3001/addsneakerscart", data);
+  //       return await axios.post("http://localhost:3001/addCart", data);
   //     }
   //     fetchear()
   //   }
