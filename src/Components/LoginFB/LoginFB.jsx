@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useAuth } from "../../context/authContext";
-import styles from './RegisterFB.module.css';
-import image from '../../Assets/Images/3.svg';
 import axios from 'axios';
+
+import image from '../../Assets/Images/3.svg';
+import styles from './RegisterFB.module.css';
 
 
 export default function CreateUser() {
@@ -19,22 +19,38 @@ export default function CreateUser() {
   const dispatch = useDispatch();
   const { user } = useAuth();
 
-  const getUserCart = async (email) => {
-    try {
-      async function fetchData() {
-        const response = await axios.post('http://localhost:3001/getCart', { email });
-        dispatch({ type: 'GET_CART_BD', payload: response.data });
+  useEffect(() => {
+    if (user) {
+      const { email } = user;
+      try {
+        async function fetchData() {
+          const response = await axios.post('http://localhost:3001/getCart', { email });
+          dispatch({ type: 'GET_CART_BD', payload: response.data });
+        }
+        fetchData();
+      } catch (error) {
+        console.log(error);
       }
-      fetchData();
-    } catch (error) {
-      console.log(error);
     }
-  }
+  }, [user]);
+
+
+  // const getUserCart = async (email) => {
+  //   try {
+  //     async function fetchData() {
+  //       const response = await axios.post('http://localhost:3001/getCart', { email });
+  //       dispatch({ type: 'GET_CART_BD', payload: response.data });
+  //     }
+  //     fetchData();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
-      await getUserCart(data.email);
+      // await getUserCart(data.email);
       // navigate("/");
       navigate(-1);
     } catch (error) {
@@ -46,7 +62,6 @@ export default function CreateUser() {
 
   const handleGoogleSignin = async () => {
     await loginWithGoogle();
-    getUserCart(data.email);
     // navigate("/");
     navigate(-1);
   }
