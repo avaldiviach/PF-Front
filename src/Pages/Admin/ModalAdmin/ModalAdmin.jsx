@@ -1,6 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
 
 export default function ModalAdmin({ msg, action, title, onHide, show }) {
   const handleSuccess = (e) => {
