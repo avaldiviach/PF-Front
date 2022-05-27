@@ -158,15 +158,19 @@ export const addItem = (data) => (dispatch, getState) => {
 	});
 };
 
-export const removeItem = (id, size) => {
+export const removeItem = (id, size, email) => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
 		const { productData } = rootReducer;
+		const payload = productData.filter((product) => product.id !== id || product.size !== size)
+		const data = {
+			email,
+			productData: payload
+		}
+		if(email) axios.post(`${url}/deletecart`, data);
 		dispatch({
 			type: REMOVE_ITEM_CART,
-			payload: productData.filter(
-				(product) => product.id !== id || product.size !== size
-			),
+			payload
 		});
 	};
 };

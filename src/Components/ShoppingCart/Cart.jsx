@@ -22,18 +22,6 @@ const Cart = () => {
   const { user } = useAuth();
 
 
-  // fetchData()
-  // .then(response => {
-  //   dispatch({
-  //     type: 'SET_CART',
-  //     payload: { productData: response.data }
-  //   })
-  // })
-  // .catch(error => {
-  //   console.log(error);
-  // })
-
-
   return (
     <main className='py-6 px-12 w-full flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6'>
 
