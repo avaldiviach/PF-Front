@@ -18,7 +18,7 @@ const StyledRating = styled(Rating)({
 
 //Componente de las estrellas
 export default function BasicRating() {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = React.useState(4);
 
   return (
     <Box
@@ -35,6 +35,7 @@ export default function BasicRating() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        readOnly
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
       />
     </Box>

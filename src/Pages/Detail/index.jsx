@@ -4,8 +4,8 @@ import { Link, NavLink, useParams } from "react-router-dom";
 
 //Componentes y funciones
 import ModalCart from "../../Components/Modal/modalCart"
-import RatingStars from "../../Components/Reviews/RatingStars";
-import Reviews from "../../Components/Reviews";
+import RatingStars from "../../Components/Reviews/RatingStarsRead";
+import Reviews from "../../Components/Reviews/CreateReview";
 import { getDetailSneaker, cleanDetail, addItem } from "../../Redux/Actions";
 import s from "./detail.module.css";
 

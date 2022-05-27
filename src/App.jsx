@@ -18,7 +18,8 @@ import AddModel from "./Pages/Admin/Products/AddModel";
 import LoginFB from "./Components/LoginFB/LoginFB";
 import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
-import Reviews from "./Components/Reviews";
+import Reviews from "./Components/Reviews/CreateReview";
+import Reviews2 from "./Components/Reviews/ListReview";
 import { getSneakers } from "./Redux/Actions";
 
 
@@ -70,6 +71,7 @@ function App() {
           <Route path="payment" element={<Payment />} />
         </Route>
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/listreviews" element={<Reviews2 />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
