@@ -1,3 +1,9 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .detail{
     display: flex;
     width: 80vw;
