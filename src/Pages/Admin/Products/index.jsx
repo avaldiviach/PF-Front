@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "../../../Components/Cards";
+import Cards from "../../../Components/Cards";
 import { useEffect, useState } from "react";
 import {
   getModels,
@@ -48,7 +48,7 @@ export default function Products() {
       await dispatch(getBrands());
     }
     load();
-  }, [showModalModel, showModalSneaker, modalUpdate]);
+  }, [showModalModel, showModalSneaker, modalUpdate, modalDeleteProd]);
 
   return (
     <section className="userPage">
@@ -70,7 +70,7 @@ export default function Products() {
         onHide={() => setshowModalModel(false)}
       />
 
-      <Card
+      <Cards
         renderSneakers={sneakers}
         admin={true}
         setState={setModalUpdate}
@@ -80,6 +80,7 @@ export default function Products() {
         setModalDeleteProd={setModalDeleteProd}
         state={modalDeleteProd}
       />
+
       <UpdateSneaker
         show={modalUpdate.show}
         onHide={() => setModalUpdate({ ...modalUpdate, show: false })}

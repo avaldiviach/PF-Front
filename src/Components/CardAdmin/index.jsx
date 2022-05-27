@@ -6,7 +6,7 @@ import style from "./Card.module.css";
 import Switch from "@mui/material/Switch";
 import { FormControlLabel } from "@mui/material";
 
-function Card({ sneaker, setState, showModalDelete, setModalDeleteProd }) {
+function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
   const { model, price, image, brand, id, deleted, sizes } = sneaker;
   const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ function Card({ sneaker, setState, showModalDelete, setModalDeleteProd }) {
                 color="success"
                 value={id}
                 onChange={(e) => alert(e.target.checked)}
-                onClick={handleDeleteSneaker}
+                onClick={(e) => handleDeleteSneaker(e)}
               />
             }
             label="Status"
