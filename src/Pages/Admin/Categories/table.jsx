@@ -22,7 +22,7 @@ const TableCategories = ({ showModalDelete, setModalDelete }) => {
   };
 
   return (
-    <Table bordered striped hover className={s.table}>
+    <Table hover className={s.table}>
       <thead className={s.thead}>
         <tr>
           <th>id</th>
