@@ -52,7 +52,7 @@ export default function CreateUser() {
 
   const handleGoogleSignin = async () => {
     await loginWithGoogle();
-    getUserCart();
+    getUserCart(data.email);
     // navigate("/");
     navigate(-1);
   }
