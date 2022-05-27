@@ -83,7 +83,7 @@ export default function Detail() {
               <RatingStars />
               <NavLink to="/reviews">
                 Create Review
-              </NavLink><NavLink to="/reviews">
+              </NavLink><NavLink to="/listreviews">
                 See Reviews
               </NavLink>
               <p className={s.price} >${sneaker.price}</p>

@@ -5,7 +5,7 @@ import { useAuth } from "../../context/authContext";
 
 import styles from './Reviews.module.css';
 import image from '../../Assets/Images/3.svg';
-import RatingStars from './RatingStarsRead';
+import RatingStars from "../../Components/Reviews/RatingStarsRead";
 
 export default function Reviews() {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
@@ -15,38 +15,32 @@ export default function Reviews() {
 
   const onSubmit = async (data) => {
   }
-  
+
   return (
     <section className={styles.main_createUser}>
 
       <div className={styles.container}>
 
         <div className={styles.form_container}>
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.formulario}>
+          <div className={styles.formulario}>
             <fieldset className={styles.formulario__fieldset}>
-              <legend className={styles.formulario__legend}><h3>Enter your review for this product</h3></legend>
+              <legend className={styles.formulario__legend}><h3>Review about this product</h3></legend>
 
               <RatingStars />
-              <div className={styles.formulario__contenedorCampos}>
 
+              <div className={styles.formulario__contenedorCampos}>
                 <div className={styles.formulario__contenedorCampos__campo}>
-                  <textarea
-                    className={styles.formulario__campo__inputTexto} placeholder="Write your review here..."
-                    {...register("review", { required: true, maxLength: 700})
-                    }
-                  />
-                  {errors.review?.type === "required" && <p className={styles.leyenda}>Review is required</p>}
-                  {errors.review?.type === "maxLength" && <p className={styles.leyenda}>Review is too long</p>}
+                  {/* titulo de la review */}
+                  <h2 className={styles.formulario__campo__titulo}>Review Title</h2>
+                </div>
+                <div className={styles.formulario__contenedorCampos__campo}>
+                  {/* descripcion de la review */}
+                  <p className={styles.formulario__campo__titulo}>Review Description</p>
                 </div>
 
-              
-              </div>
-
-              <div className={styles.contenedorBotones}>
-                <button className={styles.contenedorBotones__boton}>Send</button>
               </div>
             </fieldset>
-          </form>
+          </div>
         </div>
 
         <div className={styles.rightBox}>
