@@ -2,18 +2,15 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { createSneaker, getColors, getSneakers } from "../../../../Redux/Actions";
+import { createSneaker, getSneakers } from "../../../../Redux/Actions";
 import { useDispatch } from 'react-redux';
 import SelectColors from './select/Colors';
 import SelectModels from './select/Models';
 
 
-export default function CreateSneaker(props) {
+export default function CreateSneaker({onHide, show, model}) {
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getColors())
-    }, [dispatch]);
 
     const [input, setInput] = useState({
         model: "",
@@ -39,7 +36,6 @@ export default function CreateSneaker(props) {
     const createClick =async (e) => {
         e.preventDefault()
         if (input.model && input.color && input.image && input.price) {
-            console.log(input)
             await dispatch(createSneaker(input))
             alert("The sneaker was succesfully Created!");
             setInput({
@@ -49,18 +45,24 @@ export default function CreateSneaker(props) {
                 price: "",
             });
 
-            props.onHide()
+            onHide()
             await dispatch(getSneakers());
         }else{
             alert("You must complete every field!");
         }
     }
 
+    const goCreateModel = () => {
+        onHide()
+        model()
+
+    }
 
 
     return (
         <Modal
-            {...props}
+            onHide={onHide}
+            show={show}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -74,6 +76,8 @@ export default function CreateSneaker(props) {
                 <Form.Group>
                     <Form.Label id='label'>Model</Form.Label>
                     <SelectModels handleSelectChange={handleSelectChange}/>
+                    <p style={{display: "inline"}} >If you dont see your model go to create model</p>
+                    <p style={{display: "inline", color: "#17b4cc", cursor:"pointer"}} onClick={goCreateModel}> Click here</p>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label id='label'>Color</Form.Label>
@@ -89,7 +93,7 @@ export default function CreateSneaker(props) {
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant='danger' onClick={props.onHide}>Cancel</Button>
+                <Button variant='danger' onClick={onHide}>Cancel</Button>
                 <Button variant='success' onClick={createClick}>Create</Button>
             </Modal.Footer>
         </Modal>

@@ -32,6 +32,7 @@ export default function TableUsers() {
       <tbody className={s.tbody}>
         {users.length > 0 &&
           users.map((user) => (
+            !user.deleted &&
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.typeUser}</td>

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cards from "../../../Components/Cards";
 import { useEffect, useState } from "react";
-import { getModels, getMaterials } from "../../../Redux/Actions";
+import { getModels, getMaterials, getSizes, getColors, getCategories, getBrands, getSneakers } from "../../../Redux/Actions";
 import CreateModel from "./createModel/CreateModel";
 import CreateSneaker from "./createModel/CreateSneaker";
 import s from "../Categories/categories.module.css";
@@ -17,20 +17,27 @@ export default function Products() {
 
 
   useEffect(() => {
-    dispatch(getModels());
-  }, [dispatch]);
+    async function load(){
+      await dispatch(getModels());
+      await dispatch(getMaterials());
+      await dispatch(getSizes());
+      await dispatch(getColors());
+      await dispatch(getCategories());
+      await dispatch(getBrands());
 
-  useEffect(() => {
-    dispatch(getMaterials());
-  }, [dispatch]);
+    }
+    load()
+
+  }, [showModalModel, showModalSneaker]);
+
 
   return (
-    <div className="userPage">
+    <section className="userPage">
       <h1>Products</h1>
       <button className={s.btnAdd} onClick={() => setshowModalSneaker(true)}>
         ADD PRODUCT
       </button>
-      <CreateSneaker show={showModalSneaker} onHide={() => setshowModalSneaker(false)} />
+      <CreateSneaker show={showModalSneaker} onHide={() => setshowModalSneaker(false)} model={() => setshowModalModel(true)} />
 
       <button className={s.btnAdd} onClick={() => setshowModalModel(true)}>
         ADD MODEL
@@ -38,6 +45,6 @@ export default function Products() {
       <CreateModel show={showModalModel} onHide={() => setshowModalModel(false)} />
 
       <Cards renderSneakers={sneakers} admin={true} />
-    </div>
+    </section>
   );
 }

@@ -6,14 +6,21 @@ import { useAuth } from "../../context/authContext";
 import styles from './Reviews.module.css';
 import image from '../../Assets/Images/3.svg';
 import RatingStars from './RatingStarsModify';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { createReview } from '../../Redux/Actions';
 export default function Reviews() {
+  const currentSneaker = useSelector(state => state.GET_DETAIL);
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
   // const [error, setError] = useState('');
-  const { signin, loginWithGoogle } = useAuth();
+  const [rating, setRating] = useState();
+  const { signin, loginWithGoogle, user} = useAuth();
   const navigate = useNavigate();
-
+  const dispatch =useDispatch();
   const onSubmit = async (data) => {
+    data.email = user.email;
+    data.sneakerId=1;
+    data.rating = rating;
+    dispatch(createReview(data));
   }
 
   return (
@@ -26,7 +33,7 @@ export default function Reviews() {
             <fieldset className={styles.formulario__fieldset}>
               <legend className={styles.formulario__legend}><h3>Enter your review for this product</h3></legend>
 
-              <RatingStars />
+              <RatingStars setRating={setRating} />
 
               <div className={styles.formulario__contenedorCampos}>
                 <div className={styles.formulario__contenedorCampos__campo}>

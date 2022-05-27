@@ -19,7 +19,8 @@ import {
 	GET_BRANDS,
 	GET_MATERIALS,
 	GET_COLORS,
-	GET_SIZES
+	GET_SIZES,
+	GET_ALL_REVIEWS
 } from '../Actions';
 
 const initialState = {
@@ -54,6 +55,7 @@ const initialState = {
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
+	getReviews: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -72,6 +74,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			words.forEach(w => {
 				sneakerMatching = sneakerMatching.filter((s) => s.match.toLowerCase().includes(w.toLowerCase()))
 			});
+			sneakerMatching = sneakerMatching.filter(s => s.deleted === false)
 			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match with our sneakers, try again ` : "finded";
 			return {
 				...state,
@@ -174,10 +177,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 
 		case GET_CATEGORIES:
-
-			let catego = state.categories
-
-			console.log(catego)
 			return {
 				...state,
 				categories: payload
@@ -233,6 +232,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				getSizes: payload
+			}
+		case GET_ALL_REVIEWS:
+			return{
+				...state,
+				getReviews: payload
 			}
 
 		default:

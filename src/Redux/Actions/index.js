@@ -20,7 +20,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_COLORS = 'GET_COLORS',
 	GET_SIZES = 'GET_SIZES',
 	CREATE_SNEAKER = 'GET_SIZES',
-	GET_BRANDS = 'GET_BRANDS';
+	GET_BRANDS = 'GET_BRANDS',
+	CREATE_REVIEW = 'CREATE_REVIEW',
+	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
 
 // const url = 'https://node-api-sneakers.herokuapp.com'
 const url = 'http://localhost:3001';
@@ -445,3 +447,66 @@ export function getSizes() {
 		}
 	};
 }
+
+export function deleteSneaker(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/deleteSneaker/${id}`)
+			return dispatch({
+				type: DELETE_SNEAKER,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+// return async (dispatch, getState) => {
+// 	const rootReducer = getState();
+// 	const { productData } = rootReducer;
+// 	localStorage.setItem('productData', JSON.stringify(productData));
+// 	let total = 0;
+// 	productData.forEach((item) => {
+// 		total += item.price * item.qty;
+// 	});
+// 	dispatch({
+// 		type: SET_TOTAL_PRICE,
+// 		payload: total,
+// 	});
+// }
+// };
+
+
+export function createReview(payload) {
+	return async function (dispatch) {
+		try {
+			console.log(payload);
+			const { data } = await axios.post(
+				`http://localhost:3001/review`,
+				payload
+			);
+			return dispatch({
+				type: CREATE_REVIEW,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+export function getAllreviews(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3001/reviews/${id}`
+			);
+			return dispatch({
+				type: GET_ALL_REVIEWS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
