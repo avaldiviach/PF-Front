@@ -133,6 +133,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//return Object.assign({}, state, payload);
 
+    case 'GET_CART_BD':
+      return {
+        ...state,
+        productData: [...state.productData, ...payload],
+      }
+
 		case REMOVE_ITEM_CART:
 			return {
 				...state,

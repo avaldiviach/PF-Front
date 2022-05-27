@@ -21,27 +21,6 @@ const Cart = () => {
 
   const { user } = useAuth();
 
-  console.log(useAuth);
-
-  useEffect(() => {
-    //mandamos usuario al back y traemos los productos de ese usuario en carrito
-    if (user) {
-      const { email } = user;
-      const sendUser = {
-        email,
-      };
-      try {
-        async function fetchData() {
-          // return await axios.post('http://localhost:3001/getCart', sendUser);
-          const response = await axios.post('http://localhost:3001/getCart', sendUser);
-          dispatch({ type: 'SET_CART', payload: response.data });
-        }
-        fetchData()
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [user]);
 
   // fetchData()
   // .then(response => {

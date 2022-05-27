@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useAuth } from "../../context/authContext";
 import styles from './RegisterFB.module.css';
@@ -14,10 +15,51 @@ export default function CreateUser() {
   const { signin, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const { user } = useAuth();
+
+    //mandamos usuario al back y traemos los productos de ese usuario en carrito
+    // useEffect(() => {
+    //   if (user) {
+    //     const { email } = user;
+  
+    //     try {
+    //       async function fetchData() {
+    //         // return await axios.post('http://localhost:3001/getCart', sendUser);
+    //         const response = await axios.post('http://localhost:3001/getCart', email);
+    //         dispatch({ type: 'SET_CART', payload: response.data });
+    //       }
+    //       fetchData()
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // }, [user]);
+  
+  //mandamos usuario al back y traemos los productos de ese usuario en carrito
+  // const getUserCart = async () => {
+  //   if (user) {
+  //     const { email } = user;
+
+  //     try {
+  //       async function fetchData() {
+  //         // return await axios.post('http://localhost:3001/getCart', sendUser);
+  //         const response = await axios.post('http://localhost:3001/getCart', {email});
+  //         dispatch({ type: 'GET_CART_BD', payload: response.data });
+  //       }
+  //       fetchData()
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }
+
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
-      navigate("/");
+      // getUserCart();
+      // navigate("/");
+      navigate(-1);
     } catch (error) {
       setError(error.message);  
       //error.code; para validar los tipos de errores...
@@ -27,6 +69,7 @@ export default function CreateUser() {
 
   const handleGoogleSignin = async () => {
     await loginWithGoogle();
+    // getUserCart();
     // navigate("/");
     navigate(-1);
   }

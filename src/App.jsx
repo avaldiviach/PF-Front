@@ -24,8 +24,10 @@ import { getSneakers } from "./Redux/Actions";
 
 function App() {
   const dispatch = useDispatch();
+  const { user } = useAuth();
   const productData = useSelector((state) => state.productData);
-  const { isAuthenticated, user } = useAuth();
+  const totalPrice = useSelector((state) => state.totalPrice);
+
 
   useEffect(() => {
     dispatch(getSneakers());
@@ -33,6 +35,7 @@ function App() {
   }, []);
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
+  // de todos los productos del carrito
   useEffect(() => {
     if (user && productData.length > 0) {
       const { email } = user;
@@ -42,14 +45,14 @@ function App() {
       };
       try {
         async function postCart() {
-          return await axios.post("http://localhost:3001/addCart", data);
+          return await axios.post("http://localhost:3001/addcart", data);
         }
         postCart();
       } catch (error) {
         console.log(error);
       }
     }
-  }, [user, productData]);
+  }, [user, totalPrice]);
 
   return (
     <div className="App">
@@ -57,7 +60,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        {/* <Route path="/create-user" element={<FormUser />} /> */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/addPro" element={<AddProduct />} />
         <Route path="/addProd" element={<AddModel />} />
