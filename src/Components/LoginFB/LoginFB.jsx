@@ -34,19 +34,6 @@ export default function CreateUser() {
     }
   }, [user]);
 
-
-  // const getUserCart = async (email) => {
-  //   try {
-  //     async function fetchData() {
-  //       const response = await axios.post('http://localhost:3001/getCart', { email });
-  //       dispatch({ type: 'GET_CART_BD', payload: response.data });
-  //     }
-  //     fetchData();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
