@@ -20,20 +20,14 @@ export default function CreateUser() {
   const { user } = useAuth();
 
   const getUserCart = async (email) => {
-    /* if (user) {
-      console.log('entré if');
-      const { email } = user;
-       */
     try {
       async function fetchData() {
-        // return await axios.post('http://localhost:3001/getCart', sendUser);
         const response = await axios.post('http://localhost:3001/getCart', { email });
         dispatch({ type: 'GET_CART_BD', payload: response.data });
       }
       fetchData();
     } catch (error) {
       console.log(error);
-      /*   } */
     }
   }
 
