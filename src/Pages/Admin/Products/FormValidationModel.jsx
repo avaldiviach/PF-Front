@@ -1,22 +1,22 @@
 const FormValidation = (e) => {
   let error = {};
 
-  const message = "This field must be filled in";
-  const descriptionVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*)$/);
-  const nameVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*){1,}$/);
+  const descriptionVal = new RegExp(/^([a-zA-Z0-9]+[_-])*[a-zA-Z0-9]+.[a-zA-Z0-9]+$/);
+  const nameVal = new RegExp(/^([a-zA-Z0-9]+[_-])*[a-zA-Z0-9]+.[a-zA-Z0-9]+$/);
   const materialVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*)$/);
 
-  if (!descriptionVal.test(e.description)) error.description = message;
-  if (!nameVal.test(e.name)) error.name = message;
-  if (!materialVal.test(e.material)) error.material = message;
+  if(e.description) if (!descriptionVal.test(e.description)) error.description = "A description is required";
+  if(e.name) if (!nameVal.test(e.name)) error.name = "A name is required";
+  if(e.material) if (!materialVal.test(e.material)) error.material = "A material is required, use only (a-z)";
 
-  if (e.categories.length === "" || e.categories.length === 0)
+  if (e.categories) {
+    if (e.categories.length === 0)
     error.categories = "A category is required";
+  } 
 
   if (e.brand.length === "" || e.brand.length === 0)
     error.brand = "A brand is required";
 
-  if (e.brand.length > 1) error.brand = "Only one brand can be selected";
   if (e.sizes.length === "" || e.sizes.length === 0)
     error.sizes = "A size is required";
 

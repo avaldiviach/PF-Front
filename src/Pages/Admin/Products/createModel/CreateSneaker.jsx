@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import SelectColors from "./select/Colors";
 import SelectModels from "./select/Models";
 import FormValidationProduct from "../FormValidationProduct";
+import s from './form.module.css'
 
 export default function CreateSneaker({ onHide, show, model }) {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ export default function CreateSneaker({ onHide, show, model }) {
       ...input,
       [meta.name]: value.value,
     });
+    setError(
+      FormValidationProduct({ ...input, [meta.name]: value.value })
+    );
   };
 
   const createClick = async (e) => {
@@ -75,7 +79,7 @@ export default function CreateSneaker({ onHide, show, model }) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Model</Form.Label>
           <SelectModels handleSelectChange={handleSelectChange} />
           <p style={{ display: "inline" }}>
@@ -89,11 +93,12 @@ export default function CreateSneaker({ onHide, show, model }) {
             Click here
           </p>
         </Form.Group>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Color</Form.Label>
           <SelectColors handleSelectChange={handleSelectChange} />
+          {error.color && (<p className={s.error}>{error.color}</p>)}
         </Form.Group>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Image</Form.Label>
           <Form.Control
             name="image"
@@ -102,7 +107,7 @@ export default function CreateSneaker({ onHide, show, model }) {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Price</Form.Label>
           <Form.Control
             name="price"
@@ -110,7 +115,7 @@ export default function CreateSneaker({ onHide, show, model }) {
             placeholder="Enter price"
             onChange={handleInputChange}
           />
-          {error.price && <p>{error.price}</p>}
+          {error.price && (<p className={s.error}>{error.price}</p>)}
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>

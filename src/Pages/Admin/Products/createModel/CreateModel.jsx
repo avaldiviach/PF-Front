@@ -8,6 +8,7 @@ import SelectCategories from "./select/Categories";
 import SelectSizes from "./select/Sizes";
 import SelecBrand from "./select/Brands";
 import FormValidationModel from "../FormValidationModel";
+import s from './form.module.css'
 
 export default function CreateModel(props) {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ export default function CreateModel(props) {
       ...input,
       [meta.name]: value,
     });
+    setError(
+      FormValidationModel({ ...input, [meta.name]: value })
+    );
   };
 
   const createClick = async (e) => {
@@ -89,12 +93,12 @@ export default function CreateModel(props) {
       </Modal.Header>
 
       <Modal.Body>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Brand</Form.Label>
           <SelecBrand handleSelectChange={handleSelectChange} />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Material</Form.Label>
           <Form.Control
             name="material"
@@ -103,9 +107,9 @@ export default function CreateModel(props) {
             onChange={handleInputChange}
           />
         </Form.Group>
-        {error.material && <p>{error.material}</p>}
+        {error.material && <p className={s.error}>{error.material}</p>}
 
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Name</Form.Label>
           <Form.Control
             name="name"
@@ -114,9 +118,9 @@ export default function CreateModel(props) {
             onChange={handleInputChange}
           />
         </Form.Group>
-        {error.name && <p>{error.name}</p>}
+        {error.name && <p className={s.error}>{error.name}</p>}
 
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Description</Form.Label>
           <Form.Control
             name="description"
@@ -125,13 +129,15 @@ export default function CreateModel(props) {
             onChange={handleInputChange}
           />
         </Form.Group>
-        {error.description && <p>{error.description}</p>}
+        {error.description && <p className={s.error}>{error.description}</p>}
 
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Categories</Form.Label>
           <SelectCategories handleSelectMultiChange={handleSelectMultiChange} />
+        {error.categories && <p className={s.error}>{error.categories}</p>}
+
         </Form.Group>
-        <Form.Group>
+        <Form.Group className={s.group}>
           <Form.Label id="label">Sizes</Form.Label>
           <SelectSizes handleSelectMultiChange={handleSelectMultiChange} />
         </Form.Group>

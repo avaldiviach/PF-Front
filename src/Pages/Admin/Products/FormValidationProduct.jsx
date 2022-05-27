@@ -1,10 +1,12 @@
 const FormValidationProduct = (e) => {
   let error = {};
 
-  const message = "This field must be filled in";
   const PriceVal = new RegExp(/^([0-9]|[^a-zA-Z]\S){2,5}$/);
+  const nameVal = new RegExp(/^([a-zA-Z]|[^0-9]\S)([^0-9]*){1,}$/);
 
-  if (!PriceVal.test(e.price)) error.price = message;
+
+  if (e.price) if (!PriceVal.test(e.price)) error.price = 'You must put the price in numbers';
+  if (e.color) if(!nameVal.test(e.color)) error.color = "Color can't be numbers";
 
   return error;
 };
