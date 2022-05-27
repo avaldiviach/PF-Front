@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getModels, getMaterials, getSizes, getColors, getCategories, getBrands, getSneakers } from "../../../Redux/Actions";
 import CreateModel from "./createModel/CreateModel";
 import CreateSneaker from "./createModel/CreateSneaker";
+import UpdateSneaker from "./createModel/UpdateSneaker";
 import s from "../Categories/categories.module.css";
 
 export default function Products() {
@@ -13,6 +14,14 @@ export default function Products() {
 
   const [showModalSneaker, setshowModalSneaker] = useState(false);
   const [showModalModel, setshowModalModel] = useState(false);
+  const [modalUpdate, setModalUpdate] = useState({
+    show: false,
+    price: '',
+    sizes: [],
+    id: '',
+    name: ''
+  });
+
 
 
 
@@ -27,8 +36,8 @@ export default function Products() {
 
     }
     load()
-
-  }, [showModalModel, showModalSneaker]);
+    console.log(modalUpdate)
+  }, [showModalModel, showModalSneaker, modalUpdate]);
 
 
   return (
@@ -44,7 +53,8 @@ export default function Products() {
       </button>
       <CreateModel show={showModalModel} onHide={() => setshowModalModel(false)} />
 
-      <Cards renderSneakers={sneakers} admin={true} />
+      <Cards renderSneakers={sneakers} admin={true} setState={setModalUpdate}/>
+      <UpdateSneaker show={modalUpdate.show} onHide={() => setModalUpdate({...modalUpdate, show: false})} sneaker={modalUpdate} />
     </section>
   );
 }

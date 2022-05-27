@@ -21,6 +21,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_SIZES = "GET_SIZES",
 	DELETE_SNEAKER = "DELETE_SNEAKER",
 	CREATE_SNEAKER = "CREATE_SNEAKER",
+	UPDATE_SNEAKER = "UPDATE_SNEAKER",
 	GET_BRANDS = "GET_BRANDS";
 
 export function getSneakers() {
@@ -416,6 +417,21 @@ export function deleteSneaker(id) {
 			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/deleteSneaker/${id}`)
 			return dispatch({
 				type: DELETE_SNEAKER,
+				payload: data,
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+export function updateSneaker(id, payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
+			console.log(payload)
+			return dispatch({
+				type: UPDATE_SNEAKER,
 				payload: data,
 			})
 		} catch (error) {

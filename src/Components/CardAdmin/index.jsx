@@ -6,8 +6,8 @@ import style from "./Card.module.css";
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from "@mui/material";
 
-function Card({ sneaker }) {
-  const { model, price, image, brand, id, deleted } = sneaker;
+function Card({ sneaker, setState }) {
+  const { model, price, image, brand, id, deleted, sizes } = sneaker;
   const dispatch = useDispatch();
 
   const handleDeleteSneaker = async (e) => {
@@ -17,8 +17,16 @@ function Card({ sneaker }) {
     alert("sneaker has been deleted", id);
   };
 
-  const updateSneaker = () => {
+  const updateSneaker = (e) => {
     e.preventDefault();
+    console.log(sizes)
+    setState({
+      price: price,
+      sizes: sizes,
+      show: true,
+      id: id,
+      name: model
+    })
   };
   return (
     <div>
