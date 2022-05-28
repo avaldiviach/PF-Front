@@ -29,7 +29,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-	totalPrice: 0,
+	getReviews: [],
 	users: [],
 	categories: [],
 	createModel: [],
@@ -38,24 +38,17 @@ const initialState = {
 	getMaterials: [],
 	getColors: [],
 	getSizes: [],
+
+  //Estados globales de carrito
+	// productData: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
-
 	totalPrice: 0,
-
-	// Las propiedades de abajo son para el carrito en caso de que se quiera 
-	// implementar cupones de descuento
-	// showDiscountForm: false,
-	// discountCode: '',
-	// discountCodeValid: null,
-	// showCheckoutScreen: false,
-
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
 	showDiscountForm: false,
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
-	getReviews: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
