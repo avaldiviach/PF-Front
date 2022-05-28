@@ -44,7 +44,7 @@ function App() {
       };
       try {
         async function postCart() {
-          return await axios.post("http://localhost:3001/addcart", data);
+          return await axios.post("https://node-api-sneakers.herokuapp.com/addcart", data);
         }
         postCart();
       } catch (error) {

@@ -494,7 +494,7 @@ export function createReview(payload) {
 		try {
 			console.log(payload);
 			const { data } = await axios.post(
-				`http://localhost:3001/review`,
+				`https://node-api-sneakers.herokuapp.com/review`,
 				payload
 			);
 			return dispatch({
@@ -510,7 +510,7 @@ export function getAllreviews(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`http://localhost:3001/reviews/${id}`
+				`https://node-api-sneakers.herokuapp.com/reviews/${id}`
 			);
 			return dispatch({
 				type: GET_ALL_REVIEWS,
