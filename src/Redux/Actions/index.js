@@ -24,7 +24,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	UPDATE_SNEAKER = "UPDATE_SNEAKER",
 	GET_BRANDS = "GET_BRANDS",
 	CREATE_REVIEW = 'CREATE_REVIEW',
-	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
+	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
+	GET_ALL_ORDERS = 'GET_ALL_ORDERS',
+	GET_ORDER_BY_ID = 'GET_ORDER_BY_ID';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -166,7 +168,7 @@ export const removeItem = (id, size, email) => {
 			email,
 			productData: payload
 		}
-		if(email) axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, data);
+		if (email) axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, data);
 		dispatch({
 			type: REMOVE_ITEM_CART,
 			payload
@@ -435,7 +437,7 @@ export function getSizes() {
 		try {
 			const { data } = await axios.get(
 				`https://node-api-sneakers.herokuapp.com/sizes`
-			);return dispatch({
+			); return dispatch({
 				type: GET_SIZES,
 				payload: data,
 			});
@@ -456,8 +458,9 @@ export function deleteSneaker(id) {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-}
+	}
+};
+
 
 export function updateSneaker(id, payload) {
 	return async function (dispatch) {
@@ -514,6 +517,39 @@ export function getAllreviews(id) {
 			);
 			return dispatch({
 				type: GET_ALL_REVIEWS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getOrders() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getOrders`
+			);
+			return dispatch({
+				type: GET_ALL_ORDERS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getOrderById(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3001/getOrders/${id}`
+
+			);
+			return dispatch({
+				type: GET_ORDER_BY_ID,
 				payload: data,
 			});
 		} catch (error) {
