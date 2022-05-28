@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
 
-import styles from './Reviews.module.css';
+import styles from './CreateReview.module.css';
 import image from '../../Assets/Images/3.svg';
 import RatingStars from './RatingStarsModify';
 import { useDispatch, useSelector } from 'react-redux';
