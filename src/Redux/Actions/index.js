@@ -22,7 +22,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	CREATE_SNEAKER = 'GET_SIZES',
 	GET_BRANDS = 'GET_BRANDS',
 	CREATE_REVIEW = 'CREATE_REVIEW',
-	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
+	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
+	CREATE_USER = 'CREATE_USER',
+	GET_ROLE = 'GET_ROLE'
 
 // const url = 'https://node-api-sneakers.herokuapp.com'
 const url = 'http://localhost:3001';
@@ -510,3 +512,42 @@ export function getAllreviews(id) {
 	};
 }
 
+export function createUser(payload) {
+	return async function (dispatch) {
+		try {
+			console.log(payload);
+			const { data } = await axios.post(
+				`http://localhost:3001/user`,
+				payload
+			);
+			return dispatch({
+				type: CREATE_USER,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getRole(id){
+	return async function(dispatch){
+		if(!id){
+			return dispatch({
+				type: GET_ROLE,
+				payload: "guest",
+			});
+		}
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3001/role/${id}`
+			);
+			return dispatch({
+				type: GET_ROLE,
+				payload: data,
+			});
+		} catch (error) {
+			
+		}
+	}
+}

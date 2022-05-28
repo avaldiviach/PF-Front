@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import image from '../../Assets/Images/3.svg';
 import styles from './RegisterFB.module.css';
+import { createUser } from '../../Redux/Actions';
 
 
 export default function CreateUser() {
@@ -38,8 +39,7 @@ export default function CreateUser() {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
       // await getUserCart(data.email);
-      // navigate("/");
-      navigate(-1);
+      navigate("/");      
     } catch (error) {
       setError(error.message);
       //error.code; para validar los tipos de errores...
@@ -48,7 +48,8 @@ export default function CreateUser() {
   }
 
   const handleGoogleSignin = async () => {
-    await loginWithGoogle();
+    const userGoogle = await loginWithGoogle();
+    dispatch(createUser({id:userGoogle.user.uid,name: userGoogle.user.displayName, email:userGoogle.user.email}))
     // navigate("/");
     navigate(-1);
   }
