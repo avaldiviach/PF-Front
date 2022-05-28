@@ -6,7 +6,7 @@ import Cards from "../../Components/Cards";
 import ImagenPrincipal from "../../Components/ImagenPrincipal";
 import Filters from "../../Components/Filters";
 import Pagination from "../../Components/Pagination";
-import  ModalSearch from "../../Components/Modal/";
+import ModalSearch from "../../Components/Modal/";
 
 
 //import Carrousel from '../../Components/Carrousel';
@@ -15,7 +15,7 @@ import style from "./home.module.css";
 const Home = () => {
   const filteredSneakers = useSelector((state) => state.SneakersCopy);
   const searchResponse = useSelector((state) => state.searchSneakers);
-  
+
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
   // Se crea la paginación de x zapatillas por página
   const SNEAKERS_PER_PAGE = 8; // Constante para setear cantidad de zapatillas por página
@@ -45,13 +45,11 @@ const Home = () => {
   //---------------------------------------------------------------------------------------------------------------
 
   return (
-    
+
     <div className={style.home}>
-      {loading === true ? (
-        <h2>Loading..</h2>
-      ) : (
-        <>
-        
+      {loading === true
+        ? (<img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt="img loading"/>)
+        : (<>
           <ImagenPrincipal />
 
           {/* Componente para filtros */}
@@ -59,18 +57,18 @@ const Home = () => {
 
           {/* Componente para paginado */}
           {
-            filteredSneakers.length > 1 &&  <Pagination
-            numberOfSneakers={filteredSneakers.length}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
+            filteredSneakers.length > 1 && <Pagination
+              numberOfSneakers={filteredSneakers.length}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              SNEAKERS_PER_PAGE={SNEAKERS_PER_PAGE}
             />
-            
+
           }
-          {filteredSneakers.length < 1 && <ModalSearch active={true} msg={searchResponse}/>}
-          <Cards renderSneakers={currentPageSneakers} admin={false}/>
+          {filteredSneakers.length < 1 && <ModalSearch active={true} msg={searchResponse} />}
+          <Cards renderSneakers={currentPageSneakers} admin={false} />
         </>
-      )}
+        )}
     </div>
   );
 };

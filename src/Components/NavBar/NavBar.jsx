@@ -16,10 +16,14 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  //Para obtener solo el nombre del mail
   const name = user?.email.split("@")[0];
 
   const handleLogout = async () => {
     await logout();
+    // Se borrra local storage y estado global cuando se hace el logout
+    dispatch({ type: 'SET_CART', payload: { productData: [] } });
+    localStorage.removeItem('productData')
     navigate("/")
   }
 

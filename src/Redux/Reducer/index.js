@@ -19,7 +19,8 @@ import {
 	GET_BRANDS,
 	GET_MATERIALS,
 	GET_COLORS,
-	GET_SIZES
+	GET_SIZES,
+	GET_ALL_REVIEWS
 } from '../Actions';
 
 const initialState = {
@@ -54,6 +55,7 @@ const initialState = {
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
+	getReviews: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -133,6 +135,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...payload,
 			}
 		//return Object.assign({}, state, payload);
+
+    case 'GET_CART_BD':
+      return {
+        ...state,
+        productData: [...state.productData, ...payload],
+      }
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -224,6 +232,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				getSizes: payload
+			}
+		case GET_ALL_REVIEWS:
+			return{
+				...state,
+				getReviews: payload
 			}
 
 		default:
