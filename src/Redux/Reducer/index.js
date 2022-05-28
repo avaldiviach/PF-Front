@@ -29,7 +29,6 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-	productData: [],
 	totalPrice: 0,
 	users: [],
 	categories: [],
@@ -40,6 +39,7 @@ const initialState = {
 	getColors: [],
 	getSizes: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
+
 	totalPrice: 0,
 
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
