@@ -2,35 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
+import { useSelector, useDispatch } from "react-redux"
 
-import styles from './Reviews.module.css';
-import image from '../../Assets/Images/3.svg';
+// Componentes y funciones
 import RatingStarsRead from "../../Components/Reviews/RatingStarsRead";
-import {useSelector, useDispatch} from "react-redux"
+import Review from './Review';
 import { getAllreviews } from '../../Redux/Actions';
-export default function Reviews() {
-  const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
-  // const [error, setError] = useState('');
-  const { signin, loginWithGoogle } = useAuth();
+
+import image from '../../Assets/Images/3.svg';
+import styles from './Reviews.module.css';
+
+export default function ListReview() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const reviews = useSelector(state => state.getReviews);
- useEffect(()=>{
-   dispatch(getAllreviews(1));
- },[])
+  useEffect(() => {
+    dispatch(getAllreviews(1));
+  }, [])
 
   return (
     <section className={styles.main_createUser}>
       {
-        reviews?.map(review =>{
-          return(
-          <React.Fragment key={review.id}>
-          <RatingStarsRead rating={review.rating} />
-            <div >
-              <h1>{review.title}</h1>
-              <p>{review.review}</p>
-            </div>
-          </React.Fragment>            
+        reviews?.map(review => {
+          return (
+            <Review key={review.id} review={review} />
           )
         })
       }
