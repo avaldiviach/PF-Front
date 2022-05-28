@@ -29,8 +29,6 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-	productData: [],
-	totalPrice: 0,
 	users: [],
 	categories: [],
 	createModel: [],
