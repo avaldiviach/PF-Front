@@ -125,6 +125,7 @@ border-radius: 1rem; */
 	padding: 1em;
 	border-radius: 0.2em;
 	margin-bottom: 0.2em;
+  resize: none;
 }
 
 .formulario

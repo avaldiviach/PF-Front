@@ -4,8 +4,8 @@ import { Link, NavLink, useParams } from "react-router-dom";
 
 //Componentes y funciones
 import ModalCart from "../../Components/Modal/modalCart"
-import RatingStars from "../../Components/Reviews/RatingStars";
-import Reviews from "../../Components/Reviews";
+import RatingStars from "../../Components/Reviews/RatingStarsRead";
+import Reviews from "../../Components/Reviews/CreateReview";
 import { getDetailSneaker, cleanDetail, addItem } from "../../Redux/Actions";
 import s from "./detail.module.css";
 
@@ -19,9 +19,11 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
+    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
+    
   }, [id]);
 
   function addToCart() {
@@ -83,12 +85,12 @@ export default function Detail() {
               <RatingStars />
               <NavLink to="/reviews">
                 Create Review
-              </NavLink><NavLink to="/reviews">
+              </NavLink><NavLink to="/listreviews">
                 See Reviews
               </NavLink>
               <p className={s.price} >${sneaker.price}</p>
               <p className={s.details}>Details: {sneaker.description}</p>
-              <p className={s.sizes_title}>Selec Size (EUR)</p>
+              <p className={s.sizes_title}>Select Size (EUR)</p>
               <div className={s.sizes}>
                 <select onChange={selectSize}>
                   <option value="" >Select Size</option>
