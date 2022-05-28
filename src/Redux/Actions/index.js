@@ -130,10 +130,10 @@ export const addItem = (data) => (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-	const exist = productData?.some(
-		(product) => product.id === data.id && product.size === data.sizes.size
+	const exist = productData?.every(
+		(product) => product.id !== data.id && product.size !== data.sizes.size
 	);
-	if (exist) return exist;
+	if (!exist) return !exist;
 	dispatch({
 		type: SET_CART,
 		payload: {
