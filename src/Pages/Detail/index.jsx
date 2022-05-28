@@ -15,7 +15,7 @@ export default function Detail() {
   const sneaker = useSelector((state) => state.detail);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
-
+  console.log(sneaker.rating)
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
@@ -80,7 +80,7 @@ export default function Detail() {
             </section>
             <section className={s.rigth}>
               <p className={s.brand}> {sneaker.brand}</p>
-              <RatingStars />
+              <RatingStars rating={sneaker.rating} />
               <NavLink to="/reviews">
                 Create Review
               </NavLink><NavLink to="/listreviews">

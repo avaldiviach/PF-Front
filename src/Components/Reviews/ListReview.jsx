@@ -5,7 +5,7 @@ import { useAuth } from "../../context/authContext";
 
 import styles from './Reviews.module.css';
 import image from '../../Assets/Images/3.svg';
-import RatingStars from "../../Components/Reviews/RatingStarsRead";
+import RatingStarsRead from "../../Components/Reviews/RatingStarsRead";
 import {useSelector, useDispatch} from "react-redux"
 import { getAllreviews } from '../../Redux/Actions';
 export default function Reviews() {
@@ -25,7 +25,7 @@ export default function Reviews() {
         reviews?.map(review =>{
           return(
           <React.Fragment key={review.id}>
-          <RatingStars />
+          <RatingStarsRead rating={review.rating} />
             <div >
               <h1>{review.title}</h1>
               <p>{review.review}</p>
