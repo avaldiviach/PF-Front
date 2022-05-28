@@ -12,6 +12,7 @@ import {
 } from "../../Redux/Actions";
 import Products from "./Products";
 import CategoriesContent from "./Categories";
+import OrdersContent from "./Orders";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export default function Admin() {
               case "products":
                 return <Products />;
               case "orders":
-                return <h1>muy pronto orders</h1>;
+                return <OrdersContent />;
               case "categories":
                 return <CategoriesContent />;
             }

@@ -24,7 +24,9 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	UPDATE_SNEAKER = "UPDATE_SNEAKER",
 	GET_BRANDS = "GET_BRANDS",
 	CREATE_REVIEW = 'CREATE_REVIEW',
-	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
+	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
+	GET_ALL_ORDERS = 'GET_ALL_ORDERS',
+	GET_ORDER_BY_ID = 'GET_ORDER_BY_ID';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -515,6 +517,39 @@ export function getAllreviews(id) {
 			);
 			return dispatch({
 				type: GET_ALL_REVIEWS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getOrders() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getOrders`
+			);
+			return dispatch({
+				type: GET_ALL_ORDERS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getOrderById(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3001/getOrders/${id}`
+
+			);
+			return dispatch({
+				type: GET_ORDER_BY_ID,
 				payload: data,
 			});
 		} catch (error) {

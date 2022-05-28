@@ -20,7 +20,9 @@ import {
 	GET_MATERIALS,
 	GET_COLORS,
 	GET_SIZES,
-	GET_ALL_REVIEWS
+	GET_ALL_REVIEWS,
+	GET_ALL_ORDERS,
+	GET_ORDER_BY_ID
 } from '../Actions';
 
 const initialState = {
@@ -55,7 +57,9 @@ const initialState = {
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
-	getReviews: []
+	getReviews: [],
+	getOrders: [],
+	orderById: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -136,11 +140,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//return Object.assign({}, state, payload);
 
-    case 'GET_CART_BD':
-      return {
-        ...state,
-        productData: [...state.productData, ...payload],
-      }
+		case 'GET_CART_BD':
+			return {
+				...state,
+				productData: [...state.productData, ...payload],
+			}
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -234,9 +238,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				getSizes: payload
 			}
 		case GET_ALL_REVIEWS:
-			return{
+			return {
 				...state,
 				getReviews: payload
+			}
+
+		case GET_ALL_ORDERS:
+			return {
+				...state,
+				getOrders: payload
+			}
+
+		case GET_ORDER_BY_ID:
+
+			return {
+				...state,
+				orderById: payload
 			}
 
 		default:
