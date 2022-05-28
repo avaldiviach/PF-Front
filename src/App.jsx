@@ -64,7 +64,7 @@ function App() {
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
         <Route path="/cart/*" element={<Cart />}>
-          <Route path="payment" element={<Payment />} />
+          <Route path="payment" element={<Payment user={user}/>} />
         </Route>
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/listreviews" element={<Reviews2 />} />

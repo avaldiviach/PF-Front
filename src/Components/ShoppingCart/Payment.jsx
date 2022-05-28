@@ -4,11 +4,14 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router';
 import ModalCart from "../Modal/modalCart";
 
-function Payment() {
+function Payment({user}) {
 
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const totalPrice = useSelector(state => state.totalPrice);
+  const productData = useSelector(state => state.productData)
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +27,8 @@ function Payment() {
     });
     console.log(paymentMethod)
     if (!error) {
+      console.log('elements', productData)
+      console.log('user', user.email)
       return fetch(`https://node-api-sneakers.herokuapp.com/payment`, {
         method: 'POST',
         headers: {

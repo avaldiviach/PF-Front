@@ -348,7 +348,7 @@ export function createCategory(payload) {
 export function deleteCategory(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(
+			const { data } = await axios.put(
 				`https://node-api-sneakers.herokuapp.com/deleteCategory/${id}`
 			);
 

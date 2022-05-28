@@ -21,6 +21,10 @@ const Cart = () => {
 
   const { user } = useAuth();
 
+  useEffect(() => {
+    console.log(productData)
+  }, [productData]);
+
 
   return (
     <main className='py-6 px-12 w-full flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6'>
