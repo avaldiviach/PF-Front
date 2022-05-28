@@ -8,7 +8,6 @@ const TableOrders = () => {
   const orderById = useSelector((state) => state.orderById);
   const dispatch = useDispatch();
   console.log(orders);
-
   // const ordById = (e) => {
   //   e.preventDefault();
   //   dispatch(getOrderById(e.target.value));
