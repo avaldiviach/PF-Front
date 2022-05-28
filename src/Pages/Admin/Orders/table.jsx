@@ -37,7 +37,10 @@ const TableOrders = () => {
                 <button value={ord.id} className={s.update}>
                   ✎
                 </button>
-                <button value={ord.id}>👁</button>
+              </td>
+              <td>
+
+              <button value={ord.id}>👁</button>
               </td>
             </tr>
           ))}
