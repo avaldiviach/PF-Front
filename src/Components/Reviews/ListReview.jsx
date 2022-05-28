@@ -22,14 +22,25 @@ export default function ListReview() {
   }, [])
 
   return (
-    <section className={styles.main_createUser}>
+    <>
       {
         reviews?.map(review => {
           return (
-            <Review key={review.id} review={review} />
+            <>
+              <Review key={review.id} review={review} />
+            </>
+
           )
         })
       }
-    </section>
+      <div className={styles.rightBox}>
+        <div className={styles.position_relative}>
+          {/* <h2 className={styles.rotate}>HENRYS</h2> */}
+          <div className={styles.image_container}>
+            <img src={image} alt="sneaker" />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
