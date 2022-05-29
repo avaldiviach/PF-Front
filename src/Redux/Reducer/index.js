@@ -135,9 +135,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		//return Object.assign({}, state, payload);
 
     case 'GET_CART_BD':
+      const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
       return {
         ...state,
-        productData: [...state.productData, ...payload],
+        productData: [...state.productData, ...filterDB],
       }
 
 		case REMOVE_ITEM_CART:
