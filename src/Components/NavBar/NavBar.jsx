@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -10,10 +10,8 @@ import Cart from '../ShoppingCart/Cart'
 import { getSneakers } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
+import { GrUserAdmin } from "react-icons/gr";
 import logo from '../../Assets/Images/logo.svg';
-
-
-
 
 
 /* This example requires Tailwind CSS v2.0+ */
@@ -22,15 +20,36 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = [
-  { name: 'Cart', href: '#', current: true },
-  { name: 'Admin', href: '#', current: false },
+  { name: 'Cart', href: '/cart', current: false },
+  // { name: 'Admin', href: '#', current: false },
 ]
 
 function classNames(...classes) {
+  // console.log(classes[classes.length - 1])
+  // if (Array.isArray(classes[classes.length - 1])) {
+  //   setActive([{ name: 'Cart', href: '/cart', current: true }]) 
+  // }
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
+
+  // const [active, setActive] = React.useState(navigation)
+
+  const dispatch = useDispatch();
+  const { user, logout, loading } = useAuth();
+  const navigate = useNavigate();
+  //Para obtener solo el nombre del mail
+  const name = user?.email.split("@")[0];
+
+  const handleLogout = async () => {
+    await logout();
+    // Se borrra local storage y estado global cuando se hace el logout
+    dispatch({ type: 'SET_CART', payload: { productData: [] } });
+    localStorage.removeItem('productData')
+    navigate("/")
+  }
+
   return (
     <Disclosure as="nav" className="bg-white-800">
       {({ open }) => (
@@ -60,9 +79,7 @@ export default function Example() {
                   >
                     <img src={logo} className="block md:hidden h-10 w-auto" alt="logo" />
                     {/* <img src={logo} className="block sm:hidden h-10 w-auto" alt="logo" /> */}
-                    
                   </NavLink>
-
                   {/* logo en grande */}
                   <NavLink
                     to="/"
@@ -73,30 +90,28 @@ export default function Example() {
                 </div>
 
                 {/* OPCIONES DE MENU */}
-                <div className="hidden md:block md:ml-6  items-center">
-                  <div className="flex space-x-4 mt-2">
+                <div className="hidden md:block md:ml-6 items-center">
+                  <div className={`flex space-x-4 mt-2 ${styles.containerEnlaces}`}>
                     {navigation?.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? 'bg-gray-900 text-lg text-white'
-                            : 'text-gray-900 text-lg hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium'
+                            ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
+                            : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
                       </a>
                     ))}
-
                   </div>
                 </div>
               </div>
-{/* 640*560 */}
 
               {/* DERECHA ----> BOTON NOTIFICACIONES Y LOGIN */}
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className={`absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0 ${styles.containerSearchProfile}`}>
                 {/* BOTON DE NOTIFICACIONES */}
                 {/* <button
                   type="button"
@@ -105,10 +120,12 @@ export default function Example() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button> */}
-              <div className={`hidden md:block sm:ml-6`}>
-                <SearchBar />
-              </div>
-
+                <div className={`hidden md:block sm:ml-6`}>
+                  <SearchBar />
+                </div>
+                <Menu as="div" className={`ml-10 relative ${styles.admin}`}>
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg>
+                </Menu>
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
@@ -121,6 +138,7 @@ export default function Example() {
                       />
                     </Menu.Button>
                   </div>
+                  {/* MENU DESPLEGABLE DE USER */}
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -130,49 +148,61 @@ export default function Example() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+
+                    <Menu.Items className={`origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${styles.zindex}`}>
+                      <Menu.Item>
+                        {user
+                          ? (<span className={styles.emailName}>
+                            Hello {name}
+                          </span>)
+                          : <></>
+                        }
+                      </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
+                          (!user
+                            ? (<Link
+                              to='/loginfb'
+                              // href="/loginfb"
+                              className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            >
+                              Sign In✔
+                            </Link>)
+                            : (
+                              <div
+                                className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                // to='/loginfb'
+                                onClick={handleLogout}
+                              >
+                                Sign Out
+                              </div>)
+                          )
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          (<Link
+                            // href="/registerfb"
+                            to='/registerfb'
                             className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
+                            Sign Up👆
+                          </Link>)
                         )}
                       </Menu.Item>
                     </Menu.Items>
+
+
                   </Transition>
                 </Menu>
-                
+
               </div>
             </div>
           </div>
 
           {/* OPCIONES DE MENU EN MOVIL */}
           <Disclosure.Panel className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-1 flex items-center justify-center ml-5">
               {navigation?.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -188,9 +218,9 @@ export default function Example() {
                 </Disclosure.Button>
 
               ))}
-              {/* <div className={`hidden sm:block sm:ml-6`}> */}
+              <div className={`flex items-center justify-end pr-6 ${styles.searchBar}`}>
                 <SearchBar />
-              {/* </div> */}
+              </div>
             </div>
           </Disclosure.Panel>
         </>
