@@ -19,20 +19,20 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const navigation = [
-  { name: 'Cart', href: '/cart', current: false },
-  // { name: 'Admin', href: '#', current: false },
-]
-
-function classNames(...classes) {
-  // console.log(classes[classes.length - 1])
-  // if (Array.isArray(classes[classes.length - 1])) {
-  //   setActive([{ name: 'Cart', href: '/cart', current: true }]) 
-  // }
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function Example() {
+  const navigation = [
+    { name: 'Cart', href: '/cart', current: false },
+    // { name: 'Admin', href: '#', current: false },
+  ]
+  
+  function classNames(...classes) {
+    // console.log(classes[classes.length - 1])
+    // if (Array.isArray(classes[classes.length - 1])) {
+    //   setActive([{ name: 'Cart', href: '/cart', current: true }]) 
+    // }
+    return classes.filter(Boolean).join(' ')
+  }
 
   // const [active, setActive] = React.useState(navigation)
 
@@ -93,18 +93,19 @@ export default function Example() {
                 <div className="hidden md:block md:ml-6 items-center">
                   <div className={`flex space-x-4 mt-2 ${styles.containerEnlaces}`}>
                     {navigation?.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
+                        // href={item.href}
                         className={classNames(
                           item.current
-                            ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
-                            : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
+                          ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
+                          : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
+                          )}
+                          aria-current={item.current ? 'page' : undefined}
+                          >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
