@@ -574,3 +574,19 @@ export function createOrder(payload) {
 		}
 	};
 }
+
+export function updateOrder(id, status) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, {newStatus: status}
+			);
+			return dispatch({
+				type: 'UPDATE_ORDER',
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}

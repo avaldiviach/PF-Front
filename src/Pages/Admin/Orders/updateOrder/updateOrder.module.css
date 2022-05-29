@@ -1,0 +1,25 @@
+.barContainer{
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: 2rem auto;
+
+    padding:0 1rem;
+}
+
+
+.pending{
+    color: var(--color1) !important;
+}
+
+.in{
+    color: var(--color2)!important;
+}
+
+.complete{
+    color: rgb(40, 193, 49)!important;
+}
+
+.cancel{
+    color: rgb(255, 120, 120)!important;
+}

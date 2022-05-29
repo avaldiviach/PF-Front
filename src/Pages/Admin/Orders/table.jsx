@@ -1,17 +1,21 @@
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderById } from "../../../Redux/Actions";
 import s from "./Orders.module.css";
 
-const TableOrders = () => {
+const TableOrders = ({update}) => {
   const orders = useSelector((state) => state.getOrders);
-  const orderById = useSelector((state) => state.orderById);
   const dispatch = useDispatch();
+
   console.log(orders);
   // const ordById = (e) => {
   //   e.preventDefault();
   //   dispatch(getOrderById(e.target.value));
   // };
+
+  const updateOrder = async (e) => {
+    e.preventDefault()
+    update({order: orders[e.target.value], show:true})
+  }
 
   return (
     <Table hover className={s.table}>
@@ -27,14 +31,14 @@ const TableOrders = () => {
       </thead>
       <tbody className={s.tbody}>
         {orders.length > 0 &&
-          orders.map((ord) => (
+          orders.map((ord, i) => (
             <tr key={ord.id}>
               <td>{ord.id}</td>
               <td>{ord.nameUser}</td>
               <td>{ord.state}</td>
               <td>{ord.date}</td>
               <td>
-                <button value={ord.id} className={s.update}>
+                <button value={i} className={s.update} onClick={updateOrder}>
                   ✎
                 </button>
               </td>
