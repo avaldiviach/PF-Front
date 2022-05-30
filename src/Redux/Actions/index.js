@@ -32,7 +32,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_ROLE = 'GET_ROLE',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	OFFER_SNEAKER = 'OFFER_SNEAKER'
 
 
 export function getSneakers() {
@@ -139,7 +140,7 @@ export const addItem = (data) => (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-  
+
 	const exist = productData?.every(
 		(product) => product.id !== data.id && product.size !== data.sizes.size
 	);
@@ -542,7 +543,7 @@ export function getOrders() {
 			);
 			return dispatch({
 				type: GET_ALL_ORDERS,
-        payload: data,
+				payload: data,
 			});
 		} catch (error) {
 			console.log(error);
@@ -589,7 +590,7 @@ export function createOrder(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/createOrder`,payload
+				`https://node-api-sneakers.herokuapp.com/createOrder`, payload
 			);
 			return dispatch({
 				type: CREATE_ORDER,
@@ -605,7 +606,7 @@ export function updateOrder(id, status) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, {newStatus: status}
+				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, { newStatus: status }
 			);
 			return dispatch({
 				type: 'UPDATE_ORDER',
@@ -618,9 +619,9 @@ export function updateOrder(id, status) {
 }
 
 
-export function getRole(id){
-	return async function(dispatch){
-		if(!id){
+export function getRole(id) {
+	return async function (dispatch) {
+		if (!id) {
 			return dispatch({
 				type: GET_ROLE,
 				payload: "guest",
@@ -641,24 +642,65 @@ export function getRole(id){
 }
 
 
-export function getToken(token){			
-	return function (dispatch){
+export function getToken(token) {
+	return function (dispatch) {
 		return dispatch({
 			type: GET_TOKEN,
 			payload: token,
-		});			
-}}
-export function getUser(curUser){			
-	return function(dispatch){
+		});
+	}
+}
+export function getUser(curUser) {
+	return function (dispatch) {
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
-		});			
-}}
+		});
+	}
+}
 
-export function logOutAndReset(){			
-	return function(dispatch){
+export function logOutAndReset() {
+	return function (dispatch) {
 		return dispatch({
 			type: RESET,
-		});			
-}}
+		});
+	}
+}
+
+
+export const offerSneaker = (id) => async (dispatch, getState) => {
+	const rootReducer = getState();
+	const { productData } = rootReducer;
+	const formatter = new Intl.ListFormat('en', {
+		style: 'long',
+		type: 'conjunction',
+	});
+	const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
+	console.log(data, 'aqui')
+	const exist = productData?.every(
+		(product) => product.id !== data.id && product.size !== data.sizes[0].size
+	);
+	if (!exist) return !exist;
+	dispatch({
+		type: SET_CART,
+		payload: {
+			productData: [
+				...productData,
+				{
+					sneakerId: data.id,
+					name: data.model,
+					brand: data.brand,
+					categories: formatter.format(data.categories),
+					price: data.price * (0.80),
+					description: data.description,
+					size: data.sizes[0].size,
+					max: data.sizes[0].stock,
+					qty: 1,
+					image: data.image,
+					wishlisted: false,
+				},
+			],
+		},
+	});
+}
+
