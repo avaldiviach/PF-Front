@@ -12,7 +12,8 @@ export default function Reviews() {
   const currentSneaker = useSelector(state => state.GET_DETAIL);
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
   // const [error, setError] = useState('');
-  const { signin, loginWithGoogle, user} = useAuth();
+  const user = useSelector(state => state.getUser);
+
   // const navigate = useNavigate();
 
   const [rating, setRating] = useState();

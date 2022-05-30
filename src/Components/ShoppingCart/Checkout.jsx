@@ -7,7 +7,7 @@ import { useAuth } from "../../context/authContext";
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const user = useSelector(state => state.getUser);
 
   //por si queremos hacer descuento con cupones
   const showCheckoutScreen = () => {
@@ -33,7 +33,7 @@ const Checkout = () => {
 
   useEffect(() => {
     dispatch(getTotalPrice())
-  }, [])
+  }, [user])
 
   // const productData = useSelector(state => state.productData)
   // const totalPrice = productData.reduce((value, acc) => {

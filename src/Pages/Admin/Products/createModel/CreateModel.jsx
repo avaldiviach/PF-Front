@@ -8,6 +8,7 @@ import SelectCategories from "./select/Categories";
 import SelectSizes from "./select/Sizes";
 import SelecBrand from "./select/Brands";
 import FormValidationModel from "../FormValidationModel";
+import { createModel } from "../../../../Redux/Actions";
 import s from './form.module.css'
 
 export default function CreateModel(props) {
@@ -61,7 +62,7 @@ export default function CreateModel(props) {
       input.categories.length > 0 &&
       input.sizes.length > 0
     ) {
-      dispatch(createModel(input));
+      await dispatch(createModel(input));
       alert("The model was succesfully Created!");
       setInput({
         brand: "",

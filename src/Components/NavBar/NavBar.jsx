@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers } from "../../Redux/Actions";
+import { getSneakers, logOutAndReset } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
@@ -21,16 +21,14 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 export default function Example() {
   const dispatch = useDispatch();
-  const { logout, loading } = useAuth();
+  const {logout, loading } = useAuth();
   const navigate = useNavigate();
+  const [image, setImage] = React.useState(defaultUser);
   const user = useSelector(state => state.getUser);
   const lsUser = JSON.parse(localStorage.getItem('user'));
   console.log(lsUser, "usr de local")
   //Para obtener solo el nombre del mail
   const name = lsUser?.email.split("@")[0];
-  //Para obtener solo el nombre del mail
-  const [image, setImage] = React.useState(defaultUser);
-
   useEffect(() => {
     // if (!user) {
     //   setImage(defaultUser);
@@ -70,7 +68,8 @@ export default function Example() {
   const handleLogout = async () => {
     await logout();
     // Se borrra local storage y estado global cuando se hace el logout
-    dispatch({ type: 'SET_CART', payload: { productData: [] } });
+    await dispatch(logOutAndReset())
+    await dispatch({ type: 'SET_CART', payload: { productData: [] } });
     localStorage.removeItem('productData')
     navigate("/")
   }

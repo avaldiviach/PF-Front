@@ -16,9 +16,9 @@ const Filters = () => {
   const url1 = "http://localhost:3001";
 
   const peticion = async () => {
-    let resp1 = await fetch(`${url1}/brands`);
+    let resp1 = await fetch(`${url2}/brands`);
     let brands = await resp1.json();
-    let resp2 = await fetch(`${url1}/categories`);
+    let resp2 = await fetch(`${url2}/categories`);
     let categories = await resp2.json();
     setBrands(brands);
     setCategories(categories);

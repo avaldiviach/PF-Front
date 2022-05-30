@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 import { useAuth } from "../../context/authContext";
@@ -9,7 +9,7 @@ const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
   const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
-  const { user } = useAuth();
+  const user = useSelector(state => state.getUser);
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.

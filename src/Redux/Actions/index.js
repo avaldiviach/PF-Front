@@ -555,7 +555,7 @@ export function createUser(payload) {
 		try {
 			console.log(payload);
 			const { data } = await axios.post(
-				`http://localhost:3001/user`,
+				`https://node-api-sneakers.herokuapp.com/user`,
 				payload
 			);
 			return dispatch({
@@ -628,7 +628,7 @@ export function getRole(id){
 		}
 		try {
 			const { data } = await axios.get(
-				`http://localhost:3001/role/${id}`
+				`https://node-api-sneakers.herokuapp.com/role/${id}`
 			);
 			return dispatch({
 				type: GET_ROLE,

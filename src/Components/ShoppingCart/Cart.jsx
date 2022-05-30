@@ -19,8 +19,6 @@ const Cart = () => {
   const productData = useSelector(state => state.productData)
   const dispatch = useDispatch();
 
-  const { user } = useAuth();
-
   useEffect(() => {
     console.log(productData)
   }, [productData]);

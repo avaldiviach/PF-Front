@@ -18,7 +18,7 @@ export default function CreateUser() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { user } = useAuth();
+  const user = useSelector(state => state.getUser);
 
   useEffect(() => {
     if (user) {
