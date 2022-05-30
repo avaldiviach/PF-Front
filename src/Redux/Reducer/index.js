@@ -21,6 +21,8 @@ import {
 	GET_COLORS,
 	GET_SIZES,
 	GET_ALL_REVIEWS,
+	GET_ALL_ORDERS,
+	GET_ORDER_BY_ID,
 	GET_ROLE,
 	GET_TOKEN,
 	GET_USER,
@@ -54,6 +56,8 @@ const initialState = {
 	discountCodeValid: null,
 	showCheckoutScreen: false,
 	getReviews: [],
+	getOrders: [],
+	orderById: [],
 	getRole: '',
 	getToken: '',
 	getUser: null
@@ -138,6 +142,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//return Object.assign({}, state, payload);
 
+
     case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
 
@@ -145,6 +150,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         productData: [...state.productData, ...filterDB],
       }
+
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -238,7 +244,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				getSizes: payload
 			}
 		case GET_ALL_REVIEWS:
-			return{
+			return {
 				...state,
 				getReviews: payload
 			}
@@ -263,6 +269,19 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				getRole: '',
 				getToken: '',
 				getUser: null
+			}
+
+		case GET_ALL_ORDERS:
+			return {
+				...state,
+				getOrders: payload
+			}
+
+		case GET_ORDER_BY_ID:
+
+			return {
+				...state,
+				orderById: payload
 			}
 
 		default:

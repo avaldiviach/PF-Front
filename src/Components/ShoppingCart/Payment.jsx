@@ -3,17 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router';
 import ModalCart from "../Modal/modalCart";
+import { createOrder } from '../../Redux/Actions';
+import s from './cart.module.css'
 
-function Payment() {
+function Payment({user}) {
 
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
+  const [address, setAddress] = useState('');
+
   const totalPrice = useSelector(state => state.totalPrice);
+  const productData = useSelector(state => state.productData)
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const onChangeAd = (e)=>{
+    e.preventDefault()
+    setAddress(e.target.value)
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +36,14 @@ function Payment() {
     });
     console.log(paymentMethod)
     if (!error) {
+      console.log('elements', productData)
+      console.log('user', user.email)
+      await dispatch(createOrder({
+        email: user.email,
+        address: address,
+        products: productData,
+        total: totalPrice
+      }));
       return fetch(`https://node-api-sneakers.herokuapp.com/payment`, {
         method: 'POST',
         headers: {
@@ -65,9 +85,13 @@ function Payment() {
       {
         alert && <ModalCart active={true} msg={alert.msg} title={alert.title} reset={setAlert} goCart={alert.goCart} />
       }
+      <div className='h-full bg-white p-4 rounded-md shadow-lg space-y-4 mb-7'>
+        <p>Insert Addres</p>
+        <input type='text' class="form-control" placeholder='Insert your address...' onChange={onChangeAd}></input>
+      </div>
       <CardElement />
       <button
-        className={`bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700`}
+        className={`bg-orange-600 text-white text-xs p-4 w-full rounded-md hover:bg-orange-700 mt-3`}
         onClick={handleSubmit}
         type="submit"
         disabled={!stripe || !elements}

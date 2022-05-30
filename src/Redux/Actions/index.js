@@ -25,11 +25,14 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_BRANDS = "GET_BRANDS",
 	CREATE_REVIEW = 'CREATE_REVIEW',
 	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
+	GET_ALL_ORDERS = 'GET_ALL_ORDERS',
+	GET_ORDER_BY_ID = 'GET_ORDER_BY_ID',
+	CREATE_ORDER = 'CREATE_ORDER',
 	CREATE_USER = 'CREATE_USER',
 	GET_ROLE = 'GET_ROLE',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
-	RESET = 'RESET'
+	RESET = 'RESET';
 
 
 export function getSneakers() {
@@ -173,7 +176,7 @@ export const removeItem = (id, size, email) => {
 			email,
 			productData: payload
 		}
-		if(email) axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, data);
+		if (email) axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, data);
 		dispatch({
 			type: REMOVE_ITEM_CART,
 			payload
@@ -355,7 +358,7 @@ export function createCategory(payload) {
 export function deleteCategory(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.delete(
+			const { data } = await axios.put(
 				`https://node-api-sneakers.herokuapp.com/deleteCategory/${id}`
 			);
 
@@ -442,7 +445,7 @@ export function getSizes() {
 		try {
 			const { data } = await axios.get(
 				`https://node-api-sneakers.herokuapp.com/sizes`
-			);return dispatch({
+			); return dispatch({
 				type: GET_SIZES,
 				payload: data,
 			});
@@ -463,8 +466,9 @@ export function deleteSneaker(id) {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-}
+	}
+};
+
 
 export function updateSneaker(id, payload) {
 	return async function (dispatch) {
@@ -529,6 +533,23 @@ export function getAllreviews(id) {
 	};
 }
 
+
+export function getOrders() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getOrders`
+			);
+			return dispatch({
+				type: GET_ALL_ORDERS,
+        payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
 export function createUser(payload) {
 	return async function (dispatch) {
 		try {
@@ -546,6 +567,56 @@ export function createUser(payload) {
 		}
 	};
 }
+
+export function getOrderById(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getOrders/${id}`
+
+			);
+			return dispatch({
+				type: GET_ORDER_BY_ID,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function createOrder(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.post(
+				`https://node-api-sneakers.herokuapp.com/createOrder`,payload
+			);
+			return dispatch({
+				type: CREATE_ORDER,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function updateOrder(id, status) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, {newStatus: status}
+			);
+			return dispatch({
+				type: 'UPDATE_ORDER',
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
 
 export function getRole(id){
 	return async function(dispatch){
