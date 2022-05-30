@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from "../../context/authContext";
-import styles from './RegisterFB.module.css';
+import axios from 'axios';
+
 import image from '../../Assets/Images/3.svg';
+import styles from './RegisterFB.module.css';
+import { createUser } from '../../Redux/Actions';
 
 
 export default function CreateUser() {
@@ -14,19 +17,39 @@ export default function CreateUser() {
   const { signin, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.getUser);
+
+  useEffect(() => {
+    if (user) {
+      const { email } = user;
+      try {
+        async function fetchData() {
+          const response = await axios.post('https://node-api-sneakers.herokuapp.com/getCart', { email });
+          dispatch({ type: 'GET_CART_BD', payload: response.data });
+        }
+        fetchData();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [user]);
+
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
-      navigate("/");
+      // await getUserCart(data.email);
+      navigate("/");      
     } catch (error) {
-      setError(error.message);  
+      setError(error.message);
       //error.code; para validar los tipos de errores...
       //https://firebase.google.com/docs/auth/admin/errors
     }
   }
 
   const handleGoogleSignin = async () => {
-    await loginWithGoogle();
+    const userGoogle = await loginWithGoogle();
+    dispatch(createUser({id:userGoogle.user.uid,name: userGoogle.user.displayName, email:userGoogle.user.email}))
     // navigate("/");
     navigate(-1);
   }
@@ -94,3 +117,4 @@ export default function CreateUser() {
     </section>
   );
 }
+

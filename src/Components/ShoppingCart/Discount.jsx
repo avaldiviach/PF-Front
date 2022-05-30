@@ -31,7 +31,7 @@ const Discount = () => {
 
   return (
     <div className='w-full'>
-      <div className={showDiscountForm ? 'bg-white p-4 rounded-t-md shadow-lg h-full' : 'bg-white p-4 rounded-md shadow-lg h-full'}>
+      <div className={showDiscountForm ? 'bg-white p-3 rounded-t-md shadow-lg h-full' : 'bg-white p-3 rounded-md shadow-lg h-full'}>
         <div className='flex items-center justify-between text-gray-600 text-sm'>
           <p>Add a discount code [optional]</p>
           <span onClick={openDiscountForm} className={showDiscountForm ? ' transition duration-700 transform rotate-180 cursor-pointer' : 'transition duration-700 transform rotate-0 cursor-pointer '}>
@@ -50,7 +50,7 @@ const Discount = () => {
 
             }} placeholder='Type discount code...'
               className='rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-transparent p-2 w-full bg-white border border-gray-400' />
-            <button onClick={sendDiscountCodeValidation} title={discountCode === "" ? "Please, type discount code first" : ""} disabled={discountCode === ""} className={discountCode === '' ? "bg-gray-200 text-black cursor-not-allowed text-xs py-2 px-4 w-auto rounded-md" : 'bg-orange-600 text-white text-xs p-4 rounded-md hover:bg-orange-700'}>
+            <button onClick={sendDiscountCodeValidation} title={discountCode === "" ? "Please, type discount code first" : ""} disabled={discountCode === ""} className={discountCode === '' ? "bg-gray-200 text-black cursor-not-allowed text-xs py-2 px-4 w-auto rounded-md" : 'bg-orange-600 text-white text-xs p-3 rounded-md hover:bg-orange-700'}>
               ADD
             </button>
           </div>
