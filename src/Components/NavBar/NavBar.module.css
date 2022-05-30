@@ -30,6 +30,24 @@
   z-index: 10;
 }
 
+.emailName {
+	color: var(--color1);
+  margin-left: 23px;
+}
+
+.greeting {
+  color: var(--negro);
+}
+
+.signOut {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.signOut:hover {
+  color: #0d6efd;
+}
+
 /*HEADER---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 .header {
@@ -126,9 +144,7 @@
 	font-weight: 600;
 }
 
-.emailName {
-	color: var(--color1);
-}
+
 
 /*Navegacion principal para pantalla grande--------*/
 @media (min-width: 769px) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../context/authContext";
@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import Cart from '../ShoppingCart/Cart'
 import { getSneakers } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
-import { GrUserAdmin } from "react-icons/gr";
+// import { GrUserAdmin } from "react-icons/gr";
 import logo from '../../Assets/Images/logo.svg';
-
+import defaultUser from '../../Assets/Images/defaultUser2.png';
 
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
@@ -21,11 +20,39 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 
 export default function Example() {
+  const dispatch = useDispatch();
+  const { user, logout, loading } = useAuth();
+  const navigate = useNavigate();
+  //Para obtener solo el nombre del mail
+  const name = user?.email.split("@")[0];
+  const [image, setImage] = React.useState(defaultUser);
+
+  useEffect(() => {
+    // if (!user) {
+    //   setImage(defaultUser);
+    // }
+    if (user) {
+      if (!user.photoURL) {
+        const firstLetter = user.email.charAt(0).toUpperCase();
+        setImage(firstLetter);
+      } else {
+        setImage(user.photoURL);
+      }
+    } else {
+      setImage(defaultUser);
+    }
+  }, [user])
+
+
+
+  //Enlaces de la pagina
   const navigation = [
     { name: 'Cart', href: '/cart', current: false },
     // { name: 'Admin', href: '#', current: false },
   ]
-  
+
+  console.log(user);
+
   function classNames(...classes) {
     // console.log(classes[classes.length - 1])
     // if (Array.isArray(classes[classes.length - 1])) {
@@ -35,12 +62,6 @@ export default function Example() {
   }
 
   // const [active, setActive] = React.useState(navigation)
-
-  const dispatch = useDispatch();
-  const { user, logout, loading } = useAuth();
-  const navigate = useNavigate();
-  //Para obtener solo el nombre del mail
-  const name = user?.email.split("@")[0];
 
   const handleLogout = async () => {
     await logout();
@@ -99,11 +120,11 @@ export default function Example() {
                         // href={item.href}
                         className={classNames(
                           item.current
-                          ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
-                          : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
-                          >
+                            ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
+                            : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
                         {item.name}
                       </Link>
                     ))}
@@ -130,13 +151,25 @@ export default function Example() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
-                    <Menu.Button className="bg-gray-800 flex ml-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <Menu.Button className="bg-white-800 flex ml-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      {
+                        !user
+                          ? (<img
+                            className="h-10 w-10 rounded-full"
+                            // src={user.photoURL || defaultUser}
+                            src={defaultUser}
+                            alt="profile image"
+                          />)
+                          : user?.photoURL
+                            ? (<img
+                              className="h-10 w-10 rounded-full"
+                              // src={user.photoURL || defaultUser}
+                              src={image}
+                              alt="profile image"
+                            />)
+                            : <p className="h-10 w-10 rounded-full">{image}</p>
+                      }
                     </Menu.Button>
                   </div>
                   {/* MENU DESPLEGABLE DE USER */}
@@ -154,7 +187,7 @@ export default function Example() {
                       <Menu.Item>
                         {user
                           ? (<span className={styles.emailName}>
-                            Hello {name}
+                            <span className={styles.greeting}>Hello</span> {name}
                           </span>)
                           : <></>
                         }
@@ -171,8 +204,7 @@ export default function Example() {
                             </Link>)
                             : (
                               <div
-                                className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                // to='/loginfb'
+                                className={classNames(active ? `bg-gray-200 ${styles.signOut}` : '', `block px-4 py-2 text-sm text-gray-700 ${styles.signOut}`)}
                                 onClick={handleLogout}
                               >
                                 Sign Out
