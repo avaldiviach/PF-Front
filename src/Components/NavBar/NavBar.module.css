@@ -33,6 +33,19 @@
 .emailName {
 	color: var(--color1);
   margin-left: 23px;
+  font-weight: 600;
+}
+
+.letterName {
+  background-color: var(--color1);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+}
+
+.letterName p {
+  padding-top: 10px;
+  font-weight: 500;
+  color: white;
 }
 
 .greeting {

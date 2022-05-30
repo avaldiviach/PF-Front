@@ -26,13 +26,10 @@ export default function Example() {
   const [image, setImage] = React.useState(defaultUser);
   const user = useSelector(state => state.getUser);
   const lsUser = JSON.parse(localStorage.getItem('user'));
-  console.log(lsUser, "usr de local")
   //Para obtener solo el nombre del mail
   const name = lsUser?.email.split("@")[0];
+  // const name = lsUser?.name.split(" ")[0];
   useEffect(() => {
-    // if (!user) {
-    //   setImage(defaultUser);
-    // }
     if (user) {
       if (!user.photoURL) {
         const firstLetter = user.email.charAt(0).toUpperCase();
@@ -152,7 +149,7 @@ export default function Example() {
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg>
                 </Menu>
                 {/* Profile dropdown */}
-                <Menu as="div" className="ml-3 relative">
+                <Menu as="div" className="ml-1 relative">
                   <div>
                     <Menu.Button className="bg-white-800 flex ml-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
@@ -160,18 +157,18 @@ export default function Example() {
                         !user
                           ? (<img
                             className="h-10 w-10 rounded-full"
-                            // src={user.photoURL || defaultUser}
                             src={defaultUser}
                             alt="profile image"
                           />)
                           : user?.photoURL
                             ? (<img
                               className="h-10 w-10 rounded-full"
-                              // src={user.photoURL || defaultUser}
                               src={image}
                               alt="profile image"
                             />)
-                            : <p className="h-10 w-10 rounded-full">{image}</p>
+                            : <p className={`h-10 w-10 rounded-full ${styles.letterName}`}>
+                                <p>{image}</p>
+                              </p>
                       }
                     </Menu.Button>
                   </div>
@@ -190,8 +187,8 @@ export default function Example() {
                       <Menu.Item>
                         {user
                           ? (<span className={styles.emailName}>
-                            <span className={styles.greeting}>Hello</span> {name}
-                          </span>)
+                              {name}
+                            </span>)
                           : <></>
                         }
                       </Menu.Item>
