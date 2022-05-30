@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
@@ -21,10 +21,14 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 export default function Example() {
   const dispatch = useDispatch();
-  const { user, logout, loading } = useAuth();
+  const { logout, loading } = useAuth();
   const navigate = useNavigate();
+  const user = useSelector(state => state.getUser);
+  const lsUser = JSON.parse(localStorage.getItem('user'));
+  console.log(lsUser, "usr de local")
   //Para obtener solo el nombre del mail
-  const name = user?.email.split("@")[0];
+  const name = lsUser?.email.split("@")[0];
+  //Para obtener solo el nombre del mail
   const [image, setImage] = React.useState(defaultUser);
 
   useEffect(() => {

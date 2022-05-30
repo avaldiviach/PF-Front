@@ -24,7 +24,13 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	UPDATE_SNEAKER = "UPDATE_SNEAKER",
 	GET_BRANDS = "GET_BRANDS",
 	CREATE_REVIEW = 'CREATE_REVIEW',
-	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
+	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
+	CREATE_USER = 'CREATE_USER',
+	GET_ROLE = 'GET_ROLE',
+	GET_TOKEN = 'GET_TOKEN',
+	GET_USER = 'GET_USER',
+	RESET = 'RESET'
+
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -523,3 +529,65 @@ export function getAllreviews(id) {
 	};
 }
 
+export function createUser(payload) {
+	return async function (dispatch) {
+		try {
+			console.log(payload);
+			const { data } = await axios.post(
+				`http://localhost:3001/user`,
+				payload
+			);
+			return dispatch({
+				type: CREATE_USER,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getRole(id){
+	return async function(dispatch){
+		if(!id){
+			return dispatch({
+				type: GET_ROLE,
+				payload: "guest",
+			});
+		}
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3001/role/${id}`
+			);
+			return dispatch({
+				type: GET_ROLE,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
+
+export function getToken(token){			
+	return function (dispatch){
+		return dispatch({
+			type: GET_TOKEN,
+			payload: token,
+		});			
+}}
+export function getUser(curUser){			
+	return function(dispatch){
+		return dispatch({
+			type: GET_USER,
+			payload: curUser,
+		});			
+}}
+
+export function logOutAndReset(){			
+	return function(dispatch){
+		return dispatch({
+			type: RESET,
+		});			
+}}

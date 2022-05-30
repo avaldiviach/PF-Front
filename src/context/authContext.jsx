@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {createUserWithEmailAndPassword, GoogleAuthProvider,sendPasswordResetEmail, signInWithPopup,signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
+import {createUserWithEmailAndPassword,getIdToken, GoogleAuthProvider,sendPasswordResetEmail, signInWithPopup,signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
 import auth from "../firebase-config";
+import { useDispatch } from "react-redux";
+import { getRole, getToken, getUser } from "../Redux/Actions";
 
 export const authContext = createContext();
 export const useAuth = ()=>{
@@ -9,13 +11,14 @@ export const useAuth = ()=>{
 }
 export function AuthProvider({children}){
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
+    // const [token, setToken] = useState(null);
+    const dispatch = useDispatch();
     const signup = (email, password)=>
         createUserWithEmailAndPassword(auth, email,password); 
     const signin = async(email, password)=>{
         const userCredential = await signInWithEmailAndPassword(auth, email,password);
         //userCredencial nos da datos del usuario que se ha logueado, correo, imagen, UID etc.
-        console.log(userCredential);
     }
     const logout = () => signOut(auth);
 
@@ -28,13 +31,18 @@ export function AuthProvider({children}){
         sendPasswordResetEmail(auth, email);
     
 
-    useEffect(()=>{
-        onAuthStateChanged(auth, (currentUser)=>{
-            setUser(currentUser);
-            setLoading(false);
-        })
-    },[])
+    onAuthStateChanged(auth, async (currentUser)=>{
+        if(currentUser){
+            dispatch(getUser(currentUser));             
+            dispatch(getToken(await currentUser.getIdToken())); 
+            dispatch(getRole(currentUser.uid));
+            localStorage.setItem("user",JSON.stringify({name: currentUser.displayName, email: currentUser.email}));                    
+        }      
+        console.log(currentUser,"authcontext")    
+        // setLoading(false);
+    })
+  
     return(
-        <authContext.Provider value={{signup,signin, user, logout, loading, loginWithGoogle, resetPassword}}> {children}</authContext.Provider>
+        <authContext.Provider value={{signup,signin, logout, loginWithGoogle, resetPassword}}> {children}</authContext.Provider>
     );
 }

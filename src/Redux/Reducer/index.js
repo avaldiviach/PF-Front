@@ -20,7 +20,11 @@ import {
 	GET_MATERIALS,
 	GET_COLORS,
 	GET_SIZES,
-	GET_ALL_REVIEWS
+	GET_ALL_REVIEWS,
+	GET_ROLE,
+	GET_TOKEN,
+	GET_USER,
+	RESET
 } from '../Actions';
 
 const initialState = {
@@ -49,6 +53,11 @@ const initialState = {
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
+	getReviews: [],
+	getRole: '',
+	getToken: '',
+	getUser: null
+
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -232,6 +241,28 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return{
 				...state,
 				getReviews: payload
+			}
+		case GET_ROLE:
+			return{
+				...state,
+				getRole: payload
+			}
+		case GET_TOKEN:
+			return{
+				...state,
+				getToken: payload
+			}
+		case GET_USER:
+			return{
+				...state,
+				getUser: payload
+			}
+		case RESET:
+			return{
+				...state,
+				getRole: '',
+				getToken: '',
+				getUser: null
 			}
 
 		default:
