@@ -60,12 +60,14 @@
 
   /* Para se mueva con el padre con sobre las letras */
 	.position_relative {
+    z-index: 1;
 		position: relative;
 		width: 100%;
 		height: 100%;
 	}
 
 	.image_container {
+    z-index: 1;
 		position: absolute;
     top: 8%;
     right: 0;

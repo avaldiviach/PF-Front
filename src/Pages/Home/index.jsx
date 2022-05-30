@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 //Componentes y funciones
 import Cards from "../../Components/Cards";
@@ -7,6 +7,7 @@ import ImagenPrincipal from "../../Components/ImagenPrincipal";
 import Filters from "../../Components/Filters";
 import Pagination from "../../Components/Pagination";
 import ModalSearch from "../../Components/Modal/";
+import { useAuth } from "../../context/authContext";
 
 
 //import Carrousel from '../../Components/Carrousel';
@@ -15,7 +16,9 @@ import style from "./home.module.css";
 const Home = () => {
   const filteredSneakers = useSelector((state) => state.SneakersCopy);
   const searchResponse = useSelector((state) => state.searchSneakers);
-
+  const roleU = useSelector(state => state.getRole);
+  const token = useSelector(state => state.getToken);
+  const user = useSelector(state => state.getUser);
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
   // Se crea la paginación de x zapatillas por página
   const SNEAKERS_PER_PAGE = 8; // Constante para setear cantidad de zapatillas por página
@@ -23,6 +26,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true); // Estado para esperar la carga de la página actual
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
+  // const {token} = useAuth();
   useEffect(() => {
     setCurrentPage(1);
   }, [filteredSneakers]);
@@ -36,6 +40,10 @@ const Home = () => {
     filteredSneakers.length !== 0 && setLoading(false);
   }, [filteredSneakers]);
 
+  // useEffect(() => {
+  //   dispatch(getRole(user?.uid));
+  //   // eslint-disable-next-line
+  // }, [user]);
 
   // Se corta el array de todas las zapatillas con los dos índices inicial y final de la página,
   // para obtener las zapatillas que se mostrarán en la página actual
@@ -51,7 +59,6 @@ const Home = () => {
         ? (<img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt="img loading"/>)
         : (<>
           <ImagenPrincipal />
-
           {/* Componente para filtros */}
           <Filters />
 

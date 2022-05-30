@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
-
+import { useDispatch } from 'react-redux';
 import styles from './RegisterFB.module.css';
 import image from '../../Assets/Images/3.svg';
+import { createUser } from '../../Redux/Actions';
 
 
 export default function CreateUser() {
@@ -12,11 +13,12 @@ export default function CreateUser() {
   const [error, setError] = useState('');
   const { signup } = useAuth();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     try {
-      await signup(data.email, data.password);
+      const userGog = await signup(data.email, data.password);
+      dispatch(createUser({id:userGog.user.uid, name:data.fullName, email:userGog.user.email}))
       navigate("/");
     } catch (error) {
       setError(error.message);

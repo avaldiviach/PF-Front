@@ -22,7 +22,11 @@ import {
 	GET_SIZES,
 	GET_ALL_REVIEWS,
 	GET_ALL_ORDERS,
-	GET_ORDER_BY_ID
+	GET_ORDER_BY_ID,
+	GET_ROLE,
+	GET_TOKEN,
+	GET_USER,
+	RESET
 } from '../Actions';
 
 const initialState = {
@@ -31,8 +35,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-	productData: [],
-	totalPrice: 0,
+	getReviews: [],
 	users: [],
 	categories: [],
 	createModel: [],
@@ -41,16 +44,11 @@ const initialState = {
 	getMaterials: [],
 	getColors: [],
 	getSizes: [],
+
+  //Estados globales de carrito
+	// productData: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
 	totalPrice: 0,
-
-	// Las propiedades de abajo son para el carrito en caso de que se quiera 
-	// implementar cupones de descuento
-	// showDiscountForm: false,
-	// discountCode: '',
-	// discountCodeValid: null,
-	// showCheckoutScreen: false,
-
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
 	showDiscountForm: false,
@@ -59,7 +57,11 @@ const initialState = {
 	showCheckoutScreen: false,
 	getReviews: [],
 	getOrders: [],
-	orderById: []
+	orderById: [],
+	getRole: '',
+	getToken: '',
+	getUser: null
+
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -140,11 +142,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//return Object.assign({}, state, payload);
 
-		case 'GET_CART_BD':
-			return {
-				...state,
-				productData: [...state.productData, ...payload],
-			}
+
+    case 'GET_CART_BD':
+			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+
+      return {
+        ...state,
+        productData: [...state.productData, ...filterDB],
+      }
+
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -241,6 +247,28 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				getReviews: payload
+			}
+		case GET_ROLE:
+			return{
+				...state,
+				getRole: payload
+			}
+		case GET_TOKEN:
+			return{
+				...state,
+				getToken: payload
+			}
+		case GET_USER:
+			return{
+				...state,
+				getUser: payload
+			}
+		case RESET:
+			return{
+				...state,
+				getRole: '',
+				getToken: '',
+				getUser: null
 			}
 
 		case GET_ALL_ORDERS:
