@@ -1,4 +1,68 @@
+.containerEnlaces {
+	margin-top: 14px !important;
+}
+
+.enlaces {
+	font-size: 17px;
+}
+
+.containerSearchProfile {
+	margin-top: 14px !important;
+}
+
+.searchBar {
+	width: 100%;
+}
+
+.admin {
+	border-radius: 50%;
+	border: solid 2px;
+	width: 2.45rem;
+	height: 2.45rem;
+  cursor: pointer;
+}
+
+.admin svg {
+  margin-left: 8px;
+}
+
+.zindex {
+  z-index: 10;
+}
+
+.emailName {
+	color: var(--color1);
+  margin-left: 23px;
+  font-weight: 600;
+}
+
+.letterName {
+  background-color: var(--color1);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+}
+
+.letterName p {
+  padding-top: 10px;
+  font-weight: 500;
+  color: white;
+}
+
+.greeting {
+  color: var(--negro);
+}
+
+.signOut {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.signOut:hover {
+  color: #0d6efd;
+}
+
 /*HEADER---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 .header {
 	opacity: 0.9;
 	/* width: 75.375em;
@@ -33,8 +97,7 @@
 }
 
 .logo img {
-  margin-bottom: .3em;
-
+	margin-bottom: 0.3em;
 }
 
 .navbar {
@@ -63,11 +126,11 @@
 
 .links__a {
 	font-family: 'Montserrat';
-	font-size: calc(0.68vw + .82vh + 0.5vmin);
+	font-size: calc(0.68vw + 0.82vh + 0.5vmin);
 	letter-spacing: 0.05em;
 	margin-top: 1.25em;
 	margin-left: 1.25em;
-  margin-right: 1.25em;
+	margin-right: 1.25em;
 	text-decoration: none;
 	color: var(--negro);
 	font-weight: 600;
@@ -84,19 +147,17 @@
 
 .welcome {
 	font-family: 'Montserrat';
-	font-size: calc(0.48vw + .7vh + 0.4vmin);
+	font-size: calc(0.48vw + 0.7vh + 0.4vmin);
 	letter-spacing: 0.05em;
 	margin-top: 0.2em;
 	margin-left: 0.25em;
-  margin-right: 0.25em;
+	margin-right: 0.25em;
 	text-decoration: none;
 	color: var(--negro);
 	font-weight: 600;
 }
 
-.emailName {
-  color: var(--color1);
-}
+
 
 /*Navegacion principal para pantalla grande--------*/
 @media (min-width: 769px) {

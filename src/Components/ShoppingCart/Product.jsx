@@ -1,13 +1,15 @@
 import React, { useReducer, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
+import { useAuth } from "../../context/authContext";
 import s from './cart.module.css'
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
   const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
+  const user = useSelector(state => state.getUser);
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
@@ -36,7 +38,7 @@ const Product = ({ data, index }) => {
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
-      dispatch(removeItem(id, size))
+      dispatch(removeItem(id, size, user?.email))
       dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)
@@ -81,7 +83,7 @@ const Product = ({ data, index }) => {
                 <GrFormSubtract />
               </span>
             </div>
-            <div className='flex justify-center w-12 h-full items-center p-2 border-t border-b'>
+            <div className='flex justify-center w-12 h-full items-center p-1 border-t border-b'>
               {qty}
             </div>
             <div onClick={addProductQtyHandler} className={max === qty ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md'}>
