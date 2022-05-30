@@ -24,15 +24,24 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	CREATE_REVIEW = 'CREATE_REVIEW',
 	GET_ALL_REVIEWS = 'GET_ALL_REVIEWS',
 	CREATE_USER = 'CREATE_USER',
-	GET_ROLE = 'GET_ROLE'
+	GET_ROLE = 'GET_ROLE',
+	GET_TOKEN = 'GET_TOKEN',
+	GET_USER = 'GET_USER',
+	RESET = 'RESET'
 
 // const url = 'https://node-api-sneakers.herokuapp.com'
 const url = 'http://localhost:3001';
 
-export function getSneakers() {
+export function getSneakers(token) {
+	console.log("token ",token)
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`${url}/sneakers`);
+			const { data } = await axios.get(`${url}/sneakers`,
+			{ 
+				headers:{
+                    Authorization: `Bearer ${token}`
+                  }
+			});
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
@@ -547,7 +556,30 @@ export function getRole(id){
 				payload: data,
 			});
 		} catch (error) {
-			
+			console.log(error)
 		}
 	}
 }
+
+
+export function getToken(token){			
+	return function (dispatch){
+		return dispatch({
+			type: GET_TOKEN,
+			payload: token,
+		});			
+}}
+export function getUser(curUser){			
+	return function(dispatch){
+		return dispatch({
+			type: GET_USER,
+			payload: curUser,
+		});			
+}}
+
+export function logOutAndReset(){			
+	return function(dispatch){
+		return dispatch({
+			type: RESET,
+		});			
+}}

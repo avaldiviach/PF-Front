@@ -25,19 +25,23 @@ import { getSneakers } from "./Redux/Actions";
 
 function App() {
   const dispatch = useDispatch();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const productData = useSelector((state) => state.productData);
   const totalPrice = useSelector((state) => state.totalPrice);
+  const token = useSelector(state => state.getToken);
+  const user = useSelector(state => state.getUser);
+  console.log(token,"global");
+  // const {token} = useAuth();
 
-
-  useEffect(() => {
-    dispatch(getSneakers());
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getSneakers(token));
+  //   // eslint-disable-next-line
+  // }, [token]);
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
+    dispatch(getSneakers(token));
     if (user && productData.length > 0) {
       const { email } = user;
       const data = {
@@ -53,7 +57,7 @@ function App() {
         console.log(error);
       }
     }
-  }, [user, totalPrice]);
+  }, [user, totalPrice,token]);
 
   return (
     <div className="App">
