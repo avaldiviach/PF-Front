@@ -25,7 +25,7 @@ export default function CreateUser() {
       const { email } = user;
       try {
         async function fetchData() {
-          const response = await axios.post('http://localhost:3001/getCart', { email });
+          const response = await axios.post('https://node-api-sneakers.herokuapp.com/getCart', { email });
           dispatch({ type: 'GET_CART_BD', payload: response.data });
         }
         fetchData();

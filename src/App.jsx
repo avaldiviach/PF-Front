@@ -13,8 +13,6 @@ import Cart from "./Components/ShoppingCart/Cart";
 import Payment from "./Components/ShoppingCart/Payment";
 import NotFound from "./Pages/Notfound/NotFound";
 import Admin from "./Pages/Admin";
-import AddProduct from "./Pages/Admin/Products/AddProduct";
-import AddModel from "./Pages/Admin/Products/AddModel";
 import LoginFB from "./Components/LoginFB/LoginFB";
 import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
@@ -50,7 +48,7 @@ function App() {
       };
       try {
         async function postCart() {
-          return await axios.post("http://localhost:3001/addcart", data);
+          return await axios.post("https://node-api-sneakers.herokuapp.com/addcart", data);
         }
         postCart();
       } catch (error) {
@@ -66,8 +64,6 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/addPro" element={<AddProduct />} />
-        <Route path="/addProd" element={<AddModel />} />
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />

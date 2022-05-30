@@ -15,13 +15,15 @@ export default function Detail() {
   const sneaker = useSelector((state) => state.detail);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
-
+  console.log(sneaker.rating)
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
+    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
+    
   }, [id]);
 
   function addToCart() {
@@ -80,7 +82,7 @@ export default function Detail() {
             </section>
             <section className={s.rigth}>
               <p className={s.brand}> {sneaker.brand}</p>
-              <RatingStars />
+              <RatingStars rating={sneaker.rating} />
               <NavLink to="/reviews">
                 Create Review
               </NavLink><NavLink to="/listreviews">
@@ -88,7 +90,7 @@ export default function Detail() {
               </NavLink>
               <p className={s.price} >${sneaker.price}</p>
               <p className={s.details}>Details: {sneaker.description}</p>
-              <p className={s.sizes_title}>Selec Size (EUR)</p>
+              <p className={s.sizes_title}>Select Size (EUR)</p>
               <div className={s.sizes}>
                 <select onChange={selectSize}>
                   <option value="" >Select Size</option>

@@ -2,38 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
+import { useSelector, useDispatch } from "react-redux"
 
-import styles from './Reviews.module.css';
-import image from '../../Assets/Images/3.svg';
-import RatingStars from "../../Components/Reviews/RatingStarsRead";
-import {useSelector, useDispatch} from "react-redux"
+// Componentes y funciones
+import RatingStarsRead from "../../Components/Reviews/RatingStarsRead";
+import Review from './Review';
 import { getAllreviews } from '../../Redux/Actions';
-export default function Reviews() {
-  const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
-  // const [error, setError] = useState('');
-  const { signin, loginWithGoogle } = useAuth();
+
+import image from '../../Assets/Images/3.svg';
+import styles from './Reviews.module.css';
+
+export default function ListReview() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const reviews = useSelector(state => state.getReviews);
- useEffect(()=>{
-   dispatch(getAllreviews(1));
- },[])
+  useEffect(() => {
+    dispatch(getAllreviews(1));
+  }, [])
 
   return (
-    <section className={styles.main_createUser}>
+    <>
       {
-        reviews?.map(review =>{
-          return(
-          <React.Fragment key={review.id}>
-          <RatingStars />
-            <div >
-              <h1>{review.title}</h1>
-              <p>{review.review}</p>
-            </div>
-          </React.Fragment>            
+        reviews?.map(review => {
+          return (
+            <>
+              <Review key={review.id} review={review} />
+            </>
+
           )
         })
       }
-    </section>
+      <div className={styles.rightBox}>
+        <div className={styles.position_relative}>
+          {/* <h2 className={styles.rotate}>HENRYS</h2> */}
+          <div className={styles.image_container}>
+            <img src={image} alt="sneaker" />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
