@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
 
-import styles from './Reviews.module.css';
+import styles from './CreateReview.module.css';
 import image from '../../Assets/Images/3.svg';
 import RatingStars from './RatingStarsModify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,10 +12,13 @@ export default function Reviews() {
   const currentSneaker = useSelector(state => state.GET_DETAIL);
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
   // const [error, setError] = useState('');
-  const [rating, setRating] = useState();
   const { signin, loginWithGoogle, user} = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const [rating, setRating] = useState();
+
   const dispatch =useDispatch();
+
   const onSubmit = async (data) => {
     data.email = user.email;
     data.sneakerId=1;

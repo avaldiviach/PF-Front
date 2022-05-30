@@ -29,6 +29,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
+	getReviews: [],
 	users: [],
 	categories: [],
 	createModel: [],
@@ -37,23 +38,17 @@ const initialState = {
 	getMaterials: [],
 	getColors: [],
 	getSizes: [],
+
+  //Estados globales de carrito
+	// productData: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
 	totalPrice: 0,
-
-	// Las propiedades de abajo son para el carrito en caso de que se quiera 
-	// implementar cupones de descuento
-	// showDiscountForm: false,
-	// discountCode: '',
-	// discountCodeValid: null,
-	// showCheckoutScreen: false,
-
 	// Las propiedades de abajo son para el carrito en caso de que se quiera 
 	// implementar cupones de descuento
 	showDiscountForm: false,
 	discountCode: '',
 	discountCodeValid: null,
 	showCheckoutScreen: false,
-	getReviews: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -135,7 +130,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		//return Object.assign({}, state, payload);
 
     case 'GET_CART_BD':
-      const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+
       return {
         ...state,
         productData: [...state.productData, ...filterDB],

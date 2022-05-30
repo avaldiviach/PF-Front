@@ -1,7 +1,6 @@
 .main_createUser {
 	margin-top: 0;
-  height: 15rem;
-	/* min-height: calc(80vh - 5rem); */
+	min-height: calc(80vh - 5rem);
 	background-color: var(--blanco);
 	display: flex;
 	align-items: center;
@@ -32,14 +31,14 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	/* height: 100%; */
+	height: 100%;
 }
 
 /* Para pantallas mayores a 769 pixeles*/
 @media (min-width: 769px) {
 	.container {
-		width:50rem;
-		/* height: 40rem; */
+		width: max(70%, 756px);
+		height: 40rem;
 	}
 
 	.rightBox {
@@ -83,9 +82,9 @@
 /*FORMULARIO---------------------------------------------------------------*/
 .formulario {
 	opacity: 0.9;
- background-color: white;
- box-shadow: 5px 5px 75px rgb(210 213 234 / 77%);
-border-radius: 1rem; 
+	/* background-color: white;
+box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 75%);
+border-radius: 1rem; */
 	width: min(60em, 100%);
 	padding: 0.7em;
 }
@@ -126,7 +125,6 @@ border-radius: 1rem;
 	padding: 1em;
 	border-radius: 0.2em;
 	margin-bottom: 0.2em;
-  resize: none;
 }
 
 .formulario

@@ -130,6 +130,7 @@ export const addItem = (data) => (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
+  
 	const exist = productData?.every(
 		(product) => product.id !== data.id && product.size !== data.sizes.size
 	);

@@ -29,6 +29,7 @@ export default function BasicRating({setRating}) {
         name="simple-controlled"
         size="large"
         value={value}
+        precision={0.5}
         getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
         icon={<FavoriteIcon fontSize="inherit" />}
         onChange={(event, newValue) => {
