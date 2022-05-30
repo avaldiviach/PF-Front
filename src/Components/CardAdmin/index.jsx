@@ -3,22 +3,36 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteSneaker, getSneakers } from "../../Redux/Actions";
 import style from "./Card.module.css";
-import Switch from '@mui/material/Switch';
+import Switch from "@mui/material/Switch";
 import { FormControlLabel } from "@mui/material";
 
-function Card({ sneaker }) {
-  const { model, price, image, brand, id, deleted } = sneaker;
+function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
+  const { model, price, image, brand, id, deleted, sizes } = sneaker;
   const dispatch = useDispatch();
 
-  const handleDeleteSneaker = async (e) => {
+  const handleDeleteSneaker = (e) => {
     e.preventDefault();
-    await dispatch(deleteSneaker(e.target.value));
-    await dispatch(getSneakers()) 
-    alert("sneaker has been deleted", id);
+    showModalDelete();
+    setModalDeleteProd({
+      show: true,
+      msg: `Are you sure do you want to delete the sneaker ${e.target.value}?`,
+      title: `Delete sneaker`,
+      action: async () => {
+        await dispatch(deleteSneaker(e.target.value));
+        await dispatch(getSneakers());
+      },
+    });
   };
 
-  const updateSneaker = () => {
+  const updateSneaker = (e) => {
     e.preventDefault();
+    setState({
+      price: price,
+      sizes: sizes,
+      show: true,
+      id: id,
+      name: model,
+    });
   };
   return (
     <div>
@@ -26,7 +40,15 @@ function Card({ sneaker }) {
         <div className={style.btn_container}>
           <FormControlLabel
             value="top"
-            control={<Switch checked={!deleted} color="success" value={id} onChange={(e) => alert(e.target.checked)} onClick={handleDeleteSneaker}/>}
+            control={
+              <Switch
+                checked={!deleted}
+                color="success"
+                value={id}
+                onChange={(e) => alert(e.target.checked)}
+                onClick={(e) => handleDeleteSneaker(e)}
+              />
+            }
             label="Status"
             labelPlacement="start"
           />

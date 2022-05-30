@@ -131,6 +131,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+
       return {
         ...state,
         productData: [...state.productData, ...filterDB],

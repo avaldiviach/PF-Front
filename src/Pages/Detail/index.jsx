@@ -19,9 +19,11 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
+    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
+    
   }, [id]);
 
   function addToCart() {
@@ -88,7 +90,7 @@ export default function Detail() {
               </NavLink>
               <p className={s.price} >${sneaker.price}</p>
               <p className={s.details}>Details: {sneaker.description}</p>
-              <p className={s.sizes_title}>Selec Size (EUR)</p>
+              <p className={s.sizes_title}>Select Size (EUR)</p>
               <div className={s.sizes}>
                 <select onChange={selectSize}>
                   <option value="" >Select Size</option>
