@@ -163,7 +163,7 @@ export default function Example() {
                           : user?.photoURL
                             ? (<img
                               className="h-10 w-10 rounded-full"
-                              src={image}
+                              src={image || defaultUser}
                               alt="profile image"
                             />)
                             : <p className={`h-10 w-10 rounded-full ${styles.letterName}`}>

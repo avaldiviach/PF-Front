@@ -29,18 +29,9 @@ export default function ListReview() {
             <>
               <Review key={review.id} review={review} />
             </>
-
           )
         })
       }
-      <div className={styles.rightBox}>
-        <div className={styles.position_relative}>
-          {/* <h2 className={styles.rotate}>HENRYS</h2> */}
-          <div className={styles.image_container}>
-            <img src={image} alt="sneaker" />
-          </div>
-        </div>
-      </div>
     </>
   );
 }
