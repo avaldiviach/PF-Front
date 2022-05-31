@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import ModalCart from "../Modal/modalCart";
 import { createOrder } from '../../Redux/Actions';
 import s from './cart.module.css'
+import axios from 'axios';
 
 function Payment({user}) {
 
@@ -34,10 +35,7 @@ function Payment({user}) {
       type: 'card',
       card: elements.getElement(CardElement)
     });
-    console.log(paymentMethod)
     if (!error) {
-      console.log('elements', productData)
-      console.log('user', user.email)
       await dispatch(createOrder({
         email: user.email,
         address: address,
@@ -66,6 +64,7 @@ function Payment({user}) {
           if (received) {
             //falta agregar una ruta para recibir los productos que han sido comprados y registrar en la BD
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
+            axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, {email: user.email, productData:[]});
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
 
             setTimeout(() => navigate('/cart'), 3000);

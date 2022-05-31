@@ -2,19 +2,20 @@ import React, { useReducer, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
-import { useAuth } from "../../context/authContext";
 import s from './cart.module.css'
 
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
-  const { id, name, brand, categories, price, description, qty, image, size, max, item, discountPrice , wishlisted } = data
+
+  const { sneakerId, name, brand, categories, price, description, qty, image, size, max, discountPrice, wishlisted } = data
+
   const user = useSelector(state => state.getUser);
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
-
+  const offer = useSelector((state) => state.offer);
 
   const addProductQtyHandler = () => {
     dispatch(addItemQuantity(index))
@@ -38,36 +39,37 @@ const Product = ({ data, index }) => {
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
-      dispatch(removeItem(id, size, user?.email))
+      dispatch(removeItem(sneakerId, size, user?.email))
       dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)
   }
 
   return (
-    <div key={id} className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
+    <div className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
       <div className='space-y-4 lg:space-y-0 lg:space-x-4 flex flex-col lg:flex-row'>
-        <img src={image}  alt='img-product' className={`w-full lg:w-48 ${s.img} `}/>
+        <img src={image} alt='img-product' className={`w-full lg:w-48 ${s.img} `}/>
         <div className='space-y-6'>
           <div className='space-y-2'>
             <h3 className='text-gray-800 text-xl font-semibold'>{name}</h3>
             <h3 className='text-gray-800 text-xl font-semibold'>{brand}</h3>
-            <h4 className='text-sm text-gray-900'>Talla {size}</h4>
+            <h4 className='text-sm text-gray-900'>Size {size}</h4>
             <p className='text-sm text-gray-600'>{categories}</p>
             <p className='text-sm text-gray-600'>{description}</p>
             {
               discountPrice > 0 
-              ? <p className='text-gray-600'>${Number(discountPrice).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
-              :<p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
+              ? <p className='text-gray-600'>${Number(discountPrice).toFixed(2)} </p>
+              :  offer[0].id === sneakerId && offer[0].size === size 
+                  ? ( <> ${Number(price).toFixed(2)}{` `} <del>${Number(price * 1.25).toFixed(2)}`</del> </> )
+                  :  <p className='text-gray-600'>${Number(price).toFixed(2)}</p>
             }
-
-          </div>
+            <span className='text-sm'>/ Unit</span>
           <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 text-gray-600 '>
             <div onClick={removeItemHandler} className='flex items-center space-x-1 text-xs lg:text-sm hover:text-gray-400 cursor-pointer'>
               <span>
                 <i className="fas fa-trash"></i>
               </span>
-              <p style={{color: 'red'}}>REMOVE ITEM</p>
+              <p style={{ color: 'red' }}>REMOVE ITEM</p>
             </div>
             {/* por si queremos agregar lista de deseos */}
             {/* <div onClick={wishlistHandler} className={wishlisted ? 'flex items-center space-x-1 text-xs lg:text-sm text-red-600 cursor-pointer' : 'flex items-center space-x-1 text-xs lg:text-sm hover:text-red-600 cursor-pointer'}>
@@ -113,4 +115,4 @@ const Product = ({ data, index }) => {
   )
 }
 
-export default Product
+export default Product;
