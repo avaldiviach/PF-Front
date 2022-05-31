@@ -60,7 +60,8 @@ const initialState = {
 	orderById: [],
 	getRole: '',
 	getToken: '',
-	getUser: null
+	getUser: null,
+	offer: [{ id: 13, size: 37.5 }]
 
 };
 
@@ -121,16 +122,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		case CLEAN_DETAIL: return { ...state, detail: [] }
 
 		case SORT_PRICE:
-
 			let sortByPrice = [...state.SneakersCopy];
-			console.log(sortByPrice)
-
 			if (payload === 'asc') {
 				sortByPrice.sort((a, b) => a.price - b.price)
 			} else {
 				sortByPrice.sort((a, b) => b.price - a.price)
 			}
-
 			return {
 				...state, SneakersCopy: [...sortByPrice]
 			}

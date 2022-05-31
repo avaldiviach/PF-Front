@@ -15,16 +15,20 @@ export default function Detail() {
   const sneaker = useSelector((state) => state.detail);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
-  console.log(sneaker.rating)
 
   useEffect(() => {
     dispatch(getDetailSneaker(id));
-    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
     
   }, [id]);
+
+  function selectSize(e) {
+    const { target: { value } } = e;
+    const obj = { ...sneaker, sizes: sneaker.sizes[value] };
+    setSelectSneaker({ ...obj });
+  }
 
   function addToCart() {
     //verifica si se seleccionó una talla
@@ -49,12 +53,6 @@ export default function Detail() {
         msg: 'Item is already in your cart',
         goCart: true
       })
-  }
-
-  function selectSize(e) {
-    const { target: { value } } = e;
-    const obj = { ...sneaker, sizes: sneaker.sizes[value] };
-    setSelectSneaker({ ...obj });
   }
 
   return (

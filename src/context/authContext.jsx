@@ -38,7 +38,6 @@ export function AuthProvider({children}){
             dispatch(getRole(currentUser.uid));
             localStorage.setItem("user",JSON.stringify({name: currentUser.displayName, email: currentUser.email}));                    
         }      
-        console.log(currentUser,"authcontext")    
         // setLoading(false);
     })
   

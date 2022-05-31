@@ -11,6 +11,9 @@ import s from "./filters.module.css";
 const Filters = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [defCat, setDefCat] = useState("");
+  const [defBra, setDefBra] = useState("");
+  const [defPri, setDefPri] = useState("");
   const dispatch = useDispatch();
   const url2 = 'https://node-api-sneakers.herokuapp.com'
   const url1 = "http://localhost:3001";
@@ -32,22 +35,28 @@ const Filters = () => {
   const handleCategory = (e) => {
     e.preventDefault();
     dispatch(filterByCategory(e.target.value));
+    setDefCat(e.target.value);
+    setDefBra("");
+    setDefPri("");
   };
 
   const handleBrand = (e) => {
     e.preventDefault();
     dispatch(filterByBrand(e.target.value));
+    setDefBra(e.target.value);
+    setDefCat("");
+    setDefPri("");
   };
 
   const handleOrderingPrice = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     dispatch(OrderingByPrice(e.target.value));
+    setDefPri(e.target.value);
   };
 
   return (
     <div className={s.filters}>
-      <select onChange={handleCategory} name="categoryFilters">
+            <select onChange={handleCategory} name="categoryFilters" value={defCat}>
         <option value="">All categories</option>
         {categories.length &&
           categories?.map(({ nameCategory }, id) => (
@@ -57,7 +66,7 @@ const Filters = () => {
           ))}
       </select>
 
-      <select onChange={handleBrand}>
+      <select onChange={handleBrand} value={defBra}>
         <option value="">All brands</option>
         {brands.length &&
           brands?.map(({ nameBrand }, id) => (
@@ -67,7 +76,7 @@ const Filters = () => {
           ))}
       </select>
 
-      <select onChange={handleOrderingPrice}>
+      <select onChange={handleOrderingPrice} value={defPri}>
         <option value="">Prices</option>
         <option value="asc">Low to Higher</option>
         <option value="desc">Higher to Low </option>

@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { useAuth } from '../../context/authContext.jsx';
-import axios from 'axios';
 
 //Componentes y funciones
 import Product from './Product.jsx'
@@ -13,16 +11,10 @@ import Discount from './Discount.jsx'
 
 
 const Cart = () => {
+  
   const navigate = useNavigate();
   const stripePromise = loadStripe('pk_test_51L1JdXFZiSHIoXAAAndrHsoSn3sisOhE0eaNxnNL0dvtv7O8BBAGO0AgyB1r2EjojYKl8QtSA3GJfKXDnCrSLbzE00VAlNOvG7');
-
   const productData = useSelector(state => state.productData)
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(productData)
-  }, [productData]);
-
 
   return (
     <main className='py-6 px-12 w-full flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6'>

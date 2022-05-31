@@ -10,7 +10,6 @@ export default function CreateModalCate(props) {
     const createClick =async (e) => {
         e.preventDefault()
         const input = document.querySelector('#inputCategoryName')
-        console.log(input.value)
         if (input.value !== '') {
             await dispatch(createCategory(input.value))
             
@@ -19,8 +18,6 @@ export default function CreateModalCate(props) {
 
         }
     }
-
-
 
     return (
         <Modal

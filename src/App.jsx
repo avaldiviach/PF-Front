@@ -2,7 +2,6 @@ import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { useAuth } from "./context/authContext";
 import axios from "axios";
 
 //Componentes y funciones
@@ -28,7 +27,6 @@ function App() {
   const totalPrice = useSelector((state) => state.totalPrice);
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
-  console.log(token,"global");
   // const {token} = useAuth();
 
   // useEffect(() => {
@@ -63,7 +61,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
