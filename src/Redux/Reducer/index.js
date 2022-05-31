@@ -35,6 +35,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
+  copyDetail: {},
 	getReviews: [],
 	users: [],
 	categories: [],

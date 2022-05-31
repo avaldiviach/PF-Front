@@ -6,7 +6,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    height: 3.5rem;
+    height: 3.1rem;
     width: 15rem;
     padding: 10px 38px 10px 16px;
     background-size: 10px;
@@ -17,6 +17,8 @@
     font-size: 1.2rem;
     text-align: center;
     text-transform: uppercase;
+    cursor: pointer;
+
 }
 
 .filters select:hover {

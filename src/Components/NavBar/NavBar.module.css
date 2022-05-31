@@ -15,12 +15,24 @@
 }
 
 .admin {
-	border-radius: 50%;
+  border-radius: 50%;
+  /* margin-top: 5px; */
 	border: solid 2px;
 	width: 2.45rem;
 	height: 2.45rem;
   cursor: pointer;
 }
+
+.cart {
+  margin-top: 0.9rem;  
+}
+
+.admin:hover {
+  background-color: var(--color2);
+	border: solid 2px var(--color2);
+
+}
+
 
 .admin svg {
   margin-left: 8px;
@@ -37,7 +49,7 @@
 }
 
 .letterName {
-  background-color: var(--color1);
+  background-color: var(--color2);
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
 }

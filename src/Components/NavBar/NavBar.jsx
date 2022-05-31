@@ -10,6 +10,7 @@ import { getSneakers, logOutAndReset } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
+import {GrCart} from "react-icons/gr";
 import logo from '../../Assets/Images/logo.svg';
 import defaultUser from '../../Assets/Images/defaultUser2.png';
 
@@ -21,7 +22,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 export default function Example() {
   const dispatch = useDispatch();
-  const {logout, loading } = useAuth();
+  const { logout, loading } = useAuth();
   const navigate = useNavigate();
   const [image, setImage] = React.useState(defaultUser);
   const user = useSelector(state => state.getUser);
@@ -72,7 +73,7 @@ export default function Example() {
   }
 
   return (
-    
+
     <Disclosure as="nav" className="bg-white-800">
       {({ open }) => (
         <>
@@ -112,28 +113,16 @@ export default function Example() {
                 </div>
 
                 {/* OPCIONES DE MENU */}
-                <div className="hidden md:block md:ml-6 items-center">
-                  <div className={`flex space-x-4 mt-2 ${styles.containerEnlaces}`}>
-                    {navigation?.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        // href={item.href}
-                        className={classNames(
-                          item.current
-                            ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
-                            : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                {/* <div className="hidden md:block md:ml-6 items-center"> */}
+                <Menu as="div" className={`ml-10 relative ${styles.admin} ${styles.cart}`}>
+                {/* <GrCart/> */}
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="3.5 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M5,5 L22,5 L20,14 L7,14 L4,2 L0,2 M7,14 L8,18 L21,18 M19,23 C18.4475,23 18,22.5525 18,22 C18,21.4475 18.4475,21 19,21 C19.5525,21 20,21.4475 20,22 C20,22.5525 19.5525,23 19,23 Z M9,23 C8.4475,23 8,22.5525 8,22 C8,21.4475 8.4475,21 9,21 C9.5525,21 10,21.4475 10,22 C10,22.5525 9.5525,23 9,23 Z"></path></svg>
+                  {/* <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg> */}
+                </Menu>
+                {/* </div> */}
               </div>
 
-              {/* DERECHA ----> BOTON NOTIFICACIONES Y LOGIN */}
+              {/* DERECHA ----> BOTON de USUARIO */}
               <div className={`absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0 ${styles.containerSearchProfile}`}>
                 {/* BOTON DE NOTIFICACIONES */}
                 {/* <button
@@ -146,9 +135,12 @@ export default function Example() {
                 <div className={`hidden md:block sm:ml-6`}>
                   <SearchBar />
                 </div>
+
+                {/* BOTON DE ADMIN */}
                 <Menu as="div" className={`ml-10 relative ${styles.admin}`}>
                   <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg>
                 </Menu>
+
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-1 relative">
                   <div>
@@ -168,8 +160,8 @@ export default function Example() {
                               alt="profile image"
                             />)
                             : <p className={`h-10 w-10 rounded-full ${styles.letterName}`}>
-                                <p>{image}</p>
-                              </p>
+                              <p>{image}</p>
+                            </p>
                       }
                     </Menu.Button>
                   </div>
@@ -188,8 +180,8 @@ export default function Example() {
                       <Menu.Item>
                         {user
                           ? (<span className={styles.emailName}>
-                              {name}
-                            </span>)
+                            {name}
+                          </span>)
                           : <></>
                         }
                       </Menu.Item>

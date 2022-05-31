@@ -24,10 +24,10 @@ export default function ListReview() {
   return (
     <>
       {
-        reviews?.map(review => {
+        reviews?.map((review, id) => {
           return (
             <>
-              <Review key={review.id} review={review} />
+              <Review key={id} review={review} />
             </>
           )
         })

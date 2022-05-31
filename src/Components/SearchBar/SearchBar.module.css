@@ -15,7 +15,7 @@
 	margin-left: -33px;
 	margin-top: 3px;
 	height: 34px;
-	background-color: #f6f6f6;
+	background-color: transparent;
 	display: grid;
 	place-items: center;
 }
