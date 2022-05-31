@@ -18,7 +18,6 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-
 export default function Example() {
   const dispatch = useDispatch();
   const {logout, loading } = useAuth();
@@ -42,15 +41,11 @@ export default function Example() {
     }
   }, [user])
 
-
-
   //Enlaces de la pagina
   const navigation = [
     { name: 'Cart', href: '/cart', current: false },
     // { name: 'Admin', href: '#', current: false },
   ]
-
-  console.log(user);
 
   function classNames(...classes) {
     // console.log(classes[classes.length - 1])
@@ -224,7 +219,6 @@ export default function Example() {
                         )}
                       </Menu.Item>
                     </Menu.Items>
-
 
                   </Transition>
                 </Menu>
