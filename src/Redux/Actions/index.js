@@ -35,11 +35,13 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
 	RESET = 'RESET';
 
+//const url = 'http://localhost:3001';
+const url = 'https://node-api-sneakers.herokuapp.com';
 
 export function getSneakers() {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneakers`);
+			const { data } = await axios.get(`${url}/sneakers`);
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
@@ -53,7 +55,7 @@ export function getSneakers() {
 export function getDetailSneaker(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`);
+			const { data } = await axios.get(`${url}/sneaker/${id}`);
 			return dispatch({
 				type: GET_DETAIL,
 				payload: data,
@@ -179,7 +181,7 @@ export const removeItem = (id, size, email) => {
 			email,
 			productData: payload
 		}
-		if (email) axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, data);
+		if (email) axios.post(`${url}/deletecart`, data);
 		dispatch({
 			type: REMOVE_ITEM_CART,
 			payload
@@ -249,7 +251,7 @@ export function getAllUsers() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getUser`
+				`${url}/getUser`
 			);
 			return dispatch({
 				type: GET_ALL_USERS,
@@ -267,7 +269,7 @@ export function deleteUser(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`https://node-api-sneakers.herokuapp.com/deleteUser/${id}`
+				`${url}/deleteUser/${id}`
 			);
 
 			return dispatch({
@@ -286,7 +288,7 @@ export function createModel(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/createModel`,
+				`${url}/createModel`,
 				payload
 			);
 			return dispatch({
@@ -303,7 +305,7 @@ export function createSneaker(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/createSneaker`,
+				`${url}/createSneaker`,
 				payload
 			);
 			return dispatch({
@@ -322,7 +324,7 @@ export function getCategories() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/categories`
+				`${url}/categories`
 			);
 			return dispatch({
 				type: GET_CATEGORIES,
@@ -341,7 +343,7 @@ export function createCategory(payload) {
 		try {
 			const newCategory = { nameCategory: payload };
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/createCate`,
+				`${url}/createCate`,
 				newCategory
 			);
 			return dispatch({
@@ -360,7 +362,7 @@ export function deleteCategory(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`https://node-api-sneakers.herokuapp.com/deleteCategory/${id}`
+				`${url}/deleteCategory/${id}`
 			);
 
 			return dispatch({
@@ -377,7 +379,7 @@ export function getModels() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getmodels`
+				`${url}/getmodels`
 			);
 			return dispatch({
 				type: GET_MODELS,
@@ -393,7 +395,7 @@ export function getBrands() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/brands`
+				`${url}/brands`
 			);
 			return dispatch({
 				type: GET_BRANDS,
@@ -409,7 +411,7 @@ export function getMaterials() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/materials`
+				`${url}/materials`
 			);
 
 			return dispatch({
@@ -426,7 +428,7 @@ export function getColors() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getColors`
+				`${url}getColors`
 			);
 
 			return dispatch({
@@ -445,7 +447,7 @@ export function getSizes() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/sizes`
+				`${url}/sizes`
 			); return dispatch({
 				type: GET_SIZES,
 				payload: data,
@@ -459,7 +461,7 @@ export function getSizes() {
 export function deleteSneaker(id) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/deleteSneaker/${id}`)
+			const { data } = await axios.put(`${url}/deleteSneaker/${id}`)
 			return dispatch({
 				type: DELETE_SNEAKER,
 				payload: data,
@@ -474,7 +476,11 @@ export function deleteSneaker(id) {
 export function updateSneaker(id, payload) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
+			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload)
+			console.log(payload)
+
+			//const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
+
 			return dispatch({
 				type: UPDATE_SNEAKER,
 				payload: data,
@@ -504,7 +510,7 @@ export function createReview(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/review`,
+				`${url}/review`,
 				payload
 			);
 			return dispatch({
@@ -520,7 +526,7 @@ export function getAllreviews(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/reviews/${id}`
+				`${url}/reviews/${id}`
 			);
 			return dispatch({
 				type: GET_ALL_REVIEWS,
@@ -537,7 +543,7 @@ export function getOrders() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getOrders`
+				`${url}/getOrders`
 			);
 			return dispatch({
 				type: GET_ALL_ORDERS,
@@ -553,7 +559,7 @@ export function createUser(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/user`,
+				`${url}/user`,
 				payload
 			);
 			return dispatch({
@@ -570,7 +576,7 @@ export function getOrderById(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getOrders/${id}`
+				`${url}/getOrders/${id}`
 
 			);
 			return dispatch({
@@ -605,7 +611,7 @@ export function createOrder(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/createOrder`, payload
+				`${url}/createOrder`,payload
 			);
 			return dispatch({
 				type: CREATE_ORDER,
@@ -621,7 +627,7 @@ export function updateOrder(id, status) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, { newStatus: status }
+				`${url}/updateOrder/${id}`, {newStatus: status}
 			);
 			return dispatch({
 				type: 'UPDATE_ORDER',
@@ -643,7 +649,7 @@ export function getRole (id) {
 		}
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/role/${id}`
+				`${url}/role/${id}`
 			);
 			return dispatch({
 				type: GET_ROLE,

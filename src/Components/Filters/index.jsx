@@ -18,13 +18,14 @@ const Filters = () => {
   const [defBra, setDefBra] = useState("");
   const [defPri, setDefPri] = useState("");
   const dispatch = useDispatch();
+
   const url2 = "https://node-api-sneakers.herokuapp.com";
   const url1 = "http://localhost:3001";
 
   const peticion = async () => {
-    let resp1 = await fetch(`${url2}/brands`);
+    let resp1 = await fetch(`${url}/brands`);
     let brands = await resp1.json();
-    let resp2 = await fetch(`${url2}/categories`);
+    let resp2 = await fetch(`${url}/categories`);
     let categories = await resp2.json();
     setBrands(brands);
     setCategories(categories);

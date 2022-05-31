@@ -30,7 +30,11 @@ function ImagenPrincipal() {
           <img src={image} alt="imagen" />
         </div>
       </div>
+      {/* <div className={styles.hotSale}>
+        <h3>Nike Air Max</h3>
+      </div> */}
     </section>
+
   );
 }
 

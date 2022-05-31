@@ -1,142 +1,178 @@
 .loading {
+  margin-top: 3rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
+	justify-content: center;
+	align-items: center;
+	/* height: 44vh; */
+	/* margin-top: 5rem; */
 }
 
-.detail{
-    display: flex;
-    width: 80vw;
-    height: 90vh;
-    margin: 0 auto;
+.detail {
+  display: flex;
+	width: 73vw;
+	margin: 0 auto;
+	/* height: 74vh; */
+  /* margin-top: 7rem; */
+	/* background-color: blue; */
 }
 
-.left{
-    width: 60%;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.listReviews {
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
 }
 
-.left img{
-    width: 90%;
+.containerReviews {
+  width: max(80%, 40rem);
 }
 
-.rigth{
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    padding: 3rem 0;
-    height: 70%;
-    justify-content: space-between ;
+.left {
+  margin-top: 4rem;
+	width: 60%;
+	height: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 }
 
-.brand{
-    font-style: normal;
-    font-weight: 700;
-    color: #FB5014;
-    font-size: 4.5rem;
+.left img {
+	width: 90%;
 }
 
-.price{
-    font-style: normal;
-    font-weight: 230;
-    font-size: 3rem;
-    color: #000000;
+.rigth {
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	/* padding: 3rem 0; */
+	height: 70%;
+	justify-content: space-between;
 }
 
-.details{
-    font-style: normal;
-    font-weight: 600;
-
-    color: #464646;
+.brand {
+	font-style: normal;
+	font-weight: 700;
+	color: #fb5014;
+	font-size: 4.5rem;
 }
 
-.sizes_title{
-    font-weight: 800;
-    font-size: .8rem;
-    text-transform: uppercase;
-    color: #131212;
+.price {
+	font-style: normal;
+	font-weight: 230;
+	font-size: 3rem;
+	color: #000000;
 }
 
-.sizes{
-    display: flex;
-    flex-wrap: wrap;
+.details {
+  width: 60%;
+	font-style: normal;
+	font-weight: 600;
+  overflow-wrap: break-word;
+	color: #464646;
 }
 
-.size{
-    width: 3.5rem;
-    height: 3.5rem;
-    margin: .5rem;
-    border: .1rem solid #d0cfcf;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: .8rem;
-    color: #000000;
-    
-}
-.size:hover{
-    border-color: #FB5014;
-    color: #FB5014;
+.sizes_title {
+  margin-top: 1rem;
+	font-weight: 800;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	color: #131212;
 }
 
-.subtitle{
-    margin-top: 1rem;
-    text-transform: uppercase;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.8rem;
-    color: #FB5014;
+.sizes {
+	display: flex;
+	flex-wrap: wrap;
 }
 
-.cont{
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1rem;
-
-    color: #656565;
+.size {
+	width: 3.5rem;
+	height: 3.5rem;
+	margin: 0.5rem;
+	border: 0.1rem solid #d0cfcf;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.8rem;
+	color: #000000;
+}
+.size:hover {
+	border-color: #fb5014;
+	color: #fb5014;
 }
 
-.addCart{
-    margin-top: 2rem;
-    height: 3.5rem;
-    width: 15rem;
-    color: white;
-    background: #FB5014;
-    border-radius: .5rem;
-    border: none;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    font-weight: 700;
+.subtitle {
+	margin-top: 1rem;
+	text-transform: uppercase;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.8rem;
+	color: #fb5014;
 }
 
-.btn_container{
-    align-self: flex-start;
+.cont {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1rem;
+
+	color: #656565;
 }
 
-.btn{
-    display: flex;
-    align-items: center;
+.addCart {
+	margin-top: 1rem;
+	height: 3.1rem;
+	width: 15rem;
+	color: white;
+	background-color: var(--color2);
+   /* #17b4cc;; */
+	border-radius: 0.5rem;
+	border: none;
+	font-size: 1.6rem;
+	text-transform: uppercase;
+	font-weight: 700;
 }
 
-.home{
-    height: 4rem;
-    width: 4rem;
-    color: white;
-    background: #FB5014;
-    border-radius: 100%;
-    border: none;
-    font-size: 2rem;
+.addCart:hover {
+	background-color: #137f90;
 }
 
-.btn_title{
-    margin-left: 2rem;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    color: #FB5014;
+
+.btn_container {
+	align-self: flex-start;
+}
+
+.btn {
+	display: flex;
+	align-items: center;
+}
+
+.home {
+	height: 4rem;
+	width: 4rem;
+	color: white;
+	background-color: var(--color1);
+	border-radius: 100%;
+	border: none;
+	font-size: 2rem;
+}
+
+.home:hover {
+  background-color: #af4018;
+
+} 
+
+.btn_title {
+	margin-left: 2rem;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.8rem;
+	color: #fb5014;
+}
+
+.selectSize {
+  margin-top: 0.5rem;
+  width: 8rem;
+  height: 2rem;
+  cursor: pointer;
+  border-radius: 6px;
 }
