@@ -15,7 +15,6 @@ const Product = ({ data, index }) => {
   const dispatch = useDispatch();
   const [toDelete, setToDelete] = useState(false);
   const {
-    sneakerId,
     id,
     name,
     brand,
@@ -33,8 +32,6 @@ const Product = ({ data, index }) => {
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
   const [any, forceUpdate] = useReducer((num) => num + 1, 0);
-
-  const offer = useSelector((state) => state.offer);
 
   const addProductQtyHandler = () => {
     dispatch(addItemQuantity(index));
@@ -63,9 +60,6 @@ const Product = ({ data, index }) => {
       setToDelete(false);
     }, 300);
   };
-  console.log(offer, "offer");
-  console.log(sneakerId, "id");
-
   return (
     <div
       className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${
@@ -86,16 +80,7 @@ const Product = ({ data, index }) => {
             <p className="text-sm text-gray-600">{categories}</p>
             <p className="text-sm text-gray-600">{description}</p>
             <p className="text-gray-600">
-              {offer[0].id == sneakerId && offer[0].size == size ? (
-                <>
-                  <del>${Number(price * 1.25).toFixed(2)}`</del>
-                  <p>${Number(price).toFixed(2)}</p>
-                </>
-              ) : (
-                <>
-                  <p>${Number(price).toFixed(2)}</p>
-                </>
-              )}
+              ${Number(price).toFixed(2)}
               <span className="text-sm">/ Unit</span>
             </p>
           </div>
