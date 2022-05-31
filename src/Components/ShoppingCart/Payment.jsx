@@ -35,7 +35,6 @@ function Payment({user}) {
       type: 'card',
       card: elements.getElement(CardElement)
     });
-    console.log(paymentMethod)
     if (!error) {
       await dispatch(createOrder({
         email: user.email,
