@@ -79,7 +79,11 @@ export default function UpdateOrder({ onHide, show, order }) {
     function valueLabelFormat(value) {
         return marks.findIndex((mark) => mark.value === value) + 1;
     }
+<<<<<<< HEAD
         
+=======
+    
+>>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
     return (
         <Modal
             onHide={() => {onHide(); setstate('')}}

@@ -17,7 +17,7 @@ const StyledRating = styled(Rating)({
 
 //Componente de las estrellas
 export default function BasicRating({setRating}) {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = React.useState();
 
   return (
     <Box

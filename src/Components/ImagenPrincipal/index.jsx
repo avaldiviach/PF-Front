@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { offerSneaker } from "../../Redux/Actions/index";
@@ -7,7 +7,7 @@ import styles from './ImagenPrincipal.module.css'
 import image from '../../Assets/Images/2.svg'
 
 function ImagenPrincipal() {
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,8 +30,12 @@ function ImagenPrincipal() {
           <img src={image} alt="imagen" />
         </div>
       </div>
+      {/* <div className={styles.hotSale}>
+        <h3>Nike Air Max</h3>
+      </div> */}
     </section>
-  )
+
+  );
 }
 
 export default ImagenPrincipal;

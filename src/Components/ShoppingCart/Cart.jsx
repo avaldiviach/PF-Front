@@ -15,7 +15,11 @@ const Cart = () => {
   const navigate = useNavigate();
   const stripePromise = loadStripe('pk_test_51L1JdXFZiSHIoXAAAndrHsoSn3sisOhE0eaNxnNL0dvtv7O8BBAGO0AgyB1r2EjojYKl8QtSA3GJfKXDnCrSLbzE00VAlNOvG7');
   const productData = useSelector(state => state.productData)
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
   return (
     <main className='py-6 px-12 w-full flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6'>
 

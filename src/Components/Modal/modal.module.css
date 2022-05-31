@@ -10,17 +10,17 @@
     
 }
 
-.link{
-    color: rgb(0, 119, 255);
-    text-decoration: underline;
-}
 .btn{
     margin: auto auto;
+    text-decoration: none;
+
 }
 
 .go{
     margin-top: 1rem;
     display: flex;
     justify-content: center;
+    text-decoration: none;
+
 
 }

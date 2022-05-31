@@ -16,6 +16,7 @@ import CreateSneaker from "./createModel/CreateSneaker";
 import UpdateSneaker from "./createModel/UpdateSneaker";
 import s from "../Categories/categories.module.css";
 import ModalAdmin from "../ModalAdmin/ModalAdmin";
+import AddDiscount from "./addDiscount";
 
 export default function Products() {
   const sneakers = useSelector((state) => state.Sneakers);
@@ -31,12 +32,18 @@ export default function Products() {
     name: "",
   });
 
+  const [discountModal, setDiscountModal] = useState({
+    show: false,
+    id: ""
+  });
+
   const [modalDeleteProd, setModalDeleteProd] = useState({
     show: false,
     msg: "",
     title: "",
     action: "",
   });
+
 
   useEffect(() => {
     async function load() {
@@ -74,8 +81,12 @@ export default function Products() {
         renderSneakers={sneakers}
         admin={true}
         setState={setModalUpdate}
+        discount={setDiscountModal}
         showModalDelete={() =>
           setModalDeleteProd({ ...modalDeleteProd, show: true })
+        }
+        showDiscount={() =>
+          setDiscountModal({ ...discountModal, show: true })
         }
         setModalDeleteProd={setModalDeleteProd}
         state={modalDeleteProd}
@@ -85,6 +96,12 @@ export default function Products() {
         show={modalUpdate.show}
         onHide={() => setModalUpdate({ ...modalUpdate, show: false })}
         sneaker={modalUpdate}
+      />
+
+      <AddDiscount
+        show={discountModal.show}
+        onHide={() => setDiscountModal({ ...discountModal, show: false })}
+        id={discountModal.id}
       />
 
       <ModalAdmin
