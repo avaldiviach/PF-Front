@@ -112,6 +112,8 @@ const Product = ({ data, index }) => {
       </div>
 
     </div>
+    </div>
+
   )
 }
 
