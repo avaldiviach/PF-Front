@@ -29,3 +29,22 @@
   transition: width 1s, background 1s;
 
 }
+
+.btnFilter{
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(27, 161, 0);
+  color: whitesmoke;
+  width: 10rem;
+  height: 3rem;
+  border-radius: .5rem;
+  font-size: 1rem;
+  transition: width 1s, background 1s;
+}
+
+.btnFilter:hover{
+  background-color: rgb(23, 129, 1);
+
+}

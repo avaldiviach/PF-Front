@@ -27,7 +27,11 @@ import {
 	GET_TOKEN,
 	GET_USER,
 	RESET,
-	GET_USER_ORDERS
+	GET_USER_ORDERS,
+	GET_ORDERS_COMPLETED,
+	GET_ORDERS_PENDING,
+	GET_ORDERS_CANCELLED,
+	GET_ORDERS_INPROGRESS
 } from '../Actions';
 
 const initialState = {
@@ -36,7 +40,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-  copyDetail: {},
+	copyDetail: {},
 	getReviews: [],
 	users: [],
 	categories: [],
@@ -120,7 +124,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				detail: payload,
-        copyDetail: payload,
+				copyDetail: payload,
 
 			};
 
@@ -142,14 +146,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				...payload,
 			}
-		
-    case 'GET_CART_BD':
+
+		case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
 
-      return {
-        ...state,
-        productData: [...state.productData, ...filterDB],
-	}
+			return {
+				...state,
+				productData: [...state.productData, ...filterDB],
+			}
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -236,25 +240,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				getReviews: payload
 			}
-      
+
 		case GET_ROLE:
 			return {
 				...state,
 				getRole: payload
 			}
-      
+
 		case GET_TOKEN:
 			return {
 				...state,
 				getToken: payload
 			}
-      
+
 		case GET_USER:
 			return {
 				...state,
 				getUser: payload
 			}
-      
+
 		case RESET:
 			return {
 				...state,
@@ -277,10 +281,56 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case GET_USER_ORDERS:
 
-		return {
-			...state,
-			userOrders: payload
-		}
+			return {
+				...state,
+				userOrders: payload
+			}
+
+
+		case GET_ORDERS_COMPLETED:
+
+			let ord = state.getOrders
+
+			let completed = ord?.map(el => el.state === 'Completed')
+
+			return {
+				...state,
+				getOrders: completed
+			}
+
+		case GET_ORDERS_PENDING:
+
+			let order = state.getOrders
+
+			let pending = order?.map(el => el.state === 'Pending')
+
+			return {
+				...state,
+				getOrders: pending
+			}
+
+		case GET_ORDERS_CANCELLED:
+			let orders = state.getOrders
+
+			let cancelled = orders?.map(el => el.state === 'Cancelled')
+
+			return {
+				...state,
+				getOrders: cancelled
+			}
+
+		case GET_ORDERS_INPROGRESS:
+			let orderss = state.getOrders
+
+			let progress = orderss?.map(el => el.state === 'In Progress')
+
+			return {
+				...state,
+				getOrders: progress
+			}
+
+
+
 		default:
 			return state;
 	}

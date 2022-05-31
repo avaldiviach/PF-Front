@@ -33,7 +33,11 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	GET_ORDERS_COMPLETED = 'GET_ORDERS_COMPLETED',
+	GET_ORDERS_PENDING = 'GET_ORDERS_PENDING',
+	GET_ORDERS_CANCELLED = 'GET_ORDERS_CANCELLED',
+	GET_ORDERS_INPROGRESS = 'GET_ORDERS_INPROGRESS'
 
 //const url = 'http://localhost:3001';
 const url = 'https://node-api-sneakers.herokuapp.com';
@@ -143,7 +147,7 @@ export const addItem = (data) => (dispatch, getState) => {
 		type: 'conjunction',
 	});
 
-  
+
 	const exist = productData?.some(
 		(product) => product.sneakerId === data.id && product.size === data.sizes.size
 	);
@@ -234,7 +238,7 @@ export const getTotalPrice = () => {
 		const { productData } = rootReducer;
 		let total = 0;
 		productData.forEach((item) => {
-			total += (item.discountPrice > 0 ? item.discountPrice : item.price )* item.qty;
+			total += (item.discountPrice > 0 ? item.discountPrice : item.price) * item.qty;
 		});
 
 		//agregar productData al local storage
@@ -611,7 +615,7 @@ export function createOrder(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`${url}/createOrder`,payload
+				`${url}/createOrder`, payload
 			);
 			return dispatch({
 				type: CREATE_ORDER,
@@ -627,7 +631,7 @@ export function updateOrder(id, status) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/updateOrder/${id}`, {newStatus: status}
+				`${url}/updateOrder/${id}`, { newStatus: status }
 			);
 			return dispatch({
 				type: 'UPDATE_ORDER',
@@ -639,9 +643,9 @@ export function updateOrder(id, status) {
 	};
 }
 
-export function getRole (id) {
-	return async function(dispatch) {
-		if(!id) {
+export function getRole(id) {
+	return async function (dispatch) {
+		if (!id) {
 			return dispatch({
 				type: GET_ROLE,
 				payload: "guest",
@@ -663,15 +667,16 @@ export function getRole (id) {
 
 
 
-export function getToken(token) {			
+export function getToken(token) {
 	return function (dispatch) {
 		return dispatch({
 			type: GET_TOKEN,
 			payload: token,
-		});			
-}}
-export function getUser(curUser) {			
-	return function(dispatch) {
+		});
+	}
+}
+export function getUser(curUser) {
+	return function (dispatch) {
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
@@ -679,12 +684,13 @@ export function getUser(curUser) {
 	}
 }
 
-export function logOutAndReset() {			
-	return function(dispatch) {
+export function logOutAndReset() {
+	return function (dispatch) {
 		return dispatch({
 			type: RESET,
-		});			
-}}
+		});
+	}
+}
 export function createDiscount(id, payload) {
 	return async function (dispatch) {
 		try {
@@ -735,3 +741,30 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 	});
 }
 
+export const getOrdersCompleted = () => {
+	return function (dispatch) {
+		return dispatch({
+			type: GET_ORDERS_COMPLETED,
+		});
+
+	}
+}
+
+export const getOrdersPending = () => {
+	return {
+		type: GET_ORDERS_PENDING,
+	};
+
+}
+
+export const getOrdersCancelled = () => {
+	return {
+		type: GET_ORDERS_CANCELLED,
+	};
+}
+
+export const getOrdersInProgress = () => {
+	return {
+		type: GET_ORDERS_INPROGRESS,
+	};
+}
