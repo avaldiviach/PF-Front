@@ -9,6 +9,8 @@ function Cards({
   setState,
   showModalDelete,
   setModalDeleteProd,
+  discount,
+  showDiscount
 }) {
   return (
     <div className={style.cards}>
@@ -21,6 +23,8 @@ function Cards({
               setState={setState}
               showModalDelete={showModalDelete}
               setModalDeleteProd={setModalDeleteProd}
+              discount={discount}
+              showDiscount={showDiscount}
             />
           ))
         ) : (

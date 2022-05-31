@@ -65,7 +65,6 @@ export default function UpdateOrder({ onHide, show, order }) {
     
     const createClick = async (e) => {
         e.preventDefault()
-        console.log(order.id, state)
         await dispatch(updateOrder(order.id, state))
         await dispatch(getOrders())
         onHide()
@@ -80,7 +79,6 @@ export default function UpdateOrder({ onHide, show, order }) {
     function valueLabelFormat(value) {
         return marks.findIndex((mark) => mark.value === value) + 1;
     }
-    
     
     return (
         <Modal

@@ -16,17 +16,21 @@ export default function Detail() {
   const sneaker = useSelector((state) => state.detail);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
-  console.log(sneaker.rating)
-
+  
   useEffect(() => {
     dispatch(getDetailSneaker(id));
-    console.log(sneaker.sizes)
     return () => {
       dispatch(cleanDetail());
     };
     
   }, [id]);
 
+  function selectSize(e) {
+    const { target: { value } } = e;
+    const obj = { ...sneaker, sizes: sneaker.sizes[value] };
+    setSelectSneaker({ ...obj });
+  }
+  
   function addToCart() {
     //verifica si se seleccionó una talla
     if (!selectSneaker) {
@@ -50,12 +54,6 @@ export default function Detail() {
         msg: 'Item is already in your cart',
         goCart: true
       })
-  }
-
-  function selectSize(e) {
-    const { target: { value } } = e;
-    const obj = { ...sneaker, sizes: sneaker.sizes[value] };
-    setSelectSneaker({ ...obj });
   }
 
   return (
@@ -113,6 +111,36 @@ export default function Detail() {
         </div>
       </div>
 
+
+            </section>
+            <section className={s.rigth}>
+              <p className={s.brand}> {sneaker.brand}</p>
+              <RatingStars rating={sneaker.rating} />
+              <NavLink to="/reviews">
+                Create Review
+              </NavLink><NavLink to="/listreviews">
+                See Reviews
+              </NavLink>
+              <p className={s.price} >${sneaker.price}</p>
+              {sneaker.discountPrice > 0 &&  <p className={s.price} >discount ${sneaker.discountPrice}</p>}
+              <p className={s.details}>Details: {sneaker.description}</p>
+              <p className={s.sizes_title}>Select Size (EUR)</p>
+              <div className={s.sizes}>
+                <select onChange={selectSize}>
+                  <option value="" >Select Size</option>
+                  {sneaker.sizes?.map(({ size, stock }, i) => stock && <option className={s.size} key={i} value={i} >{size}</option>)}
+                </select>
+              </div>
+              <p className={s.subtitle}>Material </p>
+              <p className={s.cont}>{sneaker.material}</p>
+              <p className={s.subtitle}>Model</p>
+              <p className={s.cont}>{sneaker.model}</p>
+              <button onClick={addToCart} className={s.addCart}>Add to Cart</button>
+
+            </section>
+          </div>
+        )
+      }
     </div>
 
   );

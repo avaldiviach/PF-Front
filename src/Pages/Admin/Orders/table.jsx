@@ -6,7 +6,6 @@ const TableOrders = ({update}) => {
   const orders = useSelector((state) => state.getOrders);
   const dispatch = useDispatch();
 
-  console.log(orders);
   // const ordById = (e) => {
   //   e.preventDefault();
   //   dispatch(getOrderById(e.target.value));
