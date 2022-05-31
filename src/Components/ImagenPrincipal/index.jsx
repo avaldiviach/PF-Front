@@ -31,7 +31,7 @@ function ImagenPrincipal() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default ImagenPrincipal;

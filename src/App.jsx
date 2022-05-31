@@ -20,13 +20,16 @@ import Reviews2 from "./Components/Reviews/ListReview";
 import { getSneakers } from "./Redux/Actions";
 import Orders from "./Components/Orders";
 
+
 function App() {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.productData);
   const totalPrice = useSelector((state) => state.totalPrice);
+
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
   
+
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
@@ -35,18 +38,21 @@ function App() {
       const { email } = user;
       const data = {
         email,
-        productData
+        productData,
       };
       try {
         async function postCart() {
-          return await axios.post("https://node-api-sneakers.herokuapp.com/addcart", data);
+          return await axios.post(
+            "https://node-api-sneakers.herokuapp.com/addcart",
+            data
+          );
         }
         postCart();
       } catch (error) {
         console.log(error);
       }
     }
-  }, [user, totalPrice,token]);
+  }, [user, totalPrice, token]);
 
   return (
     <div className="App">
@@ -59,7 +65,7 @@ function App() {
         <Route path='/resetpass' element={<RecoverPassword />} />
         <Route path='/orders' element={<Orders />} />
         <Route path="/cart/*" element={<Cart />}>
-          <Route path="payment" element={<Payment user={user}/>} />
+          <Route path="payment" element={<Payment user={user} />} />
         </Route>
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/listreviews" element={<Reviews2 />} />

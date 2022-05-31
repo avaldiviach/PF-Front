@@ -140,6 +140,7 @@ export const addItem = (data) => (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
+
   
 	const exist = productData?.some(
 		(product) => product.sneakerId === data.id && product.size === data.sizes.size
@@ -540,7 +541,7 @@ export function getOrders() {
 			);
 			return dispatch({
 				type: GET_ALL_ORDERS,
-        payload: data,
+				payload: data,
 			});
 		} catch (error) {
 			console.log(error);
@@ -655,6 +656,7 @@ export function getRole (id) {
 }
 
 
+
 export function getToken(token) {			
 	return function (dispatch) {
 		return dispatch({
@@ -667,8 +669,9 @@ export function getUser(curUser) {
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
-		});			
-}}
+		});
+	}
+}
 
 export function logOutAndReset() {			
 	return function(dispatch) {
@@ -725,3 +728,4 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 		},
 	});
 }
+
