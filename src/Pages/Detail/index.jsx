@@ -70,8 +70,6 @@ export default function Detail() {
           ) : (
             <div className={s.detail}>
               <section className={s.left} >
-                <img src={sneaker.image} alt={"img"} />
-      
                 <div className={s.btn_container}>
                   <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                     <div className={s.btn}>
@@ -80,6 +78,8 @@ export default function Detail() {
                     </div>
                   </Link>
                 </div>
+                <img src={sneaker.image} alt={"img"} />
+      
               </section>
 
               <section className={s.rigth}>
@@ -88,14 +88,11 @@ export default function Detail() {
                 <NavLink to="/reviews">
                   Create Review
                 </NavLink>
-                {/* <NavLink to="/listreviews">
-                  See Reviews
-                </NavLink> */}
                 <p className={s.price} >${sneaker.price}</p>
                 <p className={s.details}>Details: {sneaker.description}</p>
                 <p className={s.sizes_title}>Select Size (EUR)</p>
                 <div className={s.sizes}>
-                  <select onChange={selectSize}>
+                  <select className={s.selectSize} onChange={selectSize}>
                     <option value="" >Select Size</option>
                     {sneaker.sizes?.map(({ size, stock }, i) => stock && <option className={s.size} key={i} value={i} >{size}</option>)}
                   </select>
@@ -111,7 +108,9 @@ export default function Detail() {
         }
       </div>
       <div className={`${s.detail} ${s.listReviews} `}>
-        <ListReviews/>
+        <div className={s.containerReviews}>
+          <ListReviews/>
+        </div>
       </div>
 
     </div>
