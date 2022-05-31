@@ -89,6 +89,7 @@ export default function Detail() {
                 See Reviews
               </NavLink>
               <p className={s.price} >${sneaker.price}</p>
+              {sneaker.discountPrice > 0 &&  <p className={s.price} >discount ${sneaker.discountPrice}</p>}
               <p className={s.details}>Details: {sneaker.description}</p>
               <p className={s.sizes_title}>Select Size (EUR)</p>
               <div className={s.sizes}>

@@ -8,7 +8,7 @@ import s from './cart.module.css'
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
-  const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
+  const { id, name, brand, categories, price, description, qty, image, size, max, item, discountPrice , wishlisted } = data
   const user = useSelector(state => state.getUser);
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
@@ -55,7 +55,12 @@ const Product = ({ data, index }) => {
             <h4 className='text-sm text-gray-900'>Talla {size}</h4>
             <p className='text-sm text-gray-600'>{categories}</p>
             <p className='text-sm text-gray-600'>{description}</p>
-            <p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
+            {
+              discountPrice > 0 
+              ? <p className='text-gray-600'>${Number(discountPrice).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
+              :<p className='text-gray-600'>${Number(price).toFixed(2)} <span className='text-sm'>/ Unit</span></p>
+            }
+
           </div>
           <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 text-gray-600 '>
             <div onClick={removeItemHandler} className='flex items-center space-x-1 text-xs lg:text-sm hover:text-gray-400 cursor-pointer'>
@@ -94,7 +99,14 @@ const Product = ({ data, index }) => {
           </div>
           {/*  <p className='text-xs text-gray-600 mt-2'>(Note, {notes})</p> */}
         </div>
-        <p className='items-center text-gray-800 text-right text-lg font-semibold'>${Number(price * qty).toFixed(2)}</p>
+        {
+          discountPrice > 0 
+          ? <p className='items-center text-gray-800 text-right text-lg font-semibold'>${Number(discountPrice * qty).toFixed(2)}</p>
+
+          : <p className='items-center text-gray-800 text-right text-lg font-semibold'>${Number(price * qty).toFixed(2)}</p>
+
+        }
+
       </div>
 
     </div>

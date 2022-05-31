@@ -67,6 +67,7 @@ function Payment({user}) {
             //falta agregar una ruta para recibir los productos que han sido comprados y registrar en la BD
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
+
             setTimeout(() => navigate('/cart'), 3000);
           }
         });

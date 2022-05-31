@@ -32,6 +32,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_ROLE = 'GET_ROLE',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
+	GET_USER_ORDERS = 'GET_USER_ORDERS',
 	RESET = 'RESET';
 
 
@@ -155,6 +156,7 @@ export const addItem = (data) => (dispatch, getState) => {
 					brand: data.brand,
 					categories: formatter.format(data.categories),
 					price: data.price,
+					discountPrice: data.discountPrice,
 					description: data.description,
 					size: data.sizes.size,
 					max: data.sizes.stock,
@@ -229,7 +231,7 @@ export const getTotalPrice = () => {
 		const { productData } = rootReducer;
 		let total = 0;
 		productData.forEach((item) => {
-			total += item.price * item.qty;
+			total += (item.discountPrice > 0 ? item.discountPrice : item.price )* item.qty;
 		});
 
 		//agregar productData al local storage
@@ -585,6 +587,24 @@ export function getOrderById(id) {
 	};
 }
 
+
+export function getUserOrders(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`https://node-api-sneakers.herokuapp.com/getOrdUser/${id}`
+
+			);
+			return dispatch({
+				type: GET_USER_ORDERS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
 export function createOrder(payload) {
 	return async function (dispatch) {
 		try {
@@ -662,3 +682,19 @@ export function logOutAndReset(){
 			type: RESET,
 		});			
 }}
+
+export function createDiscount(id, payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.post(
+				`https://node-api-sneakers.herokuapp.com/addDiscount/${id}`, payload
+			);
+			return dispatch({
+				type: 'CREATE_DISCOUNT',
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}

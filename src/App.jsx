@@ -19,7 +19,7 @@ import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
 import { getSneakers } from "./Redux/Actions";
-
+import Orders from "./Components/Orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +67,7 @@ function App() {
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
+        <Route path='/orders' element={<Orders />} />
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment user={user}/>} />
         </Route>

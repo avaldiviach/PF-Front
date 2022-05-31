@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers, logOutAndReset } from "../../Redux/Actions";
+import { getSneakers, getUserOrders, logOutAndReset } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
@@ -34,6 +34,7 @@ export default function Example() {
     //   setImage(defaultUser);
     // }
     if (user) {
+      dispatch(getUserOrders(user.email))
       if (!user.photoURL) {
         const firstLetter = user.email.charAt(0).toUpperCase();
         setImage(firstLetter);
@@ -72,6 +73,10 @@ export default function Example() {
     await dispatch({ type: 'SET_CART', payload: { productData: [] } });
     localStorage.removeItem('productData')
     navigate("/")
+  }
+
+  const goOrders = async () => {
+    console.log(user.email)
   }
 
   return (
@@ -226,6 +231,18 @@ export default function Example() {
                           </Link>)
                         )}
                       </Menu.Item>
+                      <Menu.Item>
+                      {({ active }) => (
+                          ( <Link
+                            // href="/registerfb"
+                            to='/orders'
+                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            onClick={goOrders}
+                          >
+                            My Orders
+                          </Link>)
+                        )}
+                      </Menu.Item>
                     </Menu.Items>
 
 
@@ -252,7 +269,6 @@ export default function Example() {
                 >
                   {item.name}
                 </Disclosure.Button>
-
               ))}
               <div className={`flex items-center justify-end pr-6 ${styles.searchBar}`}>
                 <SearchBar />
