@@ -1,27 +1,27 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./ImagenPrincipal.module.css";
-import image from "../../Assets/Images/2.svg";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { offerSneaker } from "../../Redux/Actions/index";
-import { useDispatch } from "react-redux";
+
+import styles from './ImagenPrincipal.module.css'
+import image from '../../Assets/Images/2.svg'
 
 function ImagenPrincipal() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleOffer = async (e) => {
+  const handleOffer = (e) => {
     e.preventDefault();
-    await dispatch(offerSneaker(13));
-    navigate("/cart");
+    dispatch(offerSneaker(13));
+    navigate('/cart');
   };
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.item__left}>
-          <h1>
-            Nike <span>Air</span>
-          </h1>
+          <h1>Nike <span>Air</span></h1>
           <h2>Zoom</h2>
           <p>20% Discount</p>
           <button onClick={handleOffer}>Shop now</button>

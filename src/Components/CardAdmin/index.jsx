@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteSneaker, getSneakers } from "../../Redux/Actions";
+import { createDiscount, deleteSneaker, getSneakers } from "../../Redux/Actions";
 import style from "./Card.module.css";
 import Switch from "@mui/material/Switch";
 import { FormControlLabel } from "@mui/material";
 
-function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
-  const { model, price, image, brand, id, deleted, sizes } = sneaker;
+function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount,
+  showDiscount }) {
+  const { model, price, image, brand, id, deleted, sizes, discountPrice } = sneaker;
   const dispatch = useDispatch();
 
   const handleDeleteSneaker = (e) => {
@@ -36,6 +37,14 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
     }
   };
 
+  const addDiscount = (e) => {
+    e.preventDefault()
+    discount({
+      show: true,
+      id: sneaker.id
+    })
+  }
+
   const updateSneaker = (e) => {
     e.preventDefault();
     setState({
@@ -47,7 +56,6 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
     });
   };
   return (
-    <div>
       <div className={style.card}>
         <div className={style.btn_container}>
           <FormControlLabel
@@ -64,28 +72,37 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState }) {
             label="Status"
             labelPlacement="start"
           />
+          <button className={style.delete} onClick={addDiscount}>
+            🔥
+          </button>
+
           <button className={style.update} onClick={updateSneaker}>
             ✎
           </button>
         </div>
-        <Link
-          to={`/detail/${id}`}
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
-          <img src={image} alt="" className={style.img} />
-          <div className={style.data_container}>
-            <section className={style.data}>
-              <p className={style.brand}>{brand}</p>
-              <p className={style.name}>{model}</p>
-              <p>{`Delete:${deleted}`}</p>
-            </section>
-            <section className={style.price_section}>
-              $<p className={style.price}>{price}</p>
-            </section>
-          </div>
-        </Link>
+        
+          <Link
+            to={`/detail/${id}`}
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          ><div className={style.container}>
+            <img src={image} alt="" className={style.img} />
+            <div className={style.data_container}>
+              <section className={style.data}>
+                <p className={style.brand}>{brand}</p>
+                <p className={style.name}>{model}</p>
+              </section>
+              <section className={style.price_section}>
+                $<p className={style.price}>{price}</p>
+              </section>
+              
+            </div></div>
+          </Link>
+          {
+                  discountPrice > 0
+                  && <p className={style.discount}>$ {discountPrice}. {`(discont Price)`}</p>
+                }
       </div>
-    </div>
+      
   );
 }
 

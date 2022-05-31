@@ -27,6 +27,7 @@ import {
 	GET_TOKEN,
 	GET_USER,
 	RESET,
+	GET_USER_ORDERS
 } from '../Actions';
 
 const initialState = {
@@ -58,6 +59,7 @@ const initialState = {
 	getReviews: [],
 	getOrders: [],
 	orderById: [],
+	userOrders: [],
 	getRole: '',
 	getToken: '',
 	getUser: null,
@@ -122,16 +124,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		case CLEAN_DETAIL: return { ...state, detail: [] }
 
 		case SORT_PRICE:
-
 			let sortByPrice = [...state.SneakersCopy];
-			console.log(sortByPrice)
-
 			if (payload === 'asc') {
 				sortByPrice.sort((a, b) => a.price - b.price)
 			} else {
 				sortByPrice.sort((a, b) => b.price - a.price)
 			}
-
 			return {
 				...state, SneakersCopy: [...sortByPrice]
 			}
@@ -141,17 +139,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				...payload,
 			}
-		//return Object.assign({}, state, payload);
-
-
-		case 'GET_CART_BD':
+		
+    case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
 
-			return {
-				...state,
-				productData: [...state.productData, ...filterDB],
-			}
-
+      return {
+        ...state,
+        productData: [...state.productData, ...filterDB],
+	}
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -166,7 +161,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 		//-------------------ADMIN------------------ADMIN--------------------ADMIN
 		case GET_ALL_USERS:
-
 			return {
 				...state,
 				users: payload
@@ -174,14 +168,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case DELETE_USER:
 			let user = [...state.users]
-
 			return {
 				...state,
 				users: user.filter(el => el.id !== payload)
 			}
 
 		case CREATE_MODEL:
-
 			return {
 				...state,
 				createModel: payload
@@ -194,37 +186,31 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 
 		case CREATE_CATEGORY:
-
 			return {
 				...state,
 				categories: payload
 			}
 
 		case DELETE_CATEGORY:
-
 			let category = state.categories
-
 			return {
 				...state,
 				categories: category.filter(el => el.id !== payload)
 			}
 
 		case GET_MODELS:
-
 			return {
 				...state,
 				getModels: payload
 			}
 
 		case GET_BRANDS:
-
 			return {
 				...state,
 				getBrands: payload
 			}
 
 		case GET_MATERIALS:
-
 			return {
 				...state,
 				getMaterials: payload
@@ -232,14 +218,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 
 		case GET_COLORS:
-
 			return {
 				...state,
 				getColors: payload
 			}
 
 		case GET_SIZES:
-
 			return {
 				...state,
 				getSizes: payload
@@ -249,21 +233,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				getReviews: payload
 			}
+      
 		case GET_ROLE:
 			return {
 				...state,
 				getRole: payload
 			}
+      
 		case GET_TOKEN:
 			return {
 				...state,
 				getToken: payload
 			}
+      
 		case GET_USER:
 			return {
 				...state,
 				getUser: payload
 			}
+      
 		case RESET:
 			return {
 				...state,
@@ -279,15 +267,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
 
 		case GET_ORDER_BY_ID:
-
 			return {
 				...state,
 				orderById: payload
 			}
 
+		case GET_USER_ORDERS:
 
-
-
+		return {
+			...state,
+			userOrders: payload
+		}
 		default:
 			return state;
 	}
