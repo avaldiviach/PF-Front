@@ -26,13 +26,7 @@ function App() {
   const totalPrice = useSelector((state) => state.totalPrice);
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
-  // const {token} = useAuth();
-
-  // useEffect(() => {
-  //   dispatch(getSneakers(token));
-  //   // eslint-disable-next-line
-  // }, [token]);
-
+  
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
