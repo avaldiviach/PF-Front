@@ -14,9 +14,6 @@ const Filters = () => {
   const [defPri, setDefPri] = useState("");
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [defCat, setDefCat] = useState("");
-  const [defBra, setDefBra] = useState("");
-  const [defPri, setDefPri] = useState("");
   const dispatch = useDispatch();
   const url2 = "https://node-api-sneakers.herokuapp.com";
   const url1 = "http://localhost:3001";
