@@ -101,7 +101,7 @@ export default function CreateUser() {
               </div>
               <div className={styles.account}>
                 <label className={styles.label_account}>Already have an account?
-                  <Link to="/loginfb">
+                  <Link to="/loginfb" className={styles.label_account_href}>
                     <span>
                       Log in
                     </span>

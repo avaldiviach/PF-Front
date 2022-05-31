@@ -36,6 +36,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
+  copyDetail: {},
 	getReviews: [],
 	users: [],
 	categories: [],
@@ -119,6 +120,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				detail: payload,
+        copyDetail: payload,
+
 			};
 
 		case CLEAN_DETAIL: return { ...state, detail: [] }

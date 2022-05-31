@@ -190,6 +190,10 @@ border-radius: 1rem; */
   font-weight: bold;
 }
 
+.label_account_href {
+  text-decoration: none;
+}
+
 .label_account span {
   color: var(--color1);
   font-family: 'Montserrat', 'PT Sans', sans-serif;
