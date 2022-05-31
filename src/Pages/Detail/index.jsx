@@ -109,7 +109,7 @@ export default function Detail() {
       </div>
       <div className={`${s.detail} ${s.listReviews} `}>
         <div className={s.containerReviews}>
-          <ListReviews/>
+          <ListReviews id={id} />
         </div>
       </div>
 

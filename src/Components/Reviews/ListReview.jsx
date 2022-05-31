@@ -12,19 +12,19 @@ import { getAllreviews } from '../../Redux/Actions';
 import image from '../../Assets/Images/3.svg';
 import styles from './Reviews.module.css';
 
-export default function ListReview() {
+export default function ListReview({id}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const reviews = useSelector(state => state.getReviews);
   useEffect(() => {
-    dispatch(getAllreviews(1));
+    dispatch(getAllreviews(id));
   }, [])
 
   return (
     <>
       {
-        reviews?.map((review, id) => {
+        reviews?.map((review) => {
           return (
             <>
               <Review key={id} review={review} />
