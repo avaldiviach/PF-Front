@@ -21,13 +21,13 @@
 }
 
 .cart {
-	border: solid 2px var(--color1); 
+	border: solid 2px var(--negro); 
 	margin-top: 0.9rem;
 }
 
 .admin:hover {
-	background-color: var(--color1);
-	border: solid 2px var(--color1);
+	background-color: rgb(255, 248, 248);
+	border: solid 2px rgb(255, 248, 248);
 }
 
 .admin svg {
