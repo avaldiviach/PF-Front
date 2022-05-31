@@ -1,7 +1,14 @@
-import React, { useReducer, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addItemQuantity, decreaseItemQuantity, addWishlist, removeItem, getTotalPrice } from '../../Redux/Actions'
+import React, { useReducer, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addItemQuantity,
+  decreaseItemQuantity,
+  addWishlist,
+  removeItem,
+  getTotalPrice,
+} from "../../Redux/Actions";
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
+
 import s from './cart.module.css'
 
 const Product = ({ data, index }) => {
@@ -18,16 +25,16 @@ const Product = ({ data, index }) => {
   const offer = useSelector((state) => state.offer);
 
   const addProductQtyHandler = () => {
-    dispatch(addItemQuantity(index))
+    dispatch(addItemQuantity(index));
     dispatch(getTotalPrice());
     forceUpdate();
-  }
+  };
 
   const removeProductQtyHandler = () => {
-    dispatch(decreaseItemQuantity(index))
+    dispatch(decreaseItemQuantity(index));
     dispatch(getTotalPrice());
     forceUpdate();
-  }
+  };
 
   // agregar a la lista de deseos
   /* const wishlistHandler = () => {
@@ -37,15 +44,16 @@ const Product = ({ data, index }) => {
 
   // remover item
   const removeItemHandler = () => {
-    setToDelete(true)
+    setToDelete(true);
     setTimeout(() => {
+
       dispatch(removeItem(sneakerId, size, user?.email))
       dispatch(getTotalPrice());
-      setToDelete(false)
-    }, 300)
-  }
-
+      setToDelete(false);
+    }, 300);
+  };
   return (
+
     <div className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
       <div className='space-y-4 lg:space-y-0 lg:space-x-4 flex flex-col lg:flex-row'>
         <img src={image} alt='img-product' className={`w-full lg:w-48 ${s.img} `}/>
@@ -82,18 +90,32 @@ const Product = ({ data, index }) => {
         </div>
       </div>
 
-      <div className='flex flex-row lg:flex-col justify-between items-center lg:items-end'>
-        <div className='flex flex-col items-center'>
-          <div className='flex items-center text-gray-800 text-xs lg:text-base '>
-            <div onClick={removeProductQtyHandler} className={qty === 1 ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-l-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-l-md'}>
-              <span >
+      <div className="flex flex-row lg:flex-col justify-between items-center lg:items-end">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center text-gray-800 text-xs lg:text-base ">
+            <div
+              onClick={removeProductQtyHandler}
+              className={
+                qty === 1
+                  ? "cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-l-md text-gray-500"
+                  : "cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-l-md"
+              }
+            >
+              <span>
                 <GrFormSubtract />
               </span>
             </div>
-            <div className='flex justify-center w-12 h-full items-center p-1 border-t border-b'>
+            <div className="flex justify-center w-12 h-full items-center p-1 border-t border-b">
               {qty}
             </div>
-            <div onClick={addProductQtyHandler} className={max === qty ? 'cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500' : 'cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md'}>
+            <div
+              onClick={addProductQtyHandler}
+              className={
+                max === qty
+                  ? "cursor-not-allowed flex justify-center w-10 h-full items-center p-2 hover:bg-gray-50 border rounded-r-md text-gray-500"
+                  : "cursor-pointer flex justify-center w-10 h-full items-center p-2 hover:bg-gray-200 border rounded-r-md"
+              }
+            >
               <span>
                 <GrFormAdd />
               </span>
@@ -110,9 +132,8 @@ const Product = ({ data, index }) => {
         }
 
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Product;

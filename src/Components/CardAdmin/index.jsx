@@ -14,15 +14,27 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount
   const handleDeleteSneaker = (e) => {
     e.preventDefault();
     showModalDelete();
-    setModalDeleteProd({
-      show: true,
-      msg: `Are you sure do you want to delete the sneaker ${e.target.value}?`,
-      title: `Delete sneaker`,
-      action: async () => {
-        await dispatch(deleteSneaker(e.target.value));
-        await dispatch(getSneakers());
-      },
-    });
+    if (!deleted) {
+      setModalDeleteProd({
+        show: true,
+        msg: `Are you sure do you want to delete the sneaker ${e.target.value}?`,
+        title: `Delete sneaker`,
+        action: async () => {
+          await dispatch(deleteSneaker(e.target.value));
+          await dispatch(getSneakers());
+        },
+      });
+    } else {
+      setModalDeleteProd({
+        show: true,
+        msg: `Are you sure do you want to add the sneaker ${e.target.value}?`,
+        title: `Add sneaker`,
+        action: async () => {
+          await dispatch(deleteSneaker(e.target.value));
+          await dispatch(getSneakers());
+        },
+      });
+    }
   };
 
   const addDiscount = (e) => {

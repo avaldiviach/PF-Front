@@ -9,13 +9,16 @@ import {
 import s from "./filters.module.css";
 
 const Filters = () => {
+  const [defCat, setDefCat] = useState("");
+  const [defBra, setDefBra] = useState("");
+  const [defPri, setDefPri] = useState("");
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [defCat, setDefCat] = useState("");
   const [defBra, setDefBra] = useState("");
   const [defPri, setDefPri] = useState("");
   const dispatch = useDispatch();
-  const url2 = 'https://node-api-sneakers.herokuapp.com'
+  const url2 = "https://node-api-sneakers.herokuapp.com";
   const url1 = "http://localhost:3001";
 
   const peticion = async () => {
@@ -50,9 +53,9 @@ const Filters = () => {
 
   const handleOrderingPrice = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     dispatch(OrderingByPrice(e.target.value));
     setDefPri(e.target.value);
+
   };
 
   return (

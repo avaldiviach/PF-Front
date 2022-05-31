@@ -46,7 +46,7 @@ const initialState = {
 	getColors: [],
 	getSizes: [],
 
-  //Estados globales de carrito
+	//Estados globales de carrito
 	// productData: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
 	totalPrice: 0,
@@ -235,25 +235,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
       
 		case GET_ROLE:
-			return{
+			return {
 				...state,
 				getRole: payload
 			}
       
 		case GET_TOKEN:
-			return{
+			return {
 				...state,
 				getToken: payload
 			}
       
 		case GET_USER:
-			return{
+			return {
 				...state,
 				getUser: payload
 			}
       
 		case RESET:
-			return{
+			return {
 				...state,
 				getRole: '',
 				getToken: '',
