@@ -69,7 +69,7 @@ export default function Detail() {
             <div className={s.detail}>
               <section className={s.left} >
                 <div className={s.btn_container}>
-                  <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                     <div className={s.btn}>
                       <button className={s.home}> {'<'} </button>
                       <p className={s.btn_title}>GO BACK</p>
@@ -77,7 +77,7 @@ export default function Detail() {
                   </Link>
                 </div>
                 <img src={sneaker.image} alt={"img"} />
-      
+                
               </section>
 
               <section className={s.rigth}>
@@ -110,37 +110,8 @@ export default function Detail() {
           <ListReviews id={id} />
         </div>
       </div>
-
-
-            </section>
-            <section className={s.rigth}>
-              <p className={s.brand}> {sneaker.brand}</p>
-              <RatingStars rating={sneaker.rating} />
-              <NavLink to="/reviews">
-                Create Review
-              </NavLink><NavLink to="/listreviews">
-                See Reviews
-              </NavLink>
-              <p className={s.price} >${sneaker.price}</p>
-              {sneaker.discountPrice > 0 &&  <p className={s.price} >discount ${sneaker.discountPrice}</p>}
-              <p className={s.details}>Details: {sneaker.description}</p>
-              <p className={s.sizes_title}>Select Size (EUR)</p>
-              <div className={s.sizes}>
-                <select onChange={selectSize}>
-                  <option value="" >Select Size</option>
-                  {sneaker.sizes?.map(({ size, stock }, i) => stock && <option className={s.size} key={i} value={i} >{size}</option>)}
-                </select>
-              </div>
-              <p className={s.subtitle}>Material </p>
-              <p className={s.cont}>{sneaker.material}</p>
-              <p className={s.subtitle}>Model</p>
-              <p className={s.cont}>{sneaker.model}</p>
-              <button onClick={addToCart} className={s.addCart}>Add to Cart</button>
-
-            </section>
-          </div>
-        )
-      }
+            
+        
     </div>
 
   );
