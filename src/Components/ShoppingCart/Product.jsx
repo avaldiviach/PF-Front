@@ -58,7 +58,7 @@ const Product = ({ data, index }) => {
               {
                 offer[0].id === sneakerId && offer[0].size === size ? (
                   <>
-                    ${Number(price).toFixed(2)}
+                    ${Number(price).toFixed(2)}{` `}
                     <del>${Number(price * 1.25).toFixed(2)}`</del>
                   </>
                 ) : (
