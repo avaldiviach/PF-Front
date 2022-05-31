@@ -7,17 +7,32 @@
     padding:2rem;
     margin:3rem 2rem;
     align-items: center;
-    justify-content: space-between;
     border-radius: .6rem;
+    justify-content: space-between;
+}
+
+.discount{
+    justify-self: flex-end;
+    text-align: center;
+    padding: .2rem;
+    width: 100%;
+    background-color: #f84f4f;
+    border-radius: .2rem;
+    font-style: normal;
+    font-weight: 500;
+    color: white;
+    font-size: 1rem;
 }
 
 .data_container{
+    justify-self: end;
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
 .data{
+
     display: flex;
     flex-direction: column;
 }
@@ -48,8 +63,10 @@
 }
 
 .img{
+    margin: auto 0;
     width: 80%;
     height: auto;
+    justify-self: center;
 }
 
 p{

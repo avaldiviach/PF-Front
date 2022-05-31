@@ -26,7 +26,8 @@ import {
 	GET_ROLE,
 	GET_TOKEN,
 	GET_USER,
-	RESET
+	RESET,
+	GET_USER_ORDERS
 } from '../Actions';
 
 const initialState = {
@@ -58,6 +59,7 @@ const initialState = {
 	getReviews: [],
 	getOrders: [],
 	orderById: [],
+	userOrders: [],
 	getRole: '',
 	getToken: '',
 	getUser: null,
@@ -140,10 +142,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		
     case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+
       return {
         ...state,
         productData: [...state.productData, ...filterDB],
-      }
+	}
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -269,6 +272,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				orderById: payload
 			}
 
+		case GET_USER_ORDERS:
+
+		return {
+			...state,
+			userOrders: payload
+		}
 		default:
 			return state;
 	}
