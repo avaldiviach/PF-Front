@@ -27,7 +27,8 @@ import {
 	GET_TOKEN,
 	GET_USER,
 	RESET,
-	GET_USER_ORDERS
+	GET_USER_ORDERS,
+	GET_DISCOUNTS
 } from '../Actions';
 
 const initialState = {
@@ -46,7 +47,7 @@ const initialState = {
 	getMaterials: [],
 	getColors: [],
 	getSizes: [],
-
+	getDiscounts: [],
 	//Estados globales de carrito
 	// productData: [],
 	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
@@ -280,6 +281,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		return {
 			...state,
 			userOrders: payload
+		}
+		case GET_DISCOUNTS:
+
+		return {
+			...state,
+			getDiscounts: payload
 		}
 		default:
 			return state;

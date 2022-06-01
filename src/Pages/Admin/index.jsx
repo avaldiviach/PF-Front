@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import SideBar from "./sideBar";
 import s from "./Admin.module.css";
 import UserContent from "./Users";
@@ -13,17 +13,20 @@ import {
 import Products from "./Products";
 import CategoriesContent from "./Categories";
 import OrdersContent from "./Orders";
+import DealsContent from "./Deals";
+
 
 export default function Admin() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const token = useSelector(state => state.getToken )
 
   useEffect(() => {
     dispatch(getSneakers());
   }, []);
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(token));
   }, []);
 
   useEffect(() => {
@@ -53,6 +56,8 @@ export default function Admin() {
                 return <OrdersContent />;
               case "categories":
                 return <CategoriesContent />;
+              case "deals":
+                return <DealsContent />;
             }
           })()}
       </div>

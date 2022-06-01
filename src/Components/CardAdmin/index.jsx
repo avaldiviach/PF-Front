@@ -5,12 +5,13 @@ import { createDiscount, deleteSneaker, getSneakers } from "../../Redux/Actions"
 import style from "./Card.module.css";
 import Switch from "@mui/material/Switch";
 import { FormControlLabel } from "@mui/material";
+import {useSelector} from "react-redux"
 
 function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount,
   showDiscount }) {
   const { model, price, image, brand, id, deleted, sizes, discountPrice } = sneaker;
   const dispatch = useDispatch();
-
+  const token = useSelector(state => state.getToken);
   const handleDeleteSneaker = (e) => {
     e.preventDefault();
     showModalDelete();
@@ -30,7 +31,7 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount
         msg: `Are you sure do you want to add the sneaker ${e.target.value}?`,
         title: `Add sneaker`,
         action: async () => {
-          await dispatch(deleteSneaker(e.target.value));
+          await dispatch(deleteSneaker(e.target.value, token));
           await dispatch(getSneakers());
         },
       });

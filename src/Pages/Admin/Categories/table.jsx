@@ -6,6 +6,7 @@ import s from "./categories.module.css";
 const TableCategories = ({ showModalDelete, setModalDelete }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
+  const token = useSelector(state => state.getToken )
 
   const deleteCat = (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const TableCategories = ({ showModalDelete, setModalDelete }) => {
       msg: `Are you sure do you want to delete the category ${e.target.value}?`,
       title: `Delete category`,
       action: async () => {
-        await dispatch(deleteCategory(e.target.value));
+        await dispatch(deleteCategory(e.target.value, token));
         await dispatch(getCategories());
       },
     });
