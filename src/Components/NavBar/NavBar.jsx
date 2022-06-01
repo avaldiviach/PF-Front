@@ -82,7 +82,7 @@ export default function Example() {
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className={`inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ${styles.hamburguerMenu}`}>
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -92,17 +92,16 @@ export default function Example() {
                 </Disclosure.Button>
               </div>
 
-              <div className="flex-1 flex items-center justify-center sm:items-stretch md:justify-between">
+              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-between ${styles.logos}`}>
                 {/* LOGOOOOOO */}
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo en movil */}
-                  <NavLink
+                  {/* <NavLink
                     to="/"
                     onClick={() => dispatch(getSneakers())}
                   >
                     <img src={logo} className="block md:hidden h-10 w-auto" alt="logo" />
-                    {/* <img src={logo} className="block sm:hidden h-10 w-auto" alt="logo" /> */}
-                  </NavLink>
+                  </NavLink> */}
                   {/* logo en grande */}
                   <NavLink
                     to="/"
@@ -116,6 +115,7 @@ export default function Example() {
                 {/* <div className="hidden md:block md:ml-6 items-center"> */}
                 <Link
                   to="/cart"
+                  className={`${styles.linkCart}`}
                 >
                   <Menu as="div" className={`ml-10 relative ${styles.admin} ${styles.cart}`}>
                     {/* <GrCart/> */}
@@ -207,26 +207,30 @@ export default function Example() {
                         )}
                       </Menu.Item>
                       <Menu.Item>
-                        {({ active }) => (
-                          (<Link
-                            // href="/registerfb"
-                            to='/registerfb'
-                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign Up👆
-                          </Link>)
+                      {({ active }) => (
+                          (!user
+                            ? (<Link
+                              to='/registerfb'
+                              className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            >
+                              Sign Up 👆
+                            </Link>)
+                            : <></>
+                          )
                         )}
                       </Menu.Item>
                       <Menu.Item>
                       {({ active }) => (
-                          ( <Link
-                            // href="/registerfb"
-                            to='/orders'
-                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            onClick={goOrders}
-                          >
-                            My Orders
-                          </Link>)
+                          (user
+                            ? (<Link
+                              to='/orders'
+                              className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              onClick={goOrders}
+                            >
+                              My Orders
+                            </Link>)
+                            : <></>
+                          )
                         )}
                       </Menu.Item>
                     </Menu.Items>
