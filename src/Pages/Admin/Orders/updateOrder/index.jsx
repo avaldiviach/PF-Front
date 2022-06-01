@@ -60,14 +60,15 @@ function defaultValue(state) {
 export default function UpdateOrder({ onHide, show, order }) {
     const dispatch = useDispatch()
     const [state, setstate] = useState(order.state);
+    const token = useSelector(state => state.getToken )
     
 
     
     const createClick = async (e) => {
         e.preventDefault()
         console.log(order.id, state)
-        await dispatch(updateOrder(order.id, state))
-        await dispatch(getOrders())
+        await dispatch(updateOrder(order.id, state, token))
+        await dispatch(getOrders(token))
         onHide()
 
     }

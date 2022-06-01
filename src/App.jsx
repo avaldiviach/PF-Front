@@ -2,7 +2,6 @@ import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { useAuth } from "./context/authContext";
 import axios from "axios";
 
 //Componentes y funciones
@@ -28,13 +27,7 @@ function App() {
   const totalPrice = useSelector((state) => state.totalPrice);
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
-  console.log(token,"global");
-  // const {token} = useAuth();
-
-  // useEffect(() => {
-  //   dispatch(getSneakers(token));
-  //   // eslint-disable-next-line
-  // }, [token]);
+  
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito

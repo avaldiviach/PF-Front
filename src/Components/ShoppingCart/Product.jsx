@@ -5,11 +5,13 @@ import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 import { useAuth } from "../../context/authContext";
 import s from './cart.module.css'
 
+
 const Product = ({ data, index }) => {
   const dispatch = useDispatch()
   const [toDelete, setToDelete] = useState(false)
   const { id, name, brand, categories, price, description, qty, image, size, max, wishlisted } = data
   const user = useSelector(state => state.getUser);
+  const token = useSelector(state => state.getToken )
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto al carrito,
   // se borra etc.
@@ -38,7 +40,7 @@ const Product = ({ data, index }) => {
   const removeItemHandler = () => {
     setToDelete(true)
     setTimeout(() => {
-      dispatch(removeItem(id, size, user?.email))
+      dispatch(removeItem(id, size, user?.email,token))
       dispatch(getTotalPrice());
       setToDelete(false)
     }, 300)

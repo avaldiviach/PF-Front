@@ -13,6 +13,8 @@ export default function Reviews() {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
   // const [error, setError] = useState('');
   const user = useSelector(state => state.getUser);
+  const token = useSelector(state => state.getToken )
+ 
 
   // const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ export default function Reviews() {
     data.email = user.email;
     data.sneakerId=1;
     data.rating = rating;
-    dispatch(createReview(data));
+    dispatch(createReview(data, token));
   }
 
   return (

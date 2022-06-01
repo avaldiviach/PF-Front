@@ -8,10 +8,12 @@ import {
 
 import s from "./filters.module.css";
 
+
 const Filters = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+  
   const url2 = 'https://node-api-sneakers.herokuapp.com'
   const url1 = "http://localhost:3001";
 

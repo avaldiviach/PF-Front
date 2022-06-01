@@ -7,6 +7,8 @@ import { createOrder } from '../../Redux/Actions';
 import s from './cart.module.css'
 import axios from 'axios';
 
+const url2 = 'https://node-api-sneakers.herokuapp.com'
+const url1 = "http://localhost:3001";
 function Payment({user}) {
 
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,7 @@ function Payment({user}) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useSelector(state => state.getToken )
 
   const stripe = useStripe();
   const elements = useElements();
@@ -42,11 +45,12 @@ function Payment({user}) {
         address: address,
         products: productData,
         total: totalPrice
-      }));
-      return fetch(`https://node-api-sneakers.herokuapp.com/payment`, {
+      }), token);
+      return fetch(`${url1}/payment`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           id: paymentMethod.id,
@@ -65,7 +69,11 @@ function Payment({user}) {
           if (received) {
             //falta agregar una ruta para recibir los productos que han sido comprados y registrar en la BD
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
-            axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, {email: user.email, productData:[]});
+            axios.post(`${url1}/deletecart`, {email: user.email, productData:[]},
+            {
+					    headers: { authorization: `Bearer ${token}`}
+				    }
+            );
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
             setTimeout(() => navigate('/cart'), 3000);
           }

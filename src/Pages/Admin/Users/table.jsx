@@ -7,6 +7,7 @@ import { deleteUser, getAllUsers } from "../../../Redux/Actions";
 
 export default function TableUsers({ showModalDelete, setModalDeleteUser }) {
   const users = useSelector((state) => state.users);
+  const token = useSelector(state => state.getToken )
 
   const dispatch = useDispatch();
 
@@ -18,8 +19,8 @@ export default function TableUsers({ showModalDelete, setModalDeleteUser }) {
       msg: `Are you sure do you want to delete the user ${e.target.value}?`,
       title: `Delete user`,
       action: async () => {
-        await dispatch(deleteUser(e.target.value));
-        await dispatch(getAllUsers());
+        await dispatch(deleteUser(e.target.value, token));
+        await dispatch(getAllUsers(token));
       },
     });
   };
