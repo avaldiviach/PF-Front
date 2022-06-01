@@ -29,31 +29,25 @@
   transition: width 1s, background 1s;
 
 }
-
-.btnFilter{
-  margin: 2rem auto;
+.btn{
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 2rem;
+}
+.delete{
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(27, 161, 0);
+  background-color: rgb(253, 68, 68);
   color: whitesmoke;
-  width: 10rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: .5rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
   transition: width 1s, background 1s;
 }
 
-.btnFilter:hover{
-  background-color: rgb(23, 129, 1);
-
-}
-
-.not{
-  font-size: 400%;
-}
-
-.notFound{
-  margin-top: 5%;
-  margin-left: 5%;
+.delete:disabled{
+  background: darkgrey;
 }

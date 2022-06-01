@@ -14,6 +14,8 @@ export default function Reviews() {
   // const [error, setError] = useState('');
   const detail = useSelector(state => state.copyDetail);
   const user = useSelector(state => state.getUser);
+  const token = useSelector(state => state.getToken )
+ 
 
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ export default function Reviews() {
     data.sneakerId = detail.id;
     console.log(detail.id);
     data.rating = rating;
-    dispatch(createReview(data));
+    dispatch(createReview(data, token));
     alert("Review created with success");
     navigate(-1)
   }

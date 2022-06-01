@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { createSneaker, getSneakers } from "../../../../Redux/Actions";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import SelectColors from "./select/Colors";
 import SelectModels from "./select/Models";
 import FormValidationProduct from "../FormValidationProduct";
@@ -11,6 +11,7 @@ import s from './form.module.css'
 
 export default function CreateSneaker({ onHide, show, model }) {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.getToken )
 
   const [input, setInput] = useState({
     model: "",
@@ -44,7 +45,7 @@ export default function CreateSneaker({ onHide, show, model }) {
   const createClick = async (e) => {
     e.preventDefault();
     if (input.model && input.color && input.image && input.price) {
-      await dispatch(createSneaker(input));
+      await dispatch(createSneaker(input, token));
       alert("The sneaker was succesfully Created!");
       setInput({
         model: "",

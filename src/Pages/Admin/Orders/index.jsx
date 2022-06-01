@@ -3,10 +3,11 @@ import TableOrders from "./table";
 import { getOrders, getOrdersFiltered } from "../../../Redux/Actions";
 import { useEffect, useState } from "react";
 import UpdateOrder from "./updateOrder";
-import s from "./Orders.module.css";
+import { useSelector } from "react-redux";
 
 const OrdersContent = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.getToken);
 
   const [showUpdate, setShowUpdate] = useState({
     show: false,
@@ -19,11 +20,8 @@ const OrdersContent = () => {
   };
 
   useEffect(() => {
-    async function orders() {
-      await dispatch(getOrders());
-    }
-    orders();
-  }, [handleFilter]);
+    dispatch(getOrders(token));
+  }, []);
 
   return (
     <div>
