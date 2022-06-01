@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TableOrders from "./table";
-import { getOrders, getOrdersCompleted } from "../../../Redux/Actions";
+import { getOrders, getOrdersFiltered } from "../../../Redux/Actions";
 import { useEffect, useState } from "react";
 import UpdateOrder from "./updateOrder";
 import s from "./Orders.module.css";
@@ -13,24 +13,27 @@ const OrdersContent = () => {
     order: {},
   });
 
+  const handleFilter = async (e) => {
+    e.preventDefault();
+    await dispatch(getOrdersFiltered(e.target.value));
+  };
+
   useEffect(() => {
     dispatch(getOrders());
-  }, [getOrdersCompleted]);
-
-  const handleCompleted = (e) => {
-    e.preventDefault();
-    dispatch(getOrdersCompleted(e.target.value));
-  };
+  }, [handleFilter]);
 
   return (
     <div>
       <h1>Orders</h1>
-      <button className={s.btnFilter} onClick={handleCompleted}>
-        COMPLETED
-      </button>
-      <button className={s.btnFilter}>CANCELLED</button>
-      <button className={s.btnFilter}>IN PROGRESS</button>
-      <button className={s.btnFilter}>PENDING</button>
+
+      <select onChange={handleFilter}>
+        <option value="all">Filter by Status</option>
+        <option value="all">All</option>
+        <option value="Pending">Pending</option>
+        <option value="InProgress">In Progress</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Completed">Completed</option>
+      </select>
 
       <TableOrders update={setShowUpdate} />
       <UpdateOrder

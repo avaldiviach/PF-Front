@@ -28,10 +28,7 @@ import {
 	GET_USER,
 	RESET,
 	GET_USER_ORDERS,
-	GET_ORDERS_COMPLETED,
-	GET_ORDERS_PENDING,
-	GET_ORDERS_CANCELLED,
-	GET_ORDERS_INPROGRESS
+	GET_ORDERS_FILTERED
 } from '../Actions';
 
 const initialState = {
@@ -68,7 +65,8 @@ const initialState = {
 	getRole: '',
 	getToken: '',
 	getUser: null,
-	offer: [{ id: 13, size: 37.5 }]
+	offer: [{ id: 13, size: 37.5 }],
+	getOrdersCopy: []
 
 };
 
@@ -286,50 +284,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				userOrders: payload
 			}
 
-
-		case GET_ORDERS_COMPLETED:
-
-			let ord = state.getOrders
-
-			let completed = ord?.map(el => el.state === 'Completed')
+		case GET_ORDERS_FILTERED:
 
 			return {
 				...state,
-				getOrders: completed
+				getOrdersCopy: payload
 			}
-
-		case GET_ORDERS_PENDING:
-
-			let order = state.getOrders
-
-			let pending = order?.map(el => el.state === 'Pending')
-
-			return {
-				...state,
-				getOrders: pending
-			}
-
-		case GET_ORDERS_CANCELLED:
-			let orders = state.getOrders
-
-			let cancelled = orders?.map(el => el.state === 'Cancelled')
-
-			return {
-				...state,
-				getOrders: cancelled
-			}
-
-		case GET_ORDERS_INPROGRESS:
-			let orderss = state.getOrders
-
-			let progress = orderss?.map(el => el.state === 'In Progress')
-
-			return {
-				...state,
-				getOrders: progress
-			}
-
-
 
 		default:
 			return state;

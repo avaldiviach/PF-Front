@@ -48,3 +48,12 @@
   background-color: rgb(23, 129, 1);
 
 }
+
+.not{
+  font-size: 400%;
+}
+
+.notFound{
+  margin-top: 5%;
+  margin-left: 5%;
+}

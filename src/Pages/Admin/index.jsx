@@ -9,6 +9,7 @@ import {
   getSneakers,
   getMaterials,
   getBrands,
+  getOrders,
 } from "../../Redux/Actions";
 import Products from "./Products";
 import CategoriesContent from "./Categories";
@@ -37,6 +38,10 @@ export default function Admin() {
   useEffect(() => {
     dispatch(getMaterials());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
 
   return (
     <div className={s.admin_page}>

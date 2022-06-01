@@ -34,13 +34,11 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
 	RESET = 'RESET',
-	GET_ORDERS_COMPLETED = 'GET_ORDERS_COMPLETED',
-	GET_ORDERS_PENDING = 'GET_ORDERS_PENDING',
-	GET_ORDERS_CANCELLED = 'GET_ORDERS_CANCELLED',
-	GET_ORDERS_INPROGRESS = 'GET_ORDERS_INPROGRESS'
+	GET_ORDERS_FILTERED = 'GET_ORDERS_FILTERED';
 
-//const url = 'http://localhost:3001';
-const url = 'https://node-api-sneakers.herokuapp.com';
+
+const url = 'http://localhost:3001';
+// const url = 'https://node-api-sneakers.herokuapp.com';
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -741,30 +739,19 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 	});
 }
 
-export const getOrdersCompleted = () => {
-	return function (dispatch) {
-		return dispatch({
-			type: GET_ORDERS_COMPLETED,
-		});
 
-	}
-}
-
-export const getOrdersPending = () => {
-	return {
-		type: GET_ORDERS_PENDING,
-	};
-
-}
-
-export const getOrdersCancelled = () => {
-	return {
-		type: GET_ORDERS_CANCELLED,
-	};
-}
-
-export const getOrdersInProgress = () => {
-	return {
-		type: GET_ORDERS_INPROGRESS,
+export function getOrdersFiltered(payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`${url}/filterOrders?filter=${payload}`
+			);
+			return dispatch({
+				type: GET_ORDERS_FILTERED,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 }
