@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 //Componentes y funciones
 import Cards from "../../Components/Cards";
-import ImagenPrincipal from "../../Components/ImagenPrincipal";
+import Carousel from "../../Components/Carousel";
 import Filters from "../../Components/Filters";
 import Pagination from "../../Components/Pagination";
 import ModalSearch from "../../Components/Modal/";
@@ -12,6 +12,7 @@ import ModalSearch from "../../Components/Modal/";
 import style from "./home.module.css";
 import {toast, Toaster } from "react-hot-toast";
 import CountdownTimer from "../../Components/Counter/CountdownTimer";
+import { getDiscounts } from "../../Redux/Actions";
 toast('¡Tu email no está verificado!',
         {
             icon: '✉️',
@@ -23,6 +24,7 @@ toast('¡Tu email no está verificado!',
     });  
 
 const Home = () => {  
+  const dispatch = useDispatch()
   const filteredSneakers = useSelector((state) => state.SneakersCopy);
   const searchResponse = useSelector((state) => state.searchSneakers);
   const user = useSelector(state => state.getUser);  
@@ -42,6 +44,7 @@ const Home = () => {
 
   useEffect(() => {
     setLoading(true);
+    dispatch(getDiscounts())
     // eslint-disable-next-line
   }, []);
 
@@ -76,7 +79,7 @@ const Home = () => {
       {loading === true
         ? (<img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt="img loading"/>)
         : (<>
-          <ImagenPrincipal />
+          <Carousel />
           {/* Componente para filtros */}
           <Filters />
 
