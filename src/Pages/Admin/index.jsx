@@ -10,6 +10,7 @@ import {
   getMaterials,
   getBrands,
   getOrders,
+  getOrdersFiltered,
 } from "../../Redux/Actions";
 import Products from "./Products";
 import CategoriesContent from "./Categories";
@@ -42,6 +43,10 @@ export default function Admin() {
   useEffect(() => {
     dispatch(getOrders());
   }, []);
+
+  useEffect(() => {
+    dispatch(getOrdersFiltered());
+  });
 
   return (
     <div className={s.admin_page}>

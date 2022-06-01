@@ -19,7 +19,10 @@ const OrdersContent = () => {
   };
 
   useEffect(() => {
-    dispatch(getOrders());
+    async function orders() {
+      await dispatch(getOrders());
+    }
+    orders();
   }, [handleFilter]);
 
   return (
@@ -27,7 +30,6 @@ const OrdersContent = () => {
       <h1>Orders</h1>
 
       <select onChange={handleFilter}>
-        <option value="all">Filter by Status</option>
         <option value="all">All</option>
         <option value="Pending">Pending</option>
         <option value="InProgress">In Progress</option>
