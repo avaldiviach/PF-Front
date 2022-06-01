@@ -3,6 +3,7 @@ import TableUsers from "./table";
 import { useDispatch } from "react-redux";
 import { getAllUsers, getSneakers } from "../../../Redux/Actions";
 import ModalAdmin from "../ModalAdmin/ModalAdmin";
+import UpdateUserModal from "./UpdateUserModal";
 
 export default function UserContent() {
   const dispatch = useDispatch();
@@ -12,6 +13,11 @@ export default function UserContent() {
     msg: "",
     title: "",
     action: "",
+  });
+
+  const [updateModal, setUpdateModal] = useState({
+    show: false,
+    id: ''
   });
 
   useEffect(() => {
@@ -26,7 +32,13 @@ export default function UserContent() {
           setModalDeleteUser({ ...modalDeleteUser, show: true })
         }
         setModalDeleteUser={setModalDeleteUser}
+        update={setUpdateModal}
         state={modalDeleteUser}
+      />
+      <UpdateUserModal 
+        show={updateModal.show}
+        onHide={() => setUpdateModal({...updateModal, show:false})}
+        id={updateModal.id}
       />
       <ModalAdmin
         show={modalDeleteUser.show}

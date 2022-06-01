@@ -29,3 +29,25 @@
   transition: width 1s, background 1s;
 
 }
+.btn{
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 2rem;
+}
+.delete{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(253, 68, 68);
+  color: whitesmoke;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .5rem;
+  font-size: 1.3rem;
+  transition: width 1s, background 1s;
+}
+
+.delete:disabled{
+  background: darkgrey;
+}

@@ -13,6 +13,7 @@ import {
 import Products from "./Products";
 import CategoriesContent from "./Categories";
 import OrdersContent from "./Orders";
+import DealsContent from "./Deals";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -53,6 +54,8 @@ export default function Admin() {
                 return <OrdersContent />;
               case "categories":
                 return <CategoriesContent />;
+              case "deals":
+                return <DealsContent />;
             }
           })()}
       </div>

@@ -18,6 +18,9 @@ export default function SideBar({setContent}){
                 <button className={s.type} onClick={handleClick} value={('orders')}>Orders</button>
             
                 <button className={s.type} onClick={handleClick} value={('categories')}>Categories</button>
+
+                <button className={s.type} onClick={handleClick} value={('deals')}>Deals</button>
+
             
             </div>
     )

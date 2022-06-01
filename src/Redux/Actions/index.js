@@ -33,7 +33,10 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	GET_DISCOUNTS = 'GET_DISCOUNTS',
+	DELETE_DEAL = 'DELETE_DEAL'
+	;
 
 //const url = 'http://localhost:3001';
 const url = 'https://node-api-sneakers.herokuapp.com';
@@ -269,7 +272,7 @@ export function deleteUser(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/deleteUser/${id}`
+				`${url}/updatedDisableUser/${id}`
 			);
 
 			return dispatch({
@@ -428,7 +431,7 @@ export function getColors() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`${url}getColors`
+				`${url}/getColors`
 			);
 
 			return dispatch({
@@ -735,3 +738,50 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 	});
 }
 
+export function updateUser(id, payload) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`${url}/updateUser/${id}`, payload
+			);
+			return dispatch({
+				type: 'UPDATE_USER',
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getDiscounts() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`${url}/getDiscounts/`
+			);
+			return dispatch({
+				type: GET_DISCOUNTS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function disableDeal(id) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`${url}/deleteDiscount/${id}`
+			);
+			return dispatch({
+				type: DELETE_DEAL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
