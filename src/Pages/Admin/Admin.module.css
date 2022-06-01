@@ -12,3 +12,8 @@
     overflow-x: none;
     padding: 1rem;
 }
+
+.btn{
+    display: flex;
+    justify-content: space-around;
+}

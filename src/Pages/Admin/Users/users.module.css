@@ -51,3 +51,9 @@
     width: 50%;
     background-color: rgb(246, 198, 109);
 }
+
+.btn{
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem 2rem;
+}

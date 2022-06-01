@@ -33,10 +33,15 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	GET_DISCOUNTS = 'GET_DISCOUNTS',
+	DELETE_DEAL = 'DELETE_DEAL';
+	;
 
-const url = 'http://localhost:3001';
-// const url = 'https://node-api-sneakers.herokuapp.com';
+
+const url = 'https://node-api-sneakers.herokuapp.com';
+const localURL = "http://localhost:3001";
+
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -172,7 +177,7 @@ export const addItem = (data) => (dispatch, getState) => {
 	});
 };
 
-export const removeItem = (id, size, email) => {
+export const removeItem = (id, size, email,token) => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
 		const { productData } = rootReducer;
@@ -181,7 +186,11 @@ export const removeItem = (id, size, email) => {
 			email,
 			productData: payload
 		}
-		if (email) axios.post(`${url}/deletecart`, data);
+		if (email) axios.post(`${url}/deletecart`, {email: data.email, productData: payload},			
+			{
+				headers: { authorization: `Bearer ${token}`}
+			}
+		);
 		dispatch({
 			type: REMOVE_ITEM_CART,
 			payload
@@ -247,11 +256,14 @@ export const getTotalPrice = () => {
 	};
 };
 //------------ADMIN----------------ADMIN------------ADMIN
-export function getAllUsers() {
+export function getAllUsers(token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`${url}/getUser`
+				`${url}/getUser`,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: GET_ALL_USERS,
@@ -265,11 +277,14 @@ export function getAllUsers() {
 
 //deleteUsers
 
-export function deleteUser(id) {
+export function deleteUser(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/deleteUser/${id}`
+				`${url}/updatedDisableUser/${id}`,	{body:'body'},
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 
 			return dispatch({
@@ -284,12 +299,16 @@ export function deleteUser(id) {
 
 //createModel
 
-export function createModel(payload) {
+export function createModel(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/createModel`,
-				payload
+				payload,
+			
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: CREATE_MODEL,
@@ -301,12 +320,16 @@ export function createModel(payload) {
 	};
 }
 
-export function createSneaker(payload) {
+export function createSneaker(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/createSneaker`,
-				payload
+				payload,
+			
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: CREATE_SNEAKER,
@@ -338,13 +361,17 @@ export function getCategories() {
 
 //create category para el form de create model
 
-export function createCategory(payload) {
+export function createCategory(payload,token) {
 	return async function (dispatch) {
 		try {
 			const newCategory = { nameCategory: payload };
 			const { data } = await axios.post(
 				`${url}/createCate`,
-				newCategory
+				newCategory,
+			
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: CREATE_CATEGORY,
@@ -358,11 +385,14 @@ export function createCategory(payload) {
 
 //delete category
 
-export function deleteCategory(id) {
+export function deleteCategory(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/deleteCategory/${id}`
+				`${url}/deleteCategory/${id}`, {body:'body'},
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 
 			return dispatch({
@@ -428,7 +458,7 @@ export function getColors() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`${url}getColors`
+				`${url}/getColors`
 			);
 
 			return dispatch({
@@ -458,10 +488,13 @@ export function getSizes() {
 	};
 }
 
-export function deleteSneaker(id) {
+export function deleteSneaker(id, token) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`${url}/deleteSneaker/${id}`)
+			const { data } = await axios.put(`${url}/deleteSneaker/${id}`,		{body:'body'},	
+				{
+					headers: { authorization: `Bearer ${token}`}
+				})
 			return dispatch({
 				type: DELETE_SNEAKER,
 				payload: data,
@@ -473,14 +506,13 @@ export function deleteSneaker(id) {
 };
 
 
-export function updateSneaker(id, payload) {
+export function updateSneaker(id, payload, token) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload)
-			console.log(payload)
-
-			//const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
-
+			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload,			
+				{
+					headers: { authorization: `Bearer ${token}`}
+				})
 			return dispatch({
 				type: UPDATE_SNEAKER,
 				payload: data,
@@ -490,28 +522,17 @@ export function updateSneaker(id, payload) {
 		}
 	}
 }
-// return async (dispatch, getState) => {
-// 	const rootReducer = getState();
-// 	const { productData } = rootReducer;
-// 	localStorage.setItem('productData', JSON.stringify(productData));
-// 	let total = 0;
-// 	productData.forEach((item) => {
-// 		total += item.price * item.qty;
-// 	});
-// 	dispatch({
-// 		type: SET_TOTAL_PRICE,
-// 		payload: total,
-// 	});
-// }
-// };
 
 
-export function createReview(payload) {
+export function createReview(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/review`,
-				payload
+				payload,			
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: CREATE_REVIEW,
@@ -539,11 +560,14 @@ export function getAllreviews(id) {
 }
 
 
-export function getOrders() {
+export function getOrders(token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`${url}/getOrders`
+				`${url}/getOrders`,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: GET_ALL_ORDERS,
@@ -555,13 +579,14 @@ export function getOrders() {
 	};
 }
 
-export function createUser(payload) {
+export function createUser(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/user`,
 				payload
 			);
+			dispatch(getRole(data.uid,token));
 			return dispatch({
 				type: CREATE_USER,
 				payload: data,
@@ -572,12 +597,14 @@ export function createUser(payload) {
 	};
 }
 
-export function getOrderById(id) {
+export function getOrderById(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`${url}/getOrders/${id}`
-
+				`${url}/getOrders/${id}`,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: GET_ORDER_BY_ID,
@@ -595,7 +622,6 @@ export function getUserOrders(id) {
 		try {
 			const { data } = await axios.get(
 				`https://node-api-sneakers.herokuapp.com/getOrdUser/${id}`
-
 			);
 			return dispatch({
 				type: GET_USER_ORDERS,
@@ -607,11 +633,15 @@ export function getUserOrders(id) {
 	};
 }
 
-export function createOrder(payload) {
+
+export function createOrder(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`${url}/createOrder`,payload
+				`${url}/createOrder`,payload,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: CREATE_ORDER,
@@ -623,11 +653,14 @@ export function createOrder(payload) {
 	};
 }
 
-export function updateOrder(id, status) {
+export function updateOrder(id, status,token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/updateOrder/${id}`, {newStatus: status}
+				`${url}/updateOrder/${id}`, {newStatus: status},
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: 'UPDATE_ORDER',
@@ -649,7 +682,10 @@ export function getRole (id) {
 		}
 		try {
 			const { data } = await axios.get(
-				`${url}/role/${id}`
+				`${url}/role/${id}`,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
 			);
 			return dispatch({
 				type: GET_ROLE,
@@ -670,8 +706,8 @@ export function getToken(token) {
 			payload: token,
 		});			
 }}
-export function getUser(curUser) {			
-	return function(dispatch) {
+export function getUser(curUser){			
+	return function(dispatch){		
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
@@ -735,3 +771,56 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 	});
 }
 
+export function updateUser(id, payload, token) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`${url}/updateUser/${id}`, payload,
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
+			);
+			return dispatch({
+				type: 'UPDATE_USER',
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function getDiscounts() {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.get(
+				`${url}/getDiscounts/`
+			);
+			return dispatch({
+				type: GET_DISCOUNTS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function disableDeal(id, token) {
+	return async function (dispatch) {
+		try {
+			const { data } = await axios.put(
+				`${url}/deleteDiscount/${id}`,{body:'body'},
+				{
+					headers: { authorization: `Bearer ${token}`}
+				}
+			);
+			return dispatch({
+				type: DELETE_DEAL,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
