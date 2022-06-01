@@ -5,12 +5,16 @@ import style from './Card.module.css'
 
 function Card({ sneaker }) {
 
-  const { model, price, image, brand, id } = sneaker;
+  const { model, price, image, brand, id, discountPrice } = sneaker;
 
   return (
     <div>
       <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
         <div className={style.card}>
+        {
+            discountPrice > 0 
+            && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
+          }
           <img
             src={image}
             alt=""
@@ -26,6 +30,7 @@ function Card({ sneaker }) {
             </section>
           </div>
         </div>
+        
       </Link>
     </div>
   );

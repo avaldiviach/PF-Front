@@ -12,35 +12,26 @@ import { getAllreviews } from '../../Redux/Actions';
 import image from '../../Assets/Images/3.svg';
 import styles from './Reviews.module.css';
 
-export default function ListReview() {
+export default function ListReview({id}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const reviews = useSelector(state => state.getReviews);
   useEffect(() => {
-    dispatch(getAllreviews(1));
+    dispatch(getAllreviews(id));
   }, [])
 
   return (
     <>
       {
-        reviews?.map(review => {
+        reviews?.map((review) => {
           return (
             <>
-              <Review key={review.id} review={review} />
+              <Review key={id} review={review} />
             </>
-
           )
         })
       }
-      <div className={styles.rightBox}>
-        <div className={styles.position_relative}>
-          {/* <h2 className={styles.rotate}>HENRYS</h2> */}
-          <div className={styles.image_container}>
-            <img src={image} alt="sneaker" />
-          </div>
-        </div>
-      </div>
     </>
   );
 }

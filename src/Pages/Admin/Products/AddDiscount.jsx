@@ -2,28 +2,19 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { getSneakers, updateSneaker } from "../../../../Redux/Actions";
+import { getSneakers, updateSneaker } from "../../../Redux/Actions";
 import { useDispatch } from "react-redux";
-import SelectSizes from "./select/Sizes";
-import s from './form.module.css'
+import s from './createModel/form.module.css'
+import { createDiscount } from "../../../Redux/Actions";
 
-export default function UpdateSneaker({onHide, show, sneaker}) {
+export default function AddDiscount({onHide, show, id}) {
     const dispatch = useDispatch();
     const [input, setInput] = useState({
-            price: [],
-            sizes: []
+            discount: '',
+            hours: '',
+            days: ''
         });
 
-    useEffect(() => {
-        setInput(
-            {
-                ...input,
-                price: sneaker.price
-            }
-        )
-    }, []);
-
-    const [error, setError] = useState("");
 
     const handleInputChange = (e) => {
         setInput({
@@ -32,55 +23,64 @@ export default function UpdateSneaker({onHide, show, sneaker}) {
         });
     };
 
-    const handleSelectMultiChange = (value, meta) => {
-        setInput({
-            ...input,
-            [meta.name]: value,
-        });
-    };
-
     const createClick = async (e) => {
         e.preventDefault();
-        await dispatch(updateSneaker(sneaker.id, input));
+        await dispatch(createDiscount(id, input));
         setInput({
-            price: '',
-            sizes: [],
+            discount: '',
+            hours: '',
+            days: ''
         });
         onHide();
         await dispatch(getSneakers());
-        
     };
 
     return (
         <Modal
         show={show}
         onHide={onHide}
-            size="lg"
+            size="sm"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Update Model
+                    Add discount
                 </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <Form.Group className={s.group}>
-                    <Form.Label id="label">Price</Form.Label>
+                    <Form.Label id="label">Percentage</Form.Label>
                     <Form.Control
-                        name="price"
+                        name="discount"
                         type="number"
-                        defaultValue={sneaker.price}
+                        defaultValue={0}
+                        max={99}
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                {error.material && <p className={s.error}>{error.material}</p>}
-
                 <Form.Group className={s.group}>
-                    <Form.Label id="label">Sizes</Form.Label>
-                    <SelectSizes sizesSneaker={sneaker.sizes} handleSelectMultiChange={handleSelectMultiChange} />
+                    <Form.Label id="label">hours</Form.Label>
+                    <Form.Control
+                        name="hours"
+                        type="number"
+                        defaultValue={0}
+                        max={23}
+                        onChange={handleInputChange}
+                    />
                 </Form.Group>
+                <Form.Group className={s.group}>
+                    <Form.Label id="label">Days</Form.Label>
+                    <Form.Control
+                        name="days"
+                        type="number"
+                        defaultValue={0}
+                        max={31}
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="danger" onClick={onHide}>

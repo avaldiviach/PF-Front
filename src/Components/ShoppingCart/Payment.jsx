@@ -35,7 +35,6 @@ function Payment({user}) {
       type: 'card',
       card: elements.getElement(CardElement)
     });
-    console.log(paymentMethod)
     if (!error) {
       await dispatch(createOrder({
         email: user.email,
@@ -67,6 +66,7 @@ function Payment({user}) {
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
             axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, {email: user.email, productData:[]});
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
+
             setTimeout(() => navigate('/cart'), 3000);
           }
         });
