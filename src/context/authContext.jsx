@@ -35,7 +35,7 @@ export function AuthProvider({children}){
         if(currentUser){
             dispatch(getUser(currentUser));             
             dispatch(getToken(await currentUser.getIdToken())); 
-            dispatch(getRole(currentUser.uid));
+            dispatch(getRole(currentUser.email));
             localStorage.setItem("user",JSON.stringify({name: currentUser.displayName, email: currentUser.email}));                    
         }      
         // setLoading(false);
