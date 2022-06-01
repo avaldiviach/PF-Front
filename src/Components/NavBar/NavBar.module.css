@@ -1,5 +1,5 @@
 .containerEnlaces {
-	margin-top: 14px !important;
+	/* margin-top: 14px !important; */
 }
 
 .enlaces {
@@ -7,7 +7,7 @@
 }
 
 .containerSearchProfile {
-	margin-top: 14px !important;
+	/* margin-top: 14px !important; */
 }
 
 .admin {
@@ -21,13 +21,14 @@
 }
 
 .cart {
-	border: solid 2px var(--color1); 
-	margin-top: 0.9rem;
+	border: solid 2px var(--negro); 
+	margin-top: 0.58rem;
 }
 
 .admin:hover {
-	background-color: var(--color1);
-	border: solid 2px var(--color1);
+	background-color: rgb(255, 248, 248);
+	/* border: solid 2px rgb(255, 248, 248); */
+  border: solid 3px var(--negro); 
 }
 
 .admin svg {
@@ -68,3 +69,28 @@
 .signOut:hover {
 	color: #0d6efd;
 }
+
+.searchBar {
+  margin-top: 0px;
+}
+
+.hamburguerMenu {
+  /* margin-top: 15px; */
+}
+
+@media (max-width: 767px) {
+  .logos {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .linkCart {
+    margin-left: 7px;
+  }
+
+  .cart {
+    margin-top: 0.2rem;
+  }
+  
+}
+

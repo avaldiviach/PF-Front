@@ -38,9 +38,10 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	DELETE_DEAL = 'DELETE_DEAL';
 	;
 
-//const url = 'http://localhost:3001';
+
 const url = 'https://node-api-sneakers.herokuapp.com';
 const localURL = "http://localhost:3001";
+
 
 export function getSneakers() {
 	return async function (dispatch) {
