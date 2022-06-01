@@ -46,13 +46,15 @@ function App() {
         productData,
       };
       try {
-        async function postCart() {
+        async function postCart(token) {
           return await axios.post(
             "https://node-api-sneakers.herokuapp.com/addcart",
-            data
+            data,{
+              headers: { authorization: `Bearer ${token}`}
+            }
           );
         }
-        postCart();
+        postCart(token);
       } catch (error) {
         console.log(error);
       }

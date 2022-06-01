@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import TableUsers from "./table";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { getAllUsers, getSneakers } from "../../../Redux/Actions";
 import ModalAdmin from "../ModalAdmin/ModalAdmin";
 import UpdateUserModal from "./UpdateUserModal";
 
+
 export default function UserContent() {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.getToken )
 
   const [modalDeleteUser, setModalDeleteUser] = useState({
     show: false,
@@ -21,7 +23,7 @@ export default function UserContent() {
   });
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(token));
   }, [dispatch]);
 
   return (

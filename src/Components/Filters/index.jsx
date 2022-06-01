@@ -8,6 +8,7 @@ import {
 
 import s from "./filters.module.css";
 
+
 const Filters = () => {
   const [defCat, setDefCat] = useState("");
   const [defBra, setDefBra] = useState("");

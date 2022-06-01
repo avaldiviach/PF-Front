@@ -14,6 +14,8 @@ const radios = [
 
 const TableDeals = ({ showModalDelete, setModalDeleteDeal, state }) => {
     const dealsAll = useSelector((state) => state.getDiscounts);
+    const token = useSelector((state) => state.getToken);
+
     const dispatch = useDispatch();
     const [stateF, setstate] = useState("all");
 
@@ -34,7 +36,7 @@ const TableDeals = ({ showModalDelete, setModalDeleteDeal, state }) => {
             msg: `Are you sure do you want to delete the discount id. ${e.target.value}?`,
             title: `Delete Discount`,
             action: async () => {
-                await dispatch(disableDeal(e.target.value));
+                await dispatch(disableDeal(e.target.value, token));
                 await dispatch(getDiscounts());
                 await dispatch(getSneakers());
             },

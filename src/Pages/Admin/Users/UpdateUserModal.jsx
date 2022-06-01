@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import Select from 'react-select'
 import { getAllUsers, updateUser } from "../../../Redux/Actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import s from '../Products/createModel/form.module.css'
 
 
@@ -16,6 +16,7 @@ const options = [
 
 export default function UpdateUserModal({onHide, show, id}) {
     const dispatch = useDispatch();
+  const token = useSelector(state => state.getToken )
     const [input, setInput] = useState({
             role: ''
         });
@@ -35,7 +36,7 @@ export default function UpdateUserModal({onHide, show, id}) {
             role: ''
         });
         onHide();
-        await dispatch(getAllUsers())
+        await dispatch(getAllUsers(token))
     };
 
     return (

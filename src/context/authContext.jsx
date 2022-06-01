@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {createUserWithEmailAndPassword,getIdToken, GoogleAuthProvider,sendPasswordResetEmail, signInWithPopup,signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
+import {createUserWithEmailAndPassword,getIdToken, GoogleAuthProvider,sendPasswordResetEmail, signInWithPopup,signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification} from "firebase/auth"
 import auth from "../firebase-config";
 import { useDispatch } from "react-redux";
 import { getRole, getToken, getUser } from "../Redux/Actions";
@@ -10,16 +10,16 @@ export const useAuth = ()=>{
     return context;
 }
 export function AuthProvider({children}){
-    const [user, setUser] = useState(null);
-    // const [loading, setLoading] = useState(true);
-    // const [token, setToken] = useState(null);
+    
     const dispatch = useDispatch();
-    const signup = (email, password)=>
-        createUserWithEmailAndPassword(auth, email,password); 
-    const signin = async(email, password)=>{
-        const userCredential = await signInWithEmailAndPassword(auth, email,password);
-        //userCredencial nos da datos del usuario que se ha logueado, correo, imagen, UID etc.
-    }
+    
+    const signup = async(email, password)=>
+        await createUserWithEmailAndPassword(auth, email,password);
+       
+
+    const signin = async(email, password)=>
+        await signInWithEmailAndPassword(auth, email,password);
+       
     const logout = () => signOut(auth);
 
     const loginWithGoogle =()=>{
@@ -30,6 +30,8 @@ export function AuthProvider({children}){
     const resetPassword = (email) =>
         sendPasswordResetEmail(auth, email);
     
+    const verifyEmail = (currUSer) =>
+        sendEmailVerification(currUSer);
 
     onAuthStateChanged(auth, async (currentUser)=>{
         if(currentUser){
@@ -40,8 +42,8 @@ export function AuthProvider({children}){
         }      
         // setLoading(false);
     })
-  
+
     return(
-        <authContext.Provider value={{signup,signin, logout, loginWithGoogle, resetPassword}}> {children}</authContext.Provider>
+        <authContext.Provider value={{signup,signin, logout, loginWithGoogle, resetPassword, verifyEmail}}> {children}</authContext.Provider>
     );
 }

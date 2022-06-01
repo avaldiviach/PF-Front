@@ -19,6 +19,7 @@ export default function TableUsers({ showModalDelete, setModalDeleteUser, update
   const usersAll = useSelector((state) => state.users);
 
   const [state, setstate] = useState('all');
+  const token = useSelector(state => state.getToken )
 
 
   let users;
@@ -40,8 +41,8 @@ export default function TableUsers({ showModalDelete, setModalDeleteUser, update
       msg: `Are you sure do you want to change the user ${e.target.value} state?`,
       title: `Change state user`,
       action: async () => {
-        await dispatch(deleteUser(e.target.value));
-        await dispatch(getAllUsers());
+        await dispatch(deleteUser(e.target.value, token));
+        await dispatch(getAllUsers(token));
       },
     });
   };
@@ -97,14 +98,9 @@ export default function TableUsers({ showModalDelete, setModalDeleteUser, update
                   <td>{user.nameUser}</td>
                   <td>{user.email}</td>
                   <td>
-                    <Link
-                      to={`/userDetail/${user.id}`}
-                      style={{ color: "inherit", textDecoration: "inherit" }}
-                    >
                       <button value={user.id} className={s.update} onClick={updateRole}>
                         ✎
                       </button>
-                    </Link>
                   </td>
                   <td>
                     <FormControlLabel
