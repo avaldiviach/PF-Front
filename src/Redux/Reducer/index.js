@@ -27,7 +27,8 @@ import {
 	GET_TOKEN,
 	GET_USER,
 	RESET,
-	GET_USER_ORDERS
+	GET_USER_ORDERS,
+	GET_DISCOUNT
 } from '../Actions';
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
 	getMaterials: [],
 	getColors: [],
 	getSizes: [],
+	discount: [],
 
 	//Estados globales de carrito
 	// productData: [],
@@ -68,14 +70,20 @@ const initialState = {
 
 };
 
-const rootReducer = (state = initialState, { type, payload }) => {
+const rootReducer = (state = initialState, { type, payload,data2 }) => {
 	switch (type) {
 		case GET_SNEAKERS:
 			return {
 				...state,
 				Sneakers: payload,
 				SneakersCopy: payload,
-				allsneakers: payload
+				allsneakers: payload,
+				discount: data2
+			};
+		case GET_DISCOUNT:
+			return {
+				...state,
+				getDiscount: payload
 			};
 
 		case SEARCH_BY_NAME:

@@ -33,7 +33,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	GET_DISCOUNT = 'GET_DISCOUNT';
 
 //const url = 'http://localhost:3001';
 const url = 'https://node-api-sneakers.herokuapp.com';
@@ -42,12 +43,31 @@ export function getSneakers() {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(`${url}/sneakers`);
+			const data2= await axios.get('http://localhost:3001/getDiscounts');
+			
 			return dispatch({
 				type: GET_SNEAKERS,
 				payload: data,
+				data2: data2.data
 			});
 		} catch (error) {
 			console.log('There is an error in getsneakers action', error);
+		}
+	};
+}
+export function getDiscount() {
+	//console.log('hola45')
+	return async function (dispatch) {
+		//console.log('hola2')
+		try {
+			const data = await axios.get('http://localhost:3001/getDiscounts');
+			console.log('data en actions', data);
+			return dispatch({
+				type: GET_DISCOUNT,
+				payload: data,
+			});
+		} catch (error) {
+			console.log('There is an error in get discount', error);
 		}
 	};
 }

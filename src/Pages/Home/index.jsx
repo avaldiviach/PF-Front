@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Countdown, {zeroPad, calcTimeDelta, formatTimeDelta}from 'react-countdown';
 //Componentes y funciones
 import Cards from "../../Components/Cards";
 import ImagenPrincipal from "../../Components/ImagenPrincipal";
@@ -8,17 +9,22 @@ import Filters from "../../Components/Filters";
 import Pagination from "../../Components/Pagination";
 import ModalSearch from "../../Components/Modal/";
 import { useAuth } from "../../context/authContext";
+import Counter from "../../Components/Counter";
+
 
 
 //import Carrousel from '../../Components/Carrousel';
 import style from "./home.module.css";
+import { getDiscount } from "../../Redux/Actions";
 
 const Home = () => {
+
   const filteredSneakers = useSelector((state) => state.SneakersCopy);
   const searchResponse = useSelector((state) => state.searchSneakers);
   const roleU = useSelector(state => state.getRole);
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
+  const discount = useSelector(state => state.discount);
   // PAGINACIÓN ----------------------------------------------------------------------------------------------------
   // Se crea la paginación de x zapatillas por página
   const SNEAKERS_PER_PAGE = 8; // Constante para setear cantidad de zapatillas por página
@@ -27,6 +33,8 @@ const Home = () => {
   const lastSneaker = currentPage * SNEAKERS_PER_PAGE;
   const firstSneaker = lastSneaker - SNEAKERS_PER_PAGE;
   // const {token} = useAuth();
+
+
   useEffect(() => {
     setCurrentPage(1);
   }, [filteredSneakers]);
@@ -34,11 +42,21 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     // eslint-disable-next-line
+    getDiscount()
+   
   }, []);
 
   useEffect(() => {
     filteredSneakers.length !== 0 && setLoading(false);
   }, [filteredSneakers]);
+
+  useEffect(() => {
+     getDiscount()
+    
+  
+  }, []);
+
+
 
   // useEffect(() => {
   //   dispatch(getRole(user?.uid));
@@ -55,9 +73,11 @@ const Home = () => {
   return (
 
     <div className={style.home}>
+    
       {loading === true
         ? (<img src="https://c.tenor.com/_tt3TLfzyYoAAAAC/s4gu-loding.gif" alt="img loading"/>)
         : (<>
+          <Counter />
           <ImagenPrincipal />
           {/* Componente para filtros */}
           <Filters />
