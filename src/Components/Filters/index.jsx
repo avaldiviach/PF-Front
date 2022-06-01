@@ -14,13 +14,10 @@ const Filters = () => {
   const [defPri, setDefPri] = useState("");
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [defCat, setDefCat] = useState("");
-  const [defBra, setDefBra] = useState("");
-  const [defPri, setDefPri] = useState("");
   const dispatch = useDispatch();
 
   const url= "https://node-api-sneakers.herokuapp.com";
-  const url1 = "http://localhost:3001";
+  //const url = "http://localhost:3001";
 
   const peticion = async () => {
     let resp1 = await fetch(`${url}/brands`);
@@ -56,19 +53,11 @@ const Filters = () => {
     e.preventDefault();
     dispatch(OrderingByPrice(e.target.value));
     setDefPri(e.target.value);
-<<<<<<< HEAD
-=======
-
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
   };
 
   return (
     <div className={s.filters}>
-<<<<<<< HEAD
-            <select onChange={handleCategory} name="categoryFilters" value={defCat}>
-=======
       <select onChange={handleCategory} name="categoryFilters" value={defCat}>
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
         <option value="">All categories</option>
         {categories.length &&
           categories?.map(({ nameCategory }, id) => (

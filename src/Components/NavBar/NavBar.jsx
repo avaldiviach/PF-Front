@@ -43,11 +43,7 @@ export default function Example() {
     }
   }, [user])
 
-<<<<<<< HEAD
-  //Enlaces de la página
-=======
   //Enlaces de la pagina
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
   const navigation = [
     { name: 'Cart', href: '/cart', current: false },
     // { name: 'Admin', href: '#', current: false },
@@ -118,6 +114,7 @@ export default function Example() {
 
                 {/* BOTON DEL CARRITO */}
                 {/* <div className="hidden md:block md:ml-6 items-center"> */}
+                <Link to='/wishlist' >WishList 💖</Link>
                 <Link
                   to="/cart"
                 >
@@ -234,11 +231,6 @@ export default function Example() {
                         )}
                       </Menu.Item>
                     </Menu.Items>
-<<<<<<< HEAD
-                    
-=======
-
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
                   </Transition>
                 </Menu>
 

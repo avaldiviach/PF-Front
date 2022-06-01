@@ -17,27 +17,19 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getSneakers } from "./Redux/Actions";
+import { getSneakers, addWishListData } from "./Redux/Actions";
 import Orders from "./Components/Orders";
+import WishLists from "./Pages/WishLists";
 
 
 function App() {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.productData);
+  const wishlistData = useSelector((state) => state.wishlistData);
   const totalPrice = useSelector((state) => state.totalPrice);
 
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
-<<<<<<< HEAD
-  // const {token} = useAuth();
-
-  // useEffect(() => {
-  //   dispatch(getSneakers(token));
-  //   // eslint-disable-next-line
-  // }, [token]);
-=======
-  
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
@@ -63,6 +55,31 @@ function App() {
     }
   }, [user, totalPrice, token]);
 
+  useEffect(() => {
+    setTimeout(() => {if(wishlistData.length === 0) dispatch(addWishListData())}, 2000)
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      const { email } = user;
+      const id = wishlistData.map(e => e.id);
+      try {
+        async function postWishList() {
+          const {data: payload} = await axios.post(
+            //"https://node-api-sneakers.herokuapp.com/getwishlis",
+            "http://localhost:3001/addwishlist",
+            { email, id }
+          );
+          dispatch({ type: 'GET_WISHLIST_BD', payload});
+        }
+        postWishList();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [user]);
+
   return (
     <div className="App">
       <NavBar />
@@ -76,6 +93,7 @@ function App() {
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment user={user} />} />
         </Route>
+        <Route path="/wishlist" element={<WishLists />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/listreviews" element={<Reviews2 />} />
         <Route path="/admin" element={<Admin />} />

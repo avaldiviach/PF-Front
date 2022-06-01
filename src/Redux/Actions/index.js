@@ -33,7 +33,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_TOKEN = 'GET_TOKEN',
 	GET_USER = 'GET_USER',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
-	RESET = 'RESET';
+	RESET = 'RESET',
+	SET_WISHLIST = 'SET_WISHLIST';
 
 //const url = 'http://localhost:3001';
 const url = 'https://node-api-sneakers.herokuapp.com';
@@ -89,15 +90,38 @@ export function filterByBrand(brand) {
 
 //ACA EMPIEZA EL CARRITO DE COMPRAS
 
-export const addWishlist = (index) => {
+export const addWishlist = (id) => {
+	console.log('id', id);
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
-		const { productData } = rootReducer;
-		let wishlistData = productData[index].wishlisted;
-
+		const { wishlistData, getUser } = rootReducer;
+		const wishlist = wishlistData.find(sneaker => sneaker.id === id);
+		console.log('búsqueda por id', wishlist)
+		const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
+		console.log('data index', index)
+		if (getUser) {
+			console.log('en el if', wishlist.wishlisted)
+			wishlist.wishlisted ? axios.post(`http://localhost:3001/deletewishlist`, { email: getUser.email, id })
+				: axios.post(`http://localhost:3001/addwishlist`, { email: getUser.email, id })
+		}
 		dispatch({
-			type: SET_CART,
-			payload: (productData[index].wishlisted = !wishlistData),
+			type: SET_WISHLIST,
+			payload: (wishlistData[index].wishlisted = !wishlist.wishlisted),
+		});
+	};
+};
+
+export const addWishListData = () => {
+	return async (dispatch, getState) => {
+		const rootReducer = getState();
+		const { Sneakers } = rootReducer;
+		const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
+		//localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
+		dispatch({
+			type: SET_WISHLIST,
+			payload: {
+				wishlistData
+			},
 		});
 	};
 };
@@ -142,11 +166,6 @@ export const addItem = (data) => (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-
-<<<<<<< HEAD
-=======
-  
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 	const exist = productData?.some(
 		(product) => product.sneakerId === data.id && product.size === data.sizes.size
 	);
@@ -237,7 +256,7 @@ export const getTotalPrice = () => {
 		const { productData } = rootReducer;
 		let total = 0;
 		productData.forEach((item) => {
-			total += (item.discountPrice > 0 ? item.discountPrice : item.price )* item.qty;
+			total += (item.discountPrice > 0 ? item.discountPrice : item.price) * item.qty;
 		});
 
 		//agregar productData al local storage
@@ -475,19 +494,11 @@ export function deleteSneaker(id) {
 	}
 };
 
-
 export function updateSneaker(id, payload) {
 	return async function (dispatch) {
 		try {
-<<<<<<< HEAD
-			const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
-=======
 			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload)
 			console.log(payload)
-
-			//const { data } = await axios.put(`https://node-api-sneakers.herokuapp.com/updatesneaker/${id}`, payload)
-
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 			return dispatch({
 				type: UPDATE_SNEAKER,
 				payload: data,
@@ -497,21 +508,6 @@ export function updateSneaker(id, payload) {
 		}
 	}
 }
-// return async (dispatch, getState) => {
-// 	const rootReducer = getState();
-// 	const { productData } = rootReducer;
-// 	localStorage.setItem('productData', JSON.stringify(productData));
-// 	let total = 0;
-// 	productData.forEach((item) => {
-// 		total += item.price * item.qty;
-// 	});
-// 	dispatch({
-// 		type: SET_TOTAL_PRICE,
-// 		payload: total,
-// 	});
-// }
-// };
-
 
 export function createReview(payload) {
 	return async function (dispatch) {
@@ -529,6 +525,7 @@ export function createReview(payload) {
 		}
 	};
 }
+
 export function getAllreviews(id) {
 	return async function (dispatch) {
 		try {
@@ -544,7 +541,6 @@ export function getAllreviews(id) {
 		}
 	};
 }
-
 
 export function getOrders() {
 	return async function (dispatch) {
@@ -596,12 +592,11 @@ export function getOrderById(id) {
 	};
 }
 
-
 export function getUserOrders(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getOrdUser/${id}`
+				`${url}/getOrdUser/${id}`
 
 			);
 			return dispatch({
@@ -618,11 +613,7 @@ export function createOrder(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-<<<<<<< HEAD
-				`https://node-api-sneakers.herokuapp.com/createOrder`, payload
-=======
-				`${url}/createOrder`,payload
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
+				`${url}/createOrder`, payload
 			);
 			return dispatch({
 				type: CREATE_ORDER,
@@ -638,11 +629,7 @@ export function updateOrder(id, status) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-<<<<<<< HEAD
-				`https://node-api-sneakers.herokuapp.com/updateOrder/${id}`, { newStatus: status }
-=======
-				`${url}/updateOrder/${id}`, {newStatus: status}
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
+				`${url}/updateOrder/${id}`, { newStatus: status }
 			);
 			return dispatch({
 				type: 'UPDATE_ORDER',
@@ -654,16 +641,9 @@ export function updateOrder(id, status) {
 	};
 }
 
-<<<<<<< HEAD
-
 export function getRole(id) {
 	return async function (dispatch) {
 		if (!id) {
-=======
-export function getRole (id) {
-	return async function(dispatch) {
-		if(!id) {
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 			return dispatch({
 				type: GET_ROLE,
 				payload: "guest",
@@ -683,29 +663,17 @@ export function getRole (id) {
 	}
 }
 
-
-<<<<<<< HEAD
 export function getToken(token) {
-=======
-
-export function getToken(token) {			
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 	return function (dispatch) {
 		return dispatch({
 			type: GET_TOKEN,
 			payload: token,
-<<<<<<< HEAD
 		});
 	}
 }
+
 export function getUser(curUser) {
 	return function (dispatch) {
-=======
-		});			
-}}
-export function getUser(curUser) {			
-	return function(dispatch) {
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
@@ -713,7 +681,6 @@ export function getUser(curUser) {
 	}
 }
 
-<<<<<<< HEAD
 export function logOutAndReset() {
 	return function (dispatch) {
 		return dispatch({
@@ -722,18 +689,11 @@ export function logOutAndReset() {
 	}
 }
 
-=======
-export function logOutAndReset() {			
-	return function(dispatch) {
-		return dispatch({
-			type: RESET,
-		});			
-}}
 export function createDiscount(id, payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/addDiscount/${id}`, payload
+				`${url}/addDiscount/${id}`, payload
 			);
 			return dispatch({
 				type: 'CREATE_DISCOUNT',
@@ -744,7 +704,6 @@ export function createDiscount(id, payload) {
 		}
 	};
 }
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
 export const offerSneaker = (id) => async (dispatch, getState) => {
 	const rootReducer = getState();
 	const { productData } = rootReducer;
@@ -752,7 +711,7 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-	const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
+	const { data } = await axios.get(`${url}/sneaker/${id}`)
 	const exist = productData?.every(
 		(product) => product.id !== data.id && product.size !== data.sizes[0].size
 	);
@@ -778,9 +737,4 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 			],
 		},
 	});
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319

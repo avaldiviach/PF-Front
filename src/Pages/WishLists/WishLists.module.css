@@ -1,0 +1,32 @@
+.page {
+  margin-top: 100px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* .cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1700px;
+    justify-content: flex-start;
+    margin-top: 40px;
+} */
+
+/* .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px 10px;
+  margin-top: 50px;
+  margin-left: 180px;
+  margin-right: 100px;
+} */
+
+.cards {
+  width: 90%;
+  display: grid;
+	/* grid-auto-rows: auto; */
+	gap: 3em;
+	grid-template-columns: repeat(auto-fill, minmax(max(16.875rem, 20%), 1fr)); 
+}
+

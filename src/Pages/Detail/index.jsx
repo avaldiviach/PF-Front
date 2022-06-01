@@ -16,11 +16,7 @@ export default function Detail() {
   const sneaker = useSelector((state) => state.detail);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
   useEffect(() => {
     dispatch(getDetailSneaker(id));
     return () => {
@@ -34,11 +30,7 @@ export default function Detail() {
     const obj = { ...sneaker, sizes: sneaker.sizes[value] };
     setSelectSneaker({ ...obj });
   }
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
   function addToCart() {
     //verifica si se seleccionó una talla
     if (!selectSneaker) {
@@ -118,9 +110,6 @@ export default function Detail() {
           <ListReviews id={id} />
         </div>
       </div>
-            
-        
     </div>
-
   );
 }

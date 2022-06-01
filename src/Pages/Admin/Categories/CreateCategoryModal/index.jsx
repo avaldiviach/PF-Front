@@ -10,13 +10,8 @@ export default function CreateModalCate(props) {
     const createClick =async (e) => {
         e.preventDefault()
         const input = document.querySelector('#inputCategoryName')
-<<<<<<< HEAD
-        if (input.value !== '') {
-=======
             if (input.value !== '') {
->>>>>>> 5371dcfbd647c36527a4e1814823e863d4eaf319
             await dispatch(createCategory(input.value))
-            
             props.onHide()
             await dispatch(getCategories());
 

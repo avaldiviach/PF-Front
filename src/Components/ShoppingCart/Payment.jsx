@@ -66,7 +66,6 @@ function Payment({user}) {
             dispatch({ type: 'SET_CART', payload: { productData: [] } });
             axios.post(`https://node-api-sneakers.herokuapp.com/deletecart`, {email: user.email, productData:[]});
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
-
             setTimeout(() => navigate('/cart'), 3000);
           }
         });
