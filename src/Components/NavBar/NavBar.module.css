@@ -27,7 +27,8 @@
 
 .admin:hover {
 	background-color: rgb(255, 248, 248);
-	border: solid 2px rgb(255, 248, 248);
+	/* border: solid 2px rgb(255, 248, 248); */
+  border: solid 3px var(--negro); 
 }
 
 .admin svg {

@@ -35,8 +35,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	GET_USER_ORDERS = 'GET_USER_ORDERS',
 	RESET = 'RESET';
 
-//const url = 'http://localhost:3001';
-const url = 'https://node-api-sneakers.herokuapp.com';
+const url = 'http://localhost:3001';
+// const url = 'https://node-api-sneakers.herokuapp.com';
 
 export function getSneakers() {
 	return async function (dispatch) {

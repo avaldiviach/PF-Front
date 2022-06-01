@@ -27,7 +27,7 @@ import {
 	GET_TOKEN,
 	GET_USER,
 	RESET,
-	GET_USER_ORDERS
+	GET_USER_ORDERS,
 } from '../Actions';
 
 const initialState = {
@@ -36,7 +36,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-  copyDetail: {},
+	copyDetail: {},
 	getReviews: [],
 	users: [],
 	categories: [],
@@ -49,9 +49,9 @@ const initialState = {
 
 	//Estados globales de carrito
 	// productData: [],
-	productData: [...JSON.parse(localStorage.getItem('productData')) || []],
+	productData: [...(JSON.parse(localStorage.getItem('productData')) || [])],
 	totalPrice: 0,
-	// Las propiedades de abajo son para el carrito en caso de que se quiera 
+	// Las propiedades de abajo son para el carrito en caso de que se quiera
 	// implementar cupones de descuento
 	showDiscountForm: false,
 	discountCode: '',
@@ -64,8 +64,8 @@ const initialState = {
 	getRole: '',
 	getToken: '',
 	getUser: null,
-	offer: [{ id: 13, size: 37.5 }]
-
+	offer: [{ id: 13, size: 37.5 }],
+  backToHome: false,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -75,21 +75,26 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				Sneakers: payload,
 				SneakersCopy: payload,
-				allsneakers: payload
+				allsneakers: payload,
 			};
 
 		case SEARCH_BY_NAME:
 			const words = payload.split(' ');
-			let sneakerMatching = state.allsneakers
-			words.forEach(w => {
-				sneakerMatching = sneakerMatching.filter((s) => s.match.toLowerCase().includes(w.toLowerCase()))
+			let sneakerMatching = state.allsneakers;
+			words.forEach((w) => {
+				sneakerMatching = sneakerMatching.filter((s) =>
+					s.match.toLowerCase().includes(w.toLowerCase())
+				);
 			});
-			sneakerMatching = sneakerMatching.filter(s => s.deleted === false)
-			const msg = (sneakerMatching.length < 1) ? `The search '${payload}' not match with our sneakers, try again ` : "finded";
+			sneakerMatching = sneakerMatching.filter((s) => s.deleted === false);
+			const msg =
+				sneakerMatching.length < 1
+					? `The search '${payload}' not match with our sneakers, try again `
+					: 'finded';
 			return {
 				...state,
 				SneakersCopy: sneakerMatching,
-				searchSneakers: msg
+				searchSneakers: msg,
 			};
 
 		case FILTER_BY_CATEGORY:
@@ -108,9 +113,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			const filterBrand =
 				payload === ''
 					? state.Sneakers
-					: state.Sneakers.filter(
-						(el) => el.brand.toLowerCase() === payload
-					);
+					: state.Sneakers.filter((el) => el.brand.toLowerCase() === payload);
 			return {
 				...state,
 				SneakersCopy: filterBrand,
@@ -120,167 +123,181 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				detail: payload,
-        copyDetail: payload,
-
+				copyDetail: payload,
 			};
 
-		case CLEAN_DETAIL: return { ...state, detail: [] }
+		case CLEAN_DETAIL:
+			return { ...state, detail: [] };
 
 		case SORT_PRICE:
 			let sortByPrice = [...state.SneakersCopy];
 			if (payload === 'asc') {
-				sortByPrice.sort((a, b) => a.price - b.price)
+				sortByPrice.sort((a, b) => a.price - b.price);
 			} else {
-				sortByPrice.sort((a, b) => b.price - a.price)
+				sortByPrice.sort((a, b) => b.price - a.price);
 			}
 			return {
-				...state, SneakersCopy: [...sortByPrice]
-			}
+				...state,
+				SneakersCopy: [...sortByPrice],
+			};
 
 		case SET_CART:
 			return {
 				...state,
 				...payload,
-			}
-		
-    case 'GET_CART_BD':
-			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+			};
 
-      return {
-        ...state,
-        productData: [...state.productData, ...filterDB],
-	}
+		case 'GET_CART_BD':
+			const filterDB = payload.filter((prodDB) =>
+				state.productData.every(
+					(product) =>
+						prodDB.sneakerId !== product.sneakerId ||
+						(prodDB.sneakerId === product.sneakerId &&
+							prodDB.size !== product.size)
+				)
+			);
+
+			return {
+				...state,
+				productData: [...state.productData, ...filterDB],
+			};
 
 		case REMOVE_ITEM_CART:
 			return {
 				...state,
 				productData: payload,
-			}
+			};
 
 		case SET_TOTAL_PRICE:
 			return {
 				...state,
 				totalPrice: payload,
-			}
+			};
 		//-------------------ADMIN------------------ADMIN--------------------ADMIN
 		case GET_ALL_USERS:
 			return {
 				...state,
-				users: payload
+				users: payload,
 			};
 
 		case DELETE_USER:
-			let user = [...state.users]
+			let user = [...state.users];
 			return {
 				...state,
-				users: user.filter(el => el.id !== payload)
-			}
+				users: user.filter((el) => el.id !== payload),
+			};
 
 		case CREATE_MODEL:
 			return {
 				...state,
-				createModel: payload
-			}
+				createModel: payload,
+			};
 
 		case GET_CATEGORIES:
 			return {
 				...state,
-				categories: payload
-			}
+				categories: payload,
+			};
 
 		case CREATE_CATEGORY:
 			return {
 				...state,
-				categories: payload
-			}
+				categories: payload,
+			};
 
 		case DELETE_CATEGORY:
-			let category = state.categories
+			let category = state.categories;
 			return {
 				...state,
-				categories: category.filter(el => el.id !== payload)
-			}
+				categories: category.filter((el) => el.id !== payload),
+			};
 
 		case GET_MODELS:
 			return {
 				...state,
-				getModels: payload
-			}
+				getModels: payload,
+			};
 
 		case GET_BRANDS:
 			return {
 				...state,
-				getBrands: payload
-			}
+				getBrands: payload,
+			};
 
 		case GET_MATERIALS:
 			return {
 				...state,
-				getMaterials: payload
-			}
-
+				getMaterials: payload,
+			};
 
 		case GET_COLORS:
 			return {
 				...state,
-				getColors: payload
-			}
+				getColors: payload,
+			};
 
 		case GET_SIZES:
 			return {
 				...state,
-				getSizes: payload
-			}
+				getSizes: payload,
+			};
 		case GET_ALL_REVIEWS:
 			return {
 				...state,
-				getReviews: payload
-			}
-      
+				getReviews: payload,
+			};
+
 		case GET_ROLE:
 			return {
 				...state,
-				getRole: payload
-			}
-      
+				getRole: payload,
+			};
+
 		case GET_TOKEN:
 			return {
 				...state,
-				getToken: payload
-			}
-      
+				getToken: payload,
+			};
+
 		case GET_USER:
 			return {
 				...state,
-				getUser: payload
-			}
-      
+				getUser: payload,
+			};
+
 		case RESET:
 			return {
 				...state,
 				getRole: '',
 				getToken: '',
-				getUser: null
-			}
+				getUser: null,
+			};
 
 		case GET_ALL_ORDERS:
 			return {
 				...state,
-				getOrders: payload
-			}
+				getOrders: payload,
+			};
 
 		case GET_ORDER_BY_ID:
 			return {
 				...state,
-				orderById: payload
-			}
+				orderById: payload,
+			};
 
 		case GET_USER_ORDERS:
+			return {
+				...state,
+				userOrders: payload,
+			};
+    
+    case 'BACK_TO_HOME':
+      return {
+        ...state,
+        backToHome: payload,
+      };
 
-		return {
-			...state,
-			userOrders: payload
-		}
+
 		default:
 			return state;
 	}
