@@ -824,3 +824,12 @@ export function disableDeal(id, token) {
 		}
 	};
 }
+
+export function sneakerToReview(id) {
+	return function (dispatch) {
+		return dispatch({
+			payload: id,
+			type: "SNEAKER_TO_R",
+		});
+	}
+}

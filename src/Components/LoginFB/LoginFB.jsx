@@ -26,6 +26,25 @@ export default function CreateUser() {
 
   const url2 = 'https://node-api-sneakers.herokuapp.com'
   const url1 = "http://localhost:3001";
+
+  const getUserCart = async (email) => {
+  
+    try {
+      async function fetchData() {
+        const response = await axios.post(
+          `${url2}/getCart`,{ email },
+          {
+            headers: { authorization: `Bearer ${token}` },
+          }
+        );
+        dispatch({ type: "GET_CART_BD", payload: response.data });      
+      }
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       const { email } = user;
@@ -33,7 +52,7 @@ export default function CreateUser() {
         async function fetchData() {
           const response = await axios.post(
             `${url2}/getCart`,
-             {email: email} ,
+              {email} ,
             {
               headers: { authorization: `Bearer ${token}` },
             }
@@ -50,7 +69,7 @@ export default function CreateUser() {
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password); //Nos retorna datos del usuario que se logueó
-      // await getUserCart(data.email);
+      await getUserCart(data.email);
       navigate(-1);
     } catch (error) {
       setError(error.message);

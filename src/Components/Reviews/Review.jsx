@@ -14,7 +14,7 @@ export default function Review({ review }) {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.form_container}>
+    <div className={`border ${styles.form_container}`}>
         <fieldset className={styles.formulario__fieldset}>
           <RatingStarsRead rating={review.rating} />
           <div className={styles.formulario__contenedorCampos}>

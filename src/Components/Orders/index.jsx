@@ -1,7 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import s  from './orders.module.css'
 import Slider from '@mui/material/Slider';
+import { sneakerToReview } from "../../Redux/Actions";
+import { Link } from "react-router-dom";
 
 const marks = [
     {
@@ -34,6 +36,8 @@ function defaultValue(state) {
     }
 }
 export default function Orders(){
+    const dispatch = useDispatch()
+
 
     const orders = useSelector(state => state.userOrders)
 
@@ -75,7 +79,7 @@ export default function Orders(){
                                                 <div className={`card-body ${s.cb}`}>
                                                         <p>{p.description}</p>
                                                     <p>{typeof p.categories === 'object' ?  p.categories.map(c => ` ${c} |` ) : p.categories}</p>
-                                                
+                                                        <button value={p.sneakerId}><Link to={`/reviews/${p.sneakerId}`}>Create review</Link></button>
                                                     <div className={`border-top border-left ${s.dataP}`}>
                                                     <p>x {p.qty}</p>
                                                     <p> size. {p.size} </p>

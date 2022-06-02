@@ -1,5 +1,19 @@
 .form_container {
-	padding-top: 1.8em;
+	margin: 1rem auto;
+	padding: 1.5rem;
+	border-radius: 1rem;
 	width: 100%;
   font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 769px) {
+
+	.form_container {
+		margin: 1rem auto;
+		padding: 1rem;
+		border-radius: 1rem;
+		width: 90%;
+	  font-family: 'Montserrat', sans-serif;
+	}
+	
 }

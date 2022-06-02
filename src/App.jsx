@@ -78,9 +78,11 @@ function App() {
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment user={user} />} />
         </Route>
-        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/reviews/:id" element={<Reviews />} />
         <Route path="/listreviews" element={<Reviews2 />} />
-        {verifyRole(role)?<Route path="/admin" element={<Admin />} /> : <Route path="/*" element={<NotFound />} />}
+        {/* {verifyRole(role)?<Route path="/admin" element={<Admin />} /> : <Route path="/*" element={<NotFound />} />} */}
+
+        {true ? <Route path="/admin" element={<Admin />} /> : <Route path="/*" element={<NotFound />} />}
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

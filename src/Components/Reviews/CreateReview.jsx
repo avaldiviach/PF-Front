@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
 
 import styles from './CreateReview.module.css';
@@ -12,10 +12,11 @@ export default function Reviews() {
   // const currentSneaker = useSelector(state => state.GET_DETAIL);
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onChange", });
   // const [error, setError] = useState('');
-  const detail = useSelector(state => state.copyDetail);
+  const {id} = useParams()
   const user = useSelector(state => state.getUser);
   const token = useSelector(state => state.getToken )
  
+
 
   const navigate = useNavigate();
 
@@ -37,8 +38,8 @@ export default function Reviews() {
       setErrorRating(null)
     }
     data.email = user.email;
-    data.sneakerId = detail.id;
-    console.log(detail.id);
+    data.sneakerId = id;
+    console.log(id);
     data.rating = rating;
     dispatch(createReview(data));
     alert("Review created with success");

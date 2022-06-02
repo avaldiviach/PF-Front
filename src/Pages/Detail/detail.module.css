@@ -8,12 +8,24 @@
 }
 
 .detail {
-  display: flex;
-	width: 73vw;
+  	display: flex;
+	width: 100%;
+	padding-top: 30%;
 	margin: 0 auto;
-	/* height: 74vh; */
+	padding: 2rem 10rem;
+	height: 60vh; 
   /* margin-top: 7rem; */
 	/* background-color: blue; */
+}
+
+.detailr {
+	display: flex;
+  width: 100%;
+  margin: 3rem auto;
+  padding: 1rem 10rem;
+  height: 60vh; 
+/* margin-top: 7rem; */
+  /* background-color: blue; */
 }
 
 .listReviews {
@@ -27,9 +39,11 @@
 }
 
 .left {
-  margin-top: 4rem;
+	height: 100%;
+	padding-top: 15%;
+
 	width: 60%;
-	height: 70%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -37,7 +51,7 @@
 }
 
 .left img {
-	width: 90%;
+	width: 70%;
 }
 
 .rigth {
@@ -179,18 +193,55 @@
 @media (max-width: 769px) {
   .detail {
     width: 100%;
+	height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 84vw;
     margin: 0 auto;
+	padding: 0;
   }
+  .detailr{
+	  width: 100%;
+	  padding: 0;
+  }
+.listReviews{
+	width: 100% !important;
+}
+.containerReviews{
+	width: 100% !important;
+}
+
+  .left img {
+	width: 100%;
+}
+.loading{
+	height: 100%;
+}
+
+.brand{
+	font-size: 3rem;
+}
 
   .details {
-    width: 93%;
-
+    width: 100%;
+	height: 100%;
   }
+.left{
+	width: 100%;
+	padding: 0;
+	height: 50%;
+}
+
+.rigth {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	/* padding: 3rem 0; */
+	height: 70%;
+	justify-content: space-between;
+}
   .containerReviews {
     width: 80%;
   }

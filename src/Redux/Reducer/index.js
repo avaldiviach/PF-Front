@@ -62,6 +62,7 @@ const initialState = {
 	getOrders: [],
 	orderById: [],
 	userOrders: [],
+	srid: '',
 	getRole: '',
 	getToken: '',
 	getUser: null,
@@ -306,6 +307,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		return {
 			...state,
 			backToHome: payload,
+		};
+		case 'SNEAKER_TO_R':
+		return {
+			...state,
+			srid: payload,
 		};
 
 		case GET_DISCOUNTS:

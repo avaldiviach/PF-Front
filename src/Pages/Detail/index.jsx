@@ -91,9 +91,7 @@ export default function Detail() {
               <section className={s.rigth}>
                 <p className={s.brand}> {sneaker.brand}</p>
                 <RatingStars rating={sneaker.rating} />
-                <NavLink to="/reviews">
-                  Create Review
-                </NavLink>
+                
                 <p className={s.price} >${sneaker.price}</p>
                 <p className={s.details}>Details: {sneaker.description}</p>
                 <p className={s.sizes_title}>Select Size (EUR)</p>
@@ -113,7 +111,7 @@ export default function Detail() {
           )
         }
       </div>
-      <div className={`${s.detail} ${s.listReviews} `}>
+      <div className={`${s.detailr} ${s.listReviews} `}>
         <div className={s.containerReviews}>
           <ListReviews id={id} />
         </div>
