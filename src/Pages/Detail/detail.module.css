@@ -158,7 +158,6 @@
 
 .home:hover {
   background-color: #af4018;
-
 } 
 
 .btn_title {
@@ -176,3 +175,24 @@
   cursor: pointer;
   border-radius: 6px;
 }
+
+@media (max-width: 769px) {
+  .detail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 84vw;
+    margin: 0 auto;
+  }
+
+  .details {
+    width: 93%;
+
+  }
+  .containerReviews {
+    width: 80%;
+  }
+}
+

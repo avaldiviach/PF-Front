@@ -17,7 +17,8 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getSneakers, addWishListData } from "./Redux/Actions";
+import { getRole, getSneakers, addWishListData } from "./Redux/Actions";
+
 import Orders from "./Components/Orders";
 import WishLists from "./Pages/WishLists";
 
@@ -30,11 +31,14 @@ function App() {
 
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
+  const role = useSelector(state => state.getRole);
+
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
-    dispatch(getSneakers(token));
+    console.log(user)
+    dispatch(getSneakers(token)); 
     if (user && productData.length > 0) {
       const { email } = user;
       const data = {
@@ -42,13 +46,15 @@ function App() {
         productData,
       };
       try {
-        async function postCart() {
+        async function postCart(token) {
           return await axios.post(
             "https://node-api-sneakers.herokuapp.com/addcart",
-            data
+            data,{
+              headers: { authorization: `Bearer ${token}`}
+            }
           );
         }
-        postCart();
+        postCart(token);
       } catch (error) {
         console.log(error);
       }
@@ -89,6 +95,7 @@ function App() {
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
+        {}
         <Route path='/orders' element={<Orders />} />
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment user={user} />} />

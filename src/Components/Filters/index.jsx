@@ -8,6 +8,7 @@ import {
 
 import s from "./filters.module.css";
 
+
 const Filters = () => {
   const [defCat, setDefCat] = useState("");
   const [defBra, setDefBra] = useState("");
@@ -17,7 +18,9 @@ const Filters = () => {
   const dispatch = useDispatch();
 
   const url= "https://node-api-sneakers.herokuapp.com";
+
   //const url = "http://localhost:3001";
+
 
   const peticion = async () => {
     let resp1 = await fetch(`${url}/brands`);

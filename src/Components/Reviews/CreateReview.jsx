@@ -14,6 +14,8 @@ export default function Reviews() {
   // const [error, setError] = useState('');
   const detail = useSelector(state => state.copyDetail);
   const user = useSelector(state => state.getUser);
+  const token = useSelector(state => state.getToken )
+ 
 
   const navigate = useNavigate();
 
@@ -27,6 +29,7 @@ export default function Reviews() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
+    console.log(data)
     if (!rating) {
       setErrorRating('Please rate the sneaker');
       return;

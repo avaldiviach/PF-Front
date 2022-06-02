@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 
 //Componentes y funciones
 import ModalCart from "../../Components/Modal/modalCart"
@@ -14,8 +14,16 @@ export default function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const sneaker = useSelector((state) => state.detail);
+  const backToHome = useSelector((state) => state.backToHome);
   const [selectSneaker, setSelectSneaker] = useState(false);
   const [alert, setAlert] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (backToHome) {
+      navigate('/')
+    }
+  }, [])
   
   useEffect(() => {
     dispatch(getDetailSneaker(id));
