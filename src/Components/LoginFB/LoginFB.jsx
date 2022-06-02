@@ -52,7 +52,7 @@ export default function CreateUser() {
         async function fetchData() {
           const response = await axios.post(
             `${url2}/getCart`,
-              {email} ,
+              {email: email} ,
             {
               headers: { authorization: `Bearer ${token}` },
             }
