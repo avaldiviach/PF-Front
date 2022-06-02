@@ -16,7 +16,7 @@ import style from './Card.module.css'
 
 function handleClick() {
   alert('Esto es una prueba')
-  dispatch({type:'BACK_TO_HOME', payload:true})
+  dispatch({ type: 'BACK_TO_HOME', payload: true })
 }
 
 function Card({ sneaker }) {
@@ -37,31 +37,22 @@ function Card({ sneaker }) {
 
   useEffect(() => {
     console.log('cambió');
-    if(heart !== wishlisted) setWishlisted(!wishlisted);
+    if (heart !== wishlisted) setWishlisted(!wishlisted);
   }, [heart])
 
   return (
     <div>
-      <span key={id} title={wishlisted ? `it's already on your wishlist ${id}` : `add it to your wishlist`} onClick={wishlistHandler}>
+      <div className={style.card}>
         {
-          wishlisted === true ? <span key={id}><FaHeart color='red' /></span> : <span key={id}><FaRegHeart /></span>
-          //<span key={id}><FaHeart color={wishlisted ? 'red' : ''} /></span>
+          discountPrice > 0
+          && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
         }
-      </span>
-
-      <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-        <div className={style.card}>
+        <span className={style.heart} key={id} title={wishlisted ? `it's already on your wishlist ${id}` : `add it to your wishlist`} onClick={wishlistHandler}>
           {
-            discountPrice > 0
-            && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
+            wishlisted === true ? <span key={id}><FaHeart color='red' /></span> : <span key={id}><FaRegHeart /></span>
           }
-          <div className={style.heart} onClick={handleClick}>
-            <span >
-              <FaRegHeart />
-              {/* para renderizar el corazon rojo */}
-              {/* <FaHeart color='red' /> */}
-            </span>
-          </div>
+        </span>
+        <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
           <img
             src={image}
             alt=""
@@ -76,10 +67,10 @@ function Card({ sneaker }) {
               $<p className={style.price}>{price}</p>
             </section>
           </div>
+        </Link>
 
       </div>
 
-        </Link>
 
     </div>
   );

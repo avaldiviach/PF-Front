@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import {GrFavorite} from 'react-icons/gr'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
@@ -97,7 +98,7 @@ export default function Example() {
                 </Disclosure.Button>
               </div>
 
-              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-between ${styles.logos}`}>
+              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-start ${styles.logos}`}>
                 {/* LOGOOOOOO */}
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo en movil */}
@@ -125,13 +126,8 @@ export default function Example() {
                   className={`${styles.linkWishList}`}
                 >
 
-                  <Menu as="div" className={`ml-10 relative ${styles.admin} ${styles.iconWishList}`}>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="3.5 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M5,5 L22,5 L20,14 L7,14 L4,2 L0,2 M7,14 L8,18 L21,18 M19,23 C18.4475,23 18,22.5525 18,22 C18,21.4475 18.4475,21 19,21 C19.5525,21 20,21.4475 20,22 C20,22.5525 19.5525,23 19,23 Z M9,23 C8.4475,23 8,22.5525 8,22 C8,21.4475 8.4475,21 9,21 C9.5525,21 10,21.4475 10,22 C10,22.5525 9.5525,23 9,23 Z"></path></svg>
-                    {productData?.length
-                      ? (<span className={styles.notifications}>
-                        &nbsp; {productData.length}
-                      </span>)
-                      : null}
+                  <Menu as="div" className={`ml-14 relative ${styles.admin} ${styles.iconWishList}`}>
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M1,8.4 C1,4 4.5,3 6.5,3 C9,3 11,5 12,6.5 C13,5 15,3 17.5,3 C19.5,3 23,4 23,8.4 C23,15 12,21 12,21 C12,21 1,15 1,8.4 Z"></path></svg>
                   </Menu>
                 </Link>
 
@@ -140,7 +136,7 @@ export default function Example() {
                   className={`${styles.linkCart}`}
                 >
 
-                  <Menu as="div" className={`ml-10 relative ${styles.admin} ${styles.cart}`}>
+                  <Menu as="div" className={`ml-4 relative ${styles.admin} ${styles.cart}`}>
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="3.5 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M5,5 L22,5 L20,14 L7,14 L4,2 L0,2 M7,14 L8,18 L21,18 M19,23 C18.4475,23 18,22.5525 18,22 C18,21.4475 18.4475,21 19,21 C19.5525,21 20,21.4475 20,22 C20,22.5525 19.5525,23 19,23 Z M9,23 C8.4475,23 8,22.5525 8,22 C8,21.4475 8.4475,21 9,21 C9.5525,21 10,21.4475 10,22 C10,22.5525 9.5525,23 9,23 Z"></path></svg>
                     {productData?.length
                       ? (<span className={styles.notifications}>
