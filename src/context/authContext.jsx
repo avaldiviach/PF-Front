@@ -32,16 +32,19 @@ export function AuthProvider({children}){
     
     const verifyEmail = (currUSer) =>
         sendEmailVerification(currUSer);
-
-    onAuthStateChanged(auth, async (currentUser)=>{
-        if(currentUser){
-            await dispatch(getUser(currentUser));             
-            dispatch(getToken(await currentUser.getIdToken())); 
+useEffect(()=>{
+    onAuthStateChanged(auth, async (currentUser) => {
+        if (currentUser) {
+            dispatch(getUser(currentUser));
+            dispatch(getToken(await currentUser.getIdToken()));
             dispatch(getRole(currentUser.uid, currentUser.accessToken));
-            localStorage.setItem("user",JSON.stringify({name: currentUser.displayName, email: currentUser.email}));                    
-        }      
+            console.log(currentUser, " role context");
+            localStorage.setItem("user", JSON.stringify({ name: currentUser.displayName, email: currentUser.email }));
+        }
         // setLoading(false);
     })
+},[])
+    
 
     return(
         <authContext.Provider value={{signup,signin, logout, loginWithGoogle, resetPassword, verifyEmail}}> {children}</authContext.Provider>

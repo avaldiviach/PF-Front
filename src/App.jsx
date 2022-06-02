@@ -30,20 +30,25 @@ function App() {
   const user = useSelector(state => state.getUser);
   const role = useSelector(state => state.getRole);
 
-  
-  console.log(role)
+  console.log(role, "rol rutas")
+   console.log(token)
+  const verifyRole = (role) =>{
+    return role === "admin" ? true: false;
+  }
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
-    console.log(user)
-    dispatch(getSneakers(token)); 
+
+    dispatch(getSneakers()); 
+    console.log(role)
     if (user && productData.length > 0) {
       const { email } = user;
       const data = {
         email,
         productData,
       };
+      console.log(data, "data de nico")
       try {
         async function postCart(token) {
           return await axios.post(
@@ -69,14 +74,13 @@ function App() {
         <Route path="/registerfb" element={<RegisterFB />} />
         <Route path="/loginfb" element={<LoginFB />} />
         <Route path='/resetpass' element={<RecoverPassword />} />
-        {}
         <Route path='/orders' element={<Orders />} />
         <Route path="/cart/*" element={<Cart />}>
           <Route path="payment" element={<Payment user={user} />} />
         </Route>
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/listreviews" element={<Reviews2 />} />
-        <Route path="/admin" element={<Admin />} />
+        {verifyRole(role)?<Route path="/admin" element={<Admin />} /> : <Route path="/*" element={<NotFound />} />}
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
