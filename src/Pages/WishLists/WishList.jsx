@@ -22,33 +22,33 @@ function WishList({ data }) {
 
   return (
     <>
-      <div className={style.card}>
-        <span className={style.heart} title={wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} onClick={wishlistHandler}>
+      {
+        wishlisted && (<div className={style.card}>
+          <span className={style.heart} title={wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} onClick={wishlistHandler}>
+            {
+              wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
+            }
+          </span>
           {
-            wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
+            discountPrice > 0
+            && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
           }
-        </span>
-        {/* {
-              discountPrice > 0
-              && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
-            } */}
-        <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-          <img
-            src={image}
-            alt=""
-            className={style.img}
-          />
-          <div className={style.data_container}>
-            <section className={style.data}>
-              <p className={style.brand}>{brand}</p>
-              <p className={style.name}>{model}</p>
-            </section>
-          </div>
-        </Link>
-      </div>
-
+          <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <img
+              src={image}
+              alt=""
+              className={style.img}
+            />
+            <div className={style.data_container}>
+              <section className={style.data}>
+                <p className={style.brand}>{brand}</p>
+                <p className={style.name}>{model}</p>
+              </section>
+            </div>
+          </Link>
+        </div>)
+      }
     </>
-
   )
 }
 
