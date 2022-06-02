@@ -38,3 +38,11 @@ input:focus {
 .search_button {
 	display: none;
 }
+
+@media (max-width: 560px) {
+  .search input {
+
+    width: 100%; 
+  
+  }
+}

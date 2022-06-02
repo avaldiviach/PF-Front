@@ -38,9 +38,10 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	DELETE_DEAL = 'DELETE_DEAL';
 ;
 
-//const url = 'http://localhost:3001';
-const url = 'https://node-api-sneakers.herokuapp.com';
-const localURL = "http://localhost:3001";
+
+// const url = 'https://node-api-sneakers.herokuapp.com';
+const url = "http://localhost:3001";
+
 
 export function getSneakers() {
 	return async function (dispatch) {
@@ -617,7 +618,7 @@ export function getUserOrders(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getOrdUser/${id}`
+				`${url}/getOrdUser/${id}`
 			);
 			return dispatch({
 				type: GET_USER_ORDERS,
@@ -724,7 +725,7 @@ export function createDiscount(id, payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/addDiscount/${id}`, payload
+				`${url}/addDiscount/${id}`, payload
 			);
 			return dispatch({
 				type: 'CREATE_DISCOUNT',
@@ -742,7 +743,7 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-	const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
+	const { data } = await axios.get(`${url}/sneaker/${id}`)
 	const exist = productData?.every(
 		(product) => product.id !== data.id && product.size !== data.sizes[0].size
 	);

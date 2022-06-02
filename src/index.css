@@ -29,6 +29,7 @@
 
 html {
 	box-sizing: border-box; /*para manejar mejor el box model*/
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 /*para manejar mejor el box model*/

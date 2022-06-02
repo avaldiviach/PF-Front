@@ -39,7 +39,7 @@ function ModalCart({msg, active, title, reset, goCart}){
                 {msg} 
             </Typography>
             <div className={s.go}>
-                { goCart && <Link to='/cart'>
+                { goCart && <Link className={s.btn} to='/cart'>
                 <Button className={s.btn} color="warning" variant="outlined">GO CART</Button>
             </Link>}
             </div>
