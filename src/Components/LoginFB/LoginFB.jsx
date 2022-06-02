@@ -24,8 +24,8 @@ export default function CreateUser() {
   const user = useSelector((state) => state.getUser);
   const token = useSelector((state) => state.getToken);
 
-  // const url = 'https://node-api-sneakers.herokuapp.com'
-  const url = "http://localhost:3001";
+  const url = 'https://node-api-sneakers.herokuapp.com'
+  // const url = "http://localhost:3001";
   useEffect(() => {
     if (user) {
       const { email } = user;

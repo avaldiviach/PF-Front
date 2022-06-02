@@ -33,8 +33,8 @@ function App() {
   const user = useSelector(state => state.getUser);
   const role = useSelector(state => state.getRole);
 
-  // const url = " https://node-api-sneakers.herokuapp.com"
-  const url = "http://localhost:3001"
+  const url = " https://node-api-sneakers.herokuapp.com"
+  // const url = "http://localhost:3001"
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
@@ -74,8 +74,7 @@ function App() {
       try {
         async function postWishList() {
           const {data: payload} = await axios.post(
-            //"https://node-api-sneakers.herokuapp.com/getwishlis",
-            "http://localhost:3001/addwishlist",
+            "https://node-api-sneakers.herokuapp.com/getwishlis",
             { email, id }
           );
           dispatch({ type: 'GET_WISHLIST_BD', payload});
