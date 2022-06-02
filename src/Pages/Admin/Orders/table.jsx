@@ -1,35 +1,72 @@
-import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrdersFiltered } from "../../../Redux/Actions";
 import s from "./Orders.module.css";
+import { useState } from "react";
+import { ButtonGroup, ToggleButton } from "react-bootstrap";
+import { getOrderById } from "../../../Redux/Actions";
 
-const TableOrders = ({ update }) => {
-  const orders = useSelector((state) => state.getOrdersCopy);
+const radios = [
+  { name: "All", value: "all" },
+  { name: "Pending", value: "Pending" },
+  { name: "In Progress", value: "InProgress" },
+  { name: "Completed", value: "Completed" },
+  { name: "Cancelled", value: "Cancelled" },
+];
+
+const TableOrders = ({ update, detail }) => {
+  const AllOrders = useSelector((state) => state.getOrders);
   const dispatch = useDispatch();
+  const [state, setstate] = useState("all");
+  const token = useSelector((state) => state.getToken);
 
-  // const ordById = (e) => {
-  //   e.preventDefault();
-  //   dispatch(getOrderById(e.target.value));
-  // };
+  let orders;
 
-  const [loading, setLoading] = useState(false);
+  if (state === "Pending") {
+    orders = AllOrders.filter((el) => el.state === "Pending");
+  } else if (state === "InProgress") {
+    orders = AllOrders.filter((el) => el.state === "In Progress");
+  } else if (state === "Completed") {
+    orders = AllOrders.filter((el) => el.state === "Completed");
+  } else if (state === "Cancelled") {
+    orders = AllOrders.filter((el) => el.state === "Cancelled");
+  } else {
+    orders = AllOrders;
+  }
 
   const updateOrder = async (e) => {
     e.preventDefault();
     update({ order: orders[e.target.value], show: true });
   };
 
-  useEffect(() => {
-    dispatch(getOrdersFiltered());
-  });
+  const handleDetail = async (e) => {
+    e.preventDefault();
+    await dispatch(getOrderById(e.target.value, token));
+    detail({ show: true });
+  };
 
   return (
-    <Table hover className={s.table}>
-      <thead className={s.thead}>
-        {orders.length === 0 && loading === false ? (
-          <div></div>
-        ) : loading === true ? (
+    <>
+      <div className={s.btn}>
+        <ButtonGroup className="mb-2">
+          {radios.map((radio, idx) => (
+            <ToggleButton
+              key={idx}
+              id={`radio-${idx}`}
+              type="radio"
+              variant="secondary"
+              name="radio"
+              value={radio.value}
+              checked={state === radio.value}
+              onChange={(e) => setstate(e.currentTarget.value)}
+            >
+              {radio.name}
+            </ToggleButton>
+          ))}
+        </ButtonGroup>
+      </div>
+
+      <Table hover className={s.table}>
+        <thead className={s.thead}>
           <tr>
             <th>id</th>
             <th>UserName</th>
@@ -38,35 +75,30 @@ const TableOrders = ({ update }) => {
             <th>Update</th>
             <th>Order Detail</th>
           </tr>
-        ) : (
-          <></>
-        )}
-      </thead>
-      <tbody className={s.tbody}>
-        {orders.length > 0 ? (
-          orders.map((ord, i) => (
-            <tr key={ord.id}>
-              <td>{ord.id}</td>
-              <td>{ord.nameUser}</td>
-              <td>{ord.state}</td>
-              <td>{ord.date}</td>
-              <td>
-                <button value={i} className={s.update} onClick={updateOrder}>
-                  ✎
-                </button>
-              </td>
-              <td>
-                <button value={ord.id}>👁</button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <div>
-            <p className={s.not}>Orders were not found</p>
-          </div>
-        )}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody className={s.tbody}>
+          {orders.length > 0 &&
+            orders.map((ord, i) => (
+              <tr key={ord.id}>
+                <td>{ord.id}</td>
+                <td>{ord.nameUser}</td>
+                <td>{ord.state}</td>
+                <td>{ord.date}</td>
+                <td>
+                  <button value={i} className={s.update} onClick={updateOrder}>
+                    ✎
+                  </button>
+                </td>
+                <td>
+                  <button value={ord.id} onClick={handleDetail}>
+                    👁
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
 

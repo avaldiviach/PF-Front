@@ -28,11 +28,7 @@ import {
 	GET_USER,
 	RESET,
 	GET_USER_ORDERS,
-<<<<<<< HEAD
-	GET_ORDERS_FILTERED
-=======
 	GET_DISCOUNTS
->>>>>>> 2425c56f6d23e62a88c7c6ec8a90beb05db7463c
 } from '../Actions';
 
 const initialState = {
@@ -283,31 +279,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case GET_USER_ORDERS:
 
-<<<<<<< HEAD
 			return {
 				...state,
 				userOrders: payload
 			}
-
-		case GET_ORDERS_FILTERED:
+		case GET_DISCOUNTS:
 
 			return {
 				...state,
-				getOrdersCopy: payload
+				getDiscounts: payload
 			}
-
-=======
-		return {
-			...state,
-			userOrders: payload
-		}
-		case GET_DISCOUNTS:
-
-		return {
-			...state,
-			getDiscounts: payload
-		}
->>>>>>> 2425c56f6d23e62a88c7c6ec8a90beb05db7463c
 		default:
 			return state;
 	}
