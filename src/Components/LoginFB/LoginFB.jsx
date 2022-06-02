@@ -33,7 +33,7 @@ export default function CreateUser() {
         async function fetchData() {
           const response = await axios.post(
             `${url2}/getCart`,
-            { email },
+             {email: email} ,
             {
               headers: { authorization: `Bearer ${token}` },
             }
@@ -51,7 +51,7 @@ export default function CreateUser() {
     try {
       await signin(data.email, data.password); //Nos retorna datos del usuario que se logueó
       // await getUserCart(data.email);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       setError(error.message);
       //error.code; para validar los tipos de errores...

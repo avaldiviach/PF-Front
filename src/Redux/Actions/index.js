@@ -671,7 +671,7 @@ export function updateOrder(id, status,token) {
 	};
 }
 
-export function getRole (id) {
+export function getRole (id, token) {
 	return async function(dispatch) {
 		if(!id) {
 			return dispatch({
