@@ -24,22 +24,17 @@ export default function CreateUser() {
   const user = useSelector((state) => state.getUser);
   const token = useSelector((state) => state.getToken);
 
-  const url2 = 'https://node-api-sneakers.herokuapp.com'
-  const url1 = "http://localhost:3001";
+  // const url = 'https://node-api-sneakers.herokuapp.com'
+  const url = "http://localhost:3001";
   useEffect(() => {
     if (user) {
       const { email } = user;
       try {
         async function fetchData() {
-        /*   const wishlistDB = await axios.post('http://localhost:3001/getwishlist', { email });
-          dispatch({ type: 'GET_WISHLIST_BD', payload: wishlistDB.data }); */
-
+          /*   const wishlistDB = await axios.post('http://localhost:3001/getwishlist', { email });
+            dispatch({ type: 'GET_WISHLIST_BD', payload: wishlistDB.data }); */
           const response = await axios.post(
-            `${url2}/getCart`,
-            { email },
-            {
-              headers: { authorization: `Bearer ${token}` },
-            }
+            `${url}/getCart`,{ email }
           );
           dispatch({ type: "GET_CART_BD", payload: response.data });
 
@@ -50,11 +45,26 @@ export default function CreateUser() {
       }
     }
   }, [user]);
+  
+    const getUserCart = async (email) => {
+  
+    try {
+      async function fetchData() {
+        const response = await axios.post(
+          `${url}/getCart`,{ email }
+        );
+        dispatch({ type: "GET_CART_BD", payload: response.data });      
+      }
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password); //Nos retorna datos del usuario que se logueó
-      // await getUserCart(data.email);
+      await getUserCart(data.email);
       navigate("/");
     } catch (error) {
       setError(error.message);
