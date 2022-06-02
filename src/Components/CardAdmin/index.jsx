@@ -42,7 +42,7 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount
     e.preventDefault()
     discount({
       show: true,
-      id: sneaker.id
+      id: e.target.value
     })
   }
 
@@ -73,7 +73,7 @@ function Card({ showModalDelete, setModalDeleteProd, sneaker, setState, discount
             label="Status"
             labelPlacement="start"
           />
-          <button className={style.delete} onClick={addDiscount}>
+          <button value={id} className={style.delete} onClick={addDiscount}>
             🔥
           </button>
 

@@ -21,7 +21,7 @@ export default function CreateUser() {
       const userGog = await signup(data.email, data.password);
       dispatch(createUser({id:userGog.user.uid, name:data.fullName, email:userGog.user.email}, token))
       verifyEmail(userGog.user);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       setError(error.message);
     }

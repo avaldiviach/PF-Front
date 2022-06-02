@@ -9,6 +9,7 @@
 	align-items: center;
 	border-radius: 0.6rem;
 	justify-content: space-between;
+	position: relative;
 }
 
 .discount {
@@ -17,11 +18,13 @@
 	padding: 0.2rem;
 	width: 100%;
 	background-color: #f84f4f;
-	border-radius: 0.2rem;
+	border-radius: 0.6rem;
 	font-style: normal;
 	font-weight: 500;
 	color: white;
 	font-size: 1rem;
+	position: absolute;
+	top: 0rem;
 }
 
 .data_container {
