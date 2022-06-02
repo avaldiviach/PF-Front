@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers, getUserOrders, logOutAndReset } from "../../Redux/Actions";
+import { getSneakers, getUserOrders, logOutAndReset, sendWishListDB } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
@@ -18,6 +18,7 @@ import defaultUser from '../../Assets/Images/defaultUser2.png';
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import axios from "axios";
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ export default function Example() {
   //Para obtener solo el nombre del mail
   const name = lsUser?.email.split("@")[0];
   // const name = lsUser?.name.split(" ")[0];
+
   useEffect(() => {
     if (user) {
       dispatch(getUserOrders(user.email))
@@ -64,7 +66,10 @@ export default function Example() {
     // Se borrra local storage y estado global cuando se hace el logout
     await dispatch(logOutAndReset())
     await dispatch({ type: 'SET_CART', payload: { productData: [] } });
-    localStorage.removeItem('productData')
+    localStorage.removeItem('productData');
+    dispatch(sendWishListDB());
+    await dispatch({ type: 'SET_WISHLIST', payload: { wishlistData: [] } });
+    localStorage.setItem('wishlistData',JSON.stringify([]));
     navigate("/")
   }
 
@@ -219,8 +224,8 @@ export default function Example() {
                         )}
                       </Menu.Item>
                       <Menu.Item>
-                      {({ active }) => (
-                          ( <Link
+                        {({ active }) => (
+                          (<Link
                             // href="/registerfb"
                             to='/orders'
                             className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}

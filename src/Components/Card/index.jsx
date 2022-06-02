@@ -22,15 +22,11 @@ function Card({ sneaker }) {
   }
 
   useEffect(() => {
-    console.log('cambió');
     if(heart !== wishlisted) setWishlisted(!wishlisted);
   }, [heart])
 
   return (
     <div>
-      {
-        console.log(wishlisted)
-      }
       <span key={id} title={wishlisted ? `it's already on your wishlist ${id}` : `add it to your wishlist`} onClick={wishlistHandler}>
         {
           wishlisted === true ? <span key={id}><FaHeart color='red' /></span> : <span key={id}><FaRegHeart /></span>

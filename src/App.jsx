@@ -17,7 +17,7 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getSneakers, addWishListData } from "./Redux/Actions";
+import { getSneakers, addWishListData, getWishListDB } from "./Redux/Actions";
 import Orders from "./Components/Orders";
 import WishLists from "./Pages/WishLists";
 
@@ -56,14 +56,16 @@ function App() {
   }, [user, totalPrice, token]);
 
   useEffect(() => {
-    setTimeout(() => {if(wishlistData.length === 0) dispatch(addWishListData())}, 2000)
+    if(user) dispatch(getWishListDB());
+    setTimeout(() => {if(wishlistData?.length === 0) dispatch(addWishListData())}, 2000)
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (user) {
       const { email } = user;
-      const id = wishlistData.map(e => e.id);
+      const id = wishlistData.filter(e => e.wishlisted === true).map(e => e.id);
+      console.log(id)
       try {
         async function postWishList() {
           const {data: payload} = await axios.post(
@@ -71,14 +73,19 @@ function App() {
             "http://localhost:3001/addwishlist",
             { email, id }
           );
-          dispatch({ type: 'GET_WISHLIST_BD', payload});
+          dispatch({
+            type: SET_WISHLIST,
+            payload: {
+              wishlistData: []
+            },
+          });
         }
-        postWishList();
+        if(id.length > 0) postWishList();
       } catch (error) {
         console.log(error);
       }
     }
-  }, [user]);
+  }, [user]); */
 
   return (
     <div className="App">

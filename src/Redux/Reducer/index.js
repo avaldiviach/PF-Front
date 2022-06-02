@@ -28,7 +28,8 @@ import {
   GET_USER,
   RESET,
   GET_USER_ORDERS,
-  SET_WISHLIST
+  SET_WISHLIST,
+  GET_WISHLIST_BD
 } from '../Actions';
 
 const initialState = {
@@ -159,20 +160,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
 
     case SET_WISHLIST:
-      localStorage.setItem('wishlistData', JSON.stringify([...state.wishlistData, payload]));
+      //localStorage.setItem('wishlistData', JSON.stringify([...payload]));
       return {
         ...state,
         ...payload
       }
 
-    case 'GET_WISHLIST_BD':
-      payload.map((id) => {
-        found = state.wishlistData.findIndex(ele => ele.sneakerId === id);
-        if (found !== -1) wishlistData[found].wishlisted = true;
-      });
+    case GET_WISHLIST_BD:
       return {
         ...state,
-        wishlistData: [...state.wishlistData],
+        ...payload,
       }
 
     case SET_TOTAL_PRICE:

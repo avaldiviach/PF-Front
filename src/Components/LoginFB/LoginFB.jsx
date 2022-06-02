@@ -27,8 +27,6 @@ export default function CreateUser() {
         async function fetchData() {
           const response = await axios.post('https://node-api-sneakers.herokuapp.com/getCart', { email });
           dispatch({ type: 'GET_CART_BD', payload: response.data });
-        /*   const wishlistDB = await axios.post('http://localhost:3001/getwishlist', { email });
-          dispatch({ type: 'GET_WISHLIST_BD', payload: wishlistDB.data }); */
         }
         fetchData();
       } catch (error) {
@@ -41,7 +39,7 @@ export default function CreateUser() {
     try {
       await signin(data.email, data.password);//Nos retorna datos del usuario que se logueó
       // await getUserCart(data.email);
-      navigate("/");      
+      navigate("/");
     } catch (error) {
       setError(error.message);
       //error.code; para validar los tipos de errores...
@@ -51,7 +49,7 @@ export default function CreateUser() {
 
   const handleGoogleSignin = async () => {
     const userGoogle = await loginWithGoogle();
-    dispatch(createUser({id:userGoogle.user.uid,name: userGoogle.user.displayName, email:userGoogle.user.email}))
+    dispatch(createUser({ id: userGoogle.user.uid, name: userGoogle.user.displayName, email: userGoogle.user.email }))
     // navigate("/");
     navigate(-1);
   }
