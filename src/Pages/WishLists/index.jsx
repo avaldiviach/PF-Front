@@ -7,7 +7,7 @@ function WishLists() {
 
   const productWishList = useSelector(state => state.wishlistData);
   const render = productWishList.filter(e => e.wishlisted);
-
+  const render2 = render.filter(d => d.wishlisted === true)
   return (
     <>
       <div className={style.page}>
@@ -18,7 +18,8 @@ function WishLists() {
           ? (
             <div className={style.cards}>
               {
-                render?.map(data => <WishList key={data.id} data={data} />)
+                render2?.map(data => <WishList key={data.id} data={data} />)
+
               }
             </div>
           )

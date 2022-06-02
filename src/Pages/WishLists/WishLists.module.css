@@ -34,10 +34,9 @@
 } */
 
 .cards {
+  margin: 0 auto;
   width: 90%;
-  display: grid;
-	/* grid-auto-rows: auto; */
-	gap: 3em;
-	grid-template-columns: repeat(auto-fill, minmax(max(16.875rem, 20%), 1fr)); 
+  display: flex;
+  flex-wrap: wrap;
 }
 

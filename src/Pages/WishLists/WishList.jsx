@@ -24,15 +24,16 @@ function WishList({ data }) {
     <>
       {
         wishlisted && (<div className={style.card}>
-          <span className={style.heart} title={wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} onClick={wishlistHandler}>
-            {
-              wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
-            }
-          </span>
           {
             discountPrice > 0
             && <div className={style.discount}>$ {discountPrice}. {`(discount Price)`}</div>
           }
+          <span className={style.heart} title={wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} onClick={wishlistHandler}>
+            {
+              wishlisted ===true ? <FaHeart color='red' /> : <FaRegHeart />
+            }
+          </span>
+          
           <Link to={`/detail/${id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
             <img
               src={image}
