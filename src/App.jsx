@@ -38,10 +38,10 @@ function App() {
     return role === "admin" ? true: false;
   }
 
+  const url = "http://localhost:3001";
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
-
     dispatch(getSneakers()); 
     console.log(role)
     if (user && productData.length > 0) {
