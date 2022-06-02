@@ -1,11 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom"
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { addWishlist } from '../../Redux/Actions';
 import { Link, useNavigate } from "react-router-dom"
 import style from './Card.module.css'
-import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 
 // CORAZON
@@ -22,8 +20,7 @@ function handleClick() {
 }
 
 function Card({ sneaker }) {
-  const dispatch = useDispatch();
-  
+
   const { model, price, image, brand, id, discountPrice } = sneaker;
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
   const dispatch = useDispatch();

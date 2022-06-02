@@ -148,3 +148,4 @@ export default function UpdateOrder({ onHide, show, order }) {
       </Modal.Footer>
     </Modal>
   );
+}
