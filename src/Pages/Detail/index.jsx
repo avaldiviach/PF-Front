@@ -92,7 +92,13 @@ export default function Detail() {
                 <p className={s.brand}> {sneaker.brand}</p>
                 <RatingStars rating={sneaker.rating} />
                 
-                <p className={s.price} >${sneaker.price}</p>
+                {
+                  sneaker.discountPrice > 0
+                  ? <p className={s.price} style={{textDecoration: 'line-through', color: 'red'}}>${sneaker.price}</p>
+                  : <p className={s.price} >${sneaker.price}</p>
+                }
+                {sneaker.discountPrice > 0 && <p className={s.price} style={{color:'green'}}>${sneaker.discountPrice}</p>}
+
                 <p className={s.details}>Details: {sneaker.description}</p>
                 <p className={s.sizes_title}>Select Size (EUR)</p>
                 <div className={s.sizes}>
