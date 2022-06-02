@@ -96,7 +96,8 @@ export function filterByBrand(brand) {
 
 export const addWishlist = (id) => {
   return async (dispatch, getState) => {
-    const rootReducer = getState();
+    try {
+      const rootReducer = getState();
     const { wishlistData, getUser } = rootReducer;
     const wishlist = wishlistData.find(sneaker => sneaker.id === id);
     const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
@@ -109,12 +110,16 @@ export const addWishlist = (id) => {
       type: SET_WISHLIST,
       payload: (wishlistData[index].wishlisted = !wishlist.wishlisted),
     });
+    } catch (error) {
+      console.log('There is an error in addWishlist action');
+    }
   };
 };
 
 export const addWishListData = () => {
   return async (dispatch, getState) => {
-    const rootReducer = getState();
+    try {
+      const rootReducer = getState();
     const { Sneakers } = rootReducer;
     const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
     localStorage.setItem('wishlistData', JSON.stringify([...wishlistData]));
@@ -124,6 +129,9 @@ export const addWishListData = () => {
         wishlistData
       },
     });
+    } catch (error) {
+      console.log('There is an error in addWishListData action');
+    }
   };
 };
 

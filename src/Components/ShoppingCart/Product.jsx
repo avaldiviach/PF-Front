@@ -59,9 +59,9 @@ const Product = ({ data, index }) => {
     <div className={`flex justify-between flex-col lg:flex-row space-y-4 lg:space-y-0 transition-opacity ease-in-out duration-700 ${toDelete ? ' opacity-0 ' : 'opacity-100'}`}>
       <div className='space-y-4 lg:space-y-0 lg:space-x-4 flex flex-col lg:flex-row'>
         <img src={image} alt='img-product' className={`w-full lg:w-48 ${s.img} `} />
-        <span title={wishlist.wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} >
+        <span title={wishlist?.wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} >
           {
-            wishlist.wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
+            wishlist?.wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
           }
         </span>
         <div className='space-y-6'>
