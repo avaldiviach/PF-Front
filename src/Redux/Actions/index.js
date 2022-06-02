@@ -523,15 +523,12 @@ export function updateSneaker(id, payload, token) {
 }
 
 
-export function createReview(payload, token) {
+export function createReview(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/review`,
-				payload,			
-				{
-					headers: { authorization: `Bearer ${token}`}
-				}
+				payload
 			);
 			return dispatch({
 				type: CREATE_REVIEW,
@@ -585,7 +582,7 @@ export function createUser(payload, token) {
 				`${url}/user`,
 				payload
 			);
-			dispatch(getRole(data.uid,token));
+			dispatch(getRole(data.id,token));
 			return dispatch({
 				type: CREATE_USER,
 				payload: data,
@@ -671,15 +668,16 @@ export function updateOrder(id, status,token) {
 	};
 }
 
-export function getRole (id) {
+export function getRole (id, token) {
 	return async function(dispatch) {
-		if(!id) {
-			return dispatch({
-				type: GET_ROLE,
-				payload: "guest",
-			});
-		}
+		console.warn(id)
 		try {
+			if(!id) {
+				return dispatch({
+					type: GET_ROLE,
+					payload: "guest",
+				});
+			}
 			const { data } = await axios.get(
 				`${url}/role/${id}`,
 				{

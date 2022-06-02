@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .banner{
@@ -45,9 +46,6 @@
 
 .image{
     width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .imgBack{
@@ -55,13 +53,13 @@
     width: 50rem;
     border-radius: 100%;
     background: #FB5014;
-    position: static;
-
+    position: absolute;
+    left: 10rem;
+    top: 10rem;
 }
 
 .image img{
     max-height: 28rem;
-    position: absolute;
     
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1) rotate(20deg);

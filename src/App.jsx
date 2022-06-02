@@ -31,14 +31,13 @@ function App() {
   const role = useSelector(state => state.getRole);
 
   
-  
+  console.log(role)
 
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {
-
+    console.log(user)
     dispatch(getSneakers(token)); 
-    console.log(role)
     if (user && productData.length > 0) {
       const { email } = user;
       const data = {

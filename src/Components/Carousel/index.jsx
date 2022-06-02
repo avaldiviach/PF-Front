@@ -8,7 +8,8 @@ import BannerDeal from "./bannerDeal";
 
 export default function CarouselDeals() {
     const [index, setIndex] = useState(0);
-    const deals = useSelector(state => state.getDiscounts)
+    const dealsAll = useSelector(state => state.getDiscounts)
+    const deals = dealsAll.filter(d => d.deleted === false)
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
 
