@@ -24,7 +24,7 @@ function ImagenPrincipal() {
           <h1>Nike <span>Air</span></h1>
           <h2>Zoom</h2>
           <p className={styles.por}>20% Discount</p>
-          <button onClick={handleOffer}>Shop now</button>
+          <button className={styles.btn} onClick={handleOffer}>Shop now</button>
         </div>
         <div className={styles.item__right}>
           <img src={image} alt="imagen" />

@@ -114,6 +114,10 @@
 	top: 14px;
 }
 
+.userIcon {
+  margin-left: 18px;
+}
+
 
 @media (max-width: 767px) {
   .logos {
