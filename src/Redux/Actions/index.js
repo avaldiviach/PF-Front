@@ -36,11 +36,11 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
 	RESET = 'RESET',
 	GET_DISCOUNTS = 'GET_DISCOUNTS',
 	DELETE_DEAL = 'DELETE_DEAL';
-	;
+;
 
 
 const url = 'https://node-api-sneakers.herokuapp.com';
-const localURL = "http://localhost:3001";
+//const url = "http://localhost:3001";
 
 
 export function getSneakers() {
@@ -148,7 +148,7 @@ export const addItem = (data) => (dispatch, getState) => {
 		type: 'conjunction',
 	});
 
-  
+
 	const exist = productData?.some(
 		(product) => product.sneakerId === data.id && product.size === data.sizes.size
 	);
@@ -177,7 +177,7 @@ export const addItem = (data) => (dispatch, getState) => {
 	});
 };
 
-export const removeItem = (id, size, email,token) => {
+export const removeItem = (id, size, email, token) => {
 	return async (dispatch, getState) => {
 		const rootReducer = getState();
 		const { productData } = rootReducer;
@@ -186,9 +186,9 @@ export const removeItem = (id, size, email,token) => {
 			email,
 			productData: payload
 		}
-		if (email) axios.post(`${url}/deletecart`, {email: data.email, productData: payload},			
+		if (email) axios.post(`${url}/deletecart`, { email: data.email, productData: payload },
 			{
-				headers: { authorization: `Bearer ${token}`}
+				headers: { authorization: `Bearer ${token}` }
 			}
 		);
 		dispatch({
@@ -243,7 +243,7 @@ export const getTotalPrice = () => {
 		const { productData } = rootReducer;
 		let total = 0;
 		productData.forEach((item) => {
-			total += (item.discountPrice > 0 ? item.discountPrice : item.price )* item.qty;
+			total += (item.discountPrice > 0 ? item.discountPrice : item.price) * item.qty;
 		});
 
 		//agregar productData al local storage
@@ -262,7 +262,7 @@ export function getAllUsers(token) {
 			const { data } = await axios.get(
 				`${url}/getUser`,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -281,9 +281,9 @@ export function deleteUser(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/updatedDisableUser/${id}`,	{body:'body'},
+				`${url}/updatedDisableUser/${id}`, { body: 'body' },
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 
@@ -305,9 +305,9 @@ export function createModel(payload, token) {
 			const { data } = await axios.post(
 				`${url}/createModel`,
 				payload,
-			
+
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -326,9 +326,9 @@ export function createSneaker(payload, token) {
 			const { data } = await axios.post(
 				`${url}/createSneaker`,
 				payload,
-			
+
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -361,16 +361,16 @@ export function getCategories() {
 
 //create category para el form de create model
 
-export function createCategory(payload,token) {
+export function createCategory(payload, token) {
 	return async function (dispatch) {
 		try {
 			const newCategory = { nameCategory: payload };
 			const { data } = await axios.post(
 				`${url}/createCate`,
 				newCategory,
-			
+
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -389,9 +389,9 @@ export function deleteCategory(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/deleteCategory/${id}`, {body:'body'},
+				`${url}/deleteCategory/${id}`, { body: 'body' },
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 
@@ -491,9 +491,9 @@ export function getSizes() {
 export function deleteSneaker(id, token) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`${url}/deleteSneaker/${id}`,		{body:'body'},	
+			const { data } = await axios.put(`${url}/deleteSneaker/${id}`, { body: 'body' },
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				})
 			return dispatch({
 				type: DELETE_SNEAKER,
@@ -509,9 +509,9 @@ export function deleteSneaker(id, token) {
 export function updateSneaker(id, payload, token) {
 	return async function (dispatch) {
 		try {
-			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload,			
+			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				})
 			return dispatch({
 				type: UPDATE_SNEAKER,
@@ -524,15 +524,12 @@ export function updateSneaker(id, payload, token) {
 }
 
 
-export function createReview(payload, token) {
+export function createReview(payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
 				`${url}/review`,
-				payload,			
-				{
-					headers: { authorization: `Bearer ${token}`}
-				}
+				payload
 			);
 			return dispatch({
 				type: CREATE_REVIEW,
@@ -566,7 +563,7 @@ export function getOrders(token) {
 			const { data } = await axios.get(
 				`${url}/getOrders`,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -586,7 +583,7 @@ export function createUser(payload, token) {
 				`${url}/user`,
 				payload
 			);
-			dispatch(getRole(data.uid,token));
+			dispatch(getRole(data.id,token));
 			return dispatch({
 				type: CREATE_USER,
 				payload: data,
@@ -603,7 +600,7 @@ export function getOrderById(id, token) {
 			const { data } = await axios.get(
 				`${url}/getOrders/${id}`,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -621,7 +618,7 @@ export function getUserOrders(id) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.get(
-				`https://node-api-sneakers.herokuapp.com/getOrdUser/${id}`
+				`${url}/getOrdUser/${id}`
 			);
 			return dispatch({
 				type: GET_USER_ORDERS,
@@ -638,9 +635,9 @@ export function createOrder(payload, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`${url}/createOrder`,payload,
+				`${url}/createOrder`, payload,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -653,13 +650,13 @@ export function createOrder(payload, token) {
 	};
 }
 
-export function updateOrder(id, status,token) {
+export function updateOrder(id, status, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/updateOrder/${id}`, {newStatus: status},
+				`${url}/updateOrder/${id}`, { newStatus: status },
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -672,19 +669,20 @@ export function updateOrder(id, status,token) {
 	};
 }
 
-export function getRole (id) {
+export function getRole (id, token) {
 	return async function(dispatch) {
-		if(!id) {
-			return dispatch({
-				type: GET_ROLE,
-				payload: "guest",
-			});
-		}
+		console.warn(id)
 		try {
+			if(!id) {
+				return dispatch({
+					type: GET_ROLE,
+					payload: "guest",
+				});
+			}
 			const { data } = await axios.get(
 				`${url}/role/${id}`,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -699,15 +697,16 @@ export function getRole (id) {
 
 
 
-export function getToken(token) {			
+export function getToken(token) {
 	return function (dispatch) {
 		return dispatch({
 			type: GET_TOKEN,
 			payload: token,
-		});			
-}}
-export function getUser(curUser){			
-	return function(dispatch){		
+		});
+	}
+}
+export function getUser(curUser) {
+	return function (dispatch) {
 		return dispatch({
 			type: GET_USER,
 			payload: curUser,
@@ -715,17 +714,18 @@ export function getUser(curUser){
 	}
 }
 
-export function logOutAndReset() {			
-	return function(dispatch) {
+export function logOutAndReset() {
+	return function (dispatch) {
 		return dispatch({
 			type: RESET,
-		});			
-}}
+		});
+	}
+}
 export function createDiscount(id, payload) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.post(
-				`https://node-api-sneakers.herokuapp.com/addDiscount/${id}`, payload
+				`${url}/addDiscount/${id}`, payload
 			);
 			return dispatch({
 				type: 'CREATE_DISCOUNT',
@@ -743,7 +743,7 @@ export const offerSneaker = (id) => async (dispatch, getState) => {
 		style: 'long',
 		type: 'conjunction',
 	});
-	const { data } = await axios.get(`https://node-api-sneakers.herokuapp.com/sneaker/${id}`)
+	const { data } = await axios.get(`${url}/sneaker/${id}`)
 	const exist = productData?.every(
 		(product) => product.id !== data.id && product.size !== data.sizes[0].size
 	);
@@ -777,7 +777,7 @@ export function updateUser(id, payload, token) {
 			const { data } = await axios.put(
 				`${url}/updateUser/${id}`, payload,
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({
@@ -810,9 +810,9 @@ export function disableDeal(id, token) {
 	return async function (dispatch) {
 		try {
 			const { data } = await axios.put(
-				`${url}/deleteDiscount/${id}`,{body:'body'},
+				`${url}/deleteDiscount/${id}`, { body: 'body' },
 				{
-					headers: { authorization: `Bearer ${token}`}
+					headers: { authorization: `Bearer ${token}` }
 				}
 			);
 			return dispatch({

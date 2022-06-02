@@ -29,6 +29,7 @@ export default function Reviews() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
+    console.log(data)
     if (!rating) {
       setErrorRating('Please rate the sneaker');
       return;
@@ -39,7 +40,7 @@ export default function Reviews() {
     data.sneakerId = detail.id;
     console.log(detail.id);
     data.rating = rating;
-    dispatch(createReview(data, token));
+    dispatch(createReview(data));
     alert("Review created with success");
     navigate(-1)
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SideBar from "./sideBar";
 import s from "./Admin.module.css";
 import UserContent from "./Users";
@@ -9,17 +9,17 @@ import {
   getSneakers,
   getMaterials,
   getBrands,
+  getOrders,
 } from "../../Redux/Actions";
 import Products from "./Products";
 import CategoriesContent from "./Categories";
 import OrdersContent from "./Orders";
 import DealsContent from "./Deals";
 
-
 export default function Admin() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  const token = useSelector(state => state.getToken )
+  const token = useSelector((state) => state.getToken);
 
   useEffect(() => {
     dispatch(getSneakers());
@@ -40,6 +40,10 @@ export default function Admin() {
   useEffect(() => {
     dispatch(getMaterials());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
 
   return (
     <div className={s.admin_page}>

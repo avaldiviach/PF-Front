@@ -66,7 +66,8 @@ const initialState = {
 	getToken: '',
 	getUser: null,
 	offer: [{ id: 13, size: 37.5 }],
-  backToHome: false,
+	getOrdersCopy: [],
+	backToHome: false,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -146,7 +147,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				...payload,
-			};
+			}
+
+		// case 'GET_CART_BD':
+		// 	const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
+
+		// 	return {
+		// 		...state,
+		// 		productData: [...state.productData, ...filterDB],
+		// 	}
+		// 	};
 
 		case 'GET_CART_BD':
 			const filterDB = payload.filter((prodDB) =>
@@ -245,26 +255,26 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		case GET_ALL_REVIEWS:
 			return {
 				...state,
-				getReviews: payload,
-			};
+				getReviews: payload
+			}
 
 		case GET_ROLE:
 			return {
 				...state,
-				getRole: payload,
-			};
+				getRole: payload
+			}
 
 		case GET_TOKEN:
 			return {
 				...state,
-				getToken: payload,
-			};
+				getToken: payload
+			}
 
 		case GET_USER:
 			return {
 				...state,
-				getUser: payload,
-			};
+				getUser: payload
+			}
 
 		case RESET:
 			return {
@@ -292,23 +302,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				userOrders: payload,
 			};
     
-    case 'BACK_TO_HOME':
-      return {
-        ...state,
-        backToHome: payload,
-      };
-
+		case 'BACK_TO_HOME':
 		return {
 			...state,
-			userOrders: payload
-		}
+			backToHome: payload,
+		};
+
 		case GET_DISCOUNTS:
 
-		return {
-			...state,
-			getDiscounts: payload
-		}
-
+			return {
+				...state,
+				getDiscounts: payload
+			}
 		default:
 			return state;
 	}
