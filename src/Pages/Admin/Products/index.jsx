@@ -16,7 +16,7 @@ import CreateSneaker from "./createModel/CreateSneaker";
 import UpdateSneaker from "./createModel/UpdateSneaker";
 import s from "../Categories/categories.module.css";
 import ModalAdmin from "../ModalAdmin/ModalAdmin";
-import AddDiscount from "./addDiscount";
+import AddDiscount from "./AddDiscount";
 
 export default function Products() {
   const sneakers = useSelector((state) => state.Sneakers);

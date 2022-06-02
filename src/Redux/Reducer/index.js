@@ -37,7 +37,7 @@ const initialState = {
 	SneakersCopy: [],
 	filters: [],
 	detail: {},
-  copyDetail: {},
+	copyDetail: {},
 	getReviews: [],
 	users: [],
 	categories: [],
@@ -65,7 +65,8 @@ const initialState = {
 	getRole: '',
 	getToken: '',
 	getUser: null,
-	offer: [{ id: 13, size: 37.5 }]
+	offer: [{ id: 13, size: 37.5 }],
+	getOrdersCopy: []
 
 };
 
@@ -121,7 +122,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				detail: payload,
-        copyDetail: payload,
+				copyDetail: payload,
 
 			};
 
@@ -143,14 +144,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				...payload,
 			}
-		
-    case 'GET_CART_BD':
+
+		case 'GET_CART_BD':
 			const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
 
-      return {
-        ...state,
-        productData: [...state.productData, ...filterDB],
-	}
+			return {
+				...state,
+				productData: [...state.productData, ...filterDB],
+			}
 
 		case REMOVE_ITEM_CART:
 			return {
@@ -237,25 +238,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				getReviews: payload
 			}
-      
+
 		case GET_ROLE:
 			return {
 				...state,
 				getRole: payload
 			}
-      
+
 		case GET_TOKEN:
 			return {
 				...state,
 				getToken: payload
 			}
-      
+
 		case GET_USER:
 			return {
 				...state,
 				getUser: payload
 			}
-      
+
 		case RESET:
 			return {
 				...state,
@@ -278,16 +279,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
 		case GET_USER_ORDERS:
 
-		return {
-			...state,
-			userOrders: payload
-		}
+			return {
+				...state,
+				userOrders: payload
+			}
 		case GET_DISCOUNTS:
 
-		return {
-			...state,
-			getDiscounts: payload
-		}
+			return {
+				...state,
+				getDiscounts: payload
+			}
 		default:
 			return state;
 	}
