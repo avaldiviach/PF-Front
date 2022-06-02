@@ -3,10 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import {GrFavorite} from 'react-icons/gr'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers, getUserOrders, logOutAndReset } from "../../Redux/Actions";
+import { getSneakers, getUserOrders, logOutAndReset, sendWishListDB } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
@@ -20,6 +21,7 @@ import defaultUser from '../../Assets/Images/defaultUser2.png';
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import axios from "axios";
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -75,6 +77,9 @@ const checkRole = (role)=>{
     await dispatch({ type: 'SET_CART', payload: { productData: [] } });
     localStorage.removeItem('productData');
     localStorage.removeItem('user')
+    dispatch(sendWishListDB());
+    await dispatch({ type: 'SET_WISHLIST', payload: { wishlistData: [] } });
+    localStorage.setItem('wishlistData',JSON.stringify([]));
     navigate("/")
   }
 
@@ -89,7 +94,7 @@ const checkRole = (role)=>{
         <>
           <div className="max-w-screen-2xl mx-auto px-2 sm:px-6 lg:px-8">
             {/* <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"> */}
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex items-center justify-flex-end h-16">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className={`inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ${styles.hamburguerMenu}`}>
@@ -102,7 +107,7 @@ const checkRole = (role)=>{
                 </Disclosure.Button>
               </div>
 
-              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-between ${styles.logos}`}>
+              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-start ${styles.logos}`}>
                 {/* LOGOOOOOO */}
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo en movil */}
@@ -121,20 +126,32 @@ const checkRole = (role)=>{
                   </NavLink>
                 </div>
 
-                {/* BOTON DEL CARRITO */}
+                {/* BOTON DEL CARRITO Y WISHLIST*/}
                 {/* <div className="hidden md:block md:ml-6 items-center"> */}
+      
+
+                <Link
+                  to="/wishlist"
+                  className={`${styles.linkWishList}`}
+                >
+
+                  <Menu as="div" className={`ml-14 relative ${styles.admin} ${styles.iconWishList}`}>
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M1,8.4 C1,4 4.5,3 6.5,3 C9,3 11,5 12,6.5 C13,5 15,3 17.5,3 C19.5,3 23,4 23,8.4 C23,15 12,21 12,21 C12,21 1,15 1,8.4 Z"></path></svg>
+                  </Menu>
+                </Link>
+
                 <Link
                   to="/cart"
                   className={`${styles.linkCart}`}
                 >
-                  <Menu as="div" className={`ml-10 relative ${styles.admin} ${styles.cart}`}>
-                    {/* <GrCart/> */}
+
+                  <Menu as="div" className={`ml-4 relative ${styles.admin} ${styles.cart}`}>
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="3.5 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M5,5 L22,5 L20,14 L7,14 L4,2 L0,2 M7,14 L8,18 L21,18 M19,23 C18.4475,23 18,22.5525 18,22 C18,21.4475 18.4475,21 19,21 C19.5525,21 20,21.4475 20,22 C20,22.5525 19.5525,23 19,23 Z M9,23 C8.4475,23 8,22.5525 8,22 C8,21.4475 8.4475,21 9,21 C9.5525,21 10,21.4475 10,22 C10,22.5525 9.5525,23 9,23 Z"></path></svg>
-                    {productData?.length 
-                    ? (<span className={styles.notifications}>
-                      &nbsp; {productData.length}
-                    </span>)
-                    : null}
+                    {productData?.length
+                      ? (<span className={styles.notifications}>
+                        &nbsp; {productData.length}
+                      </span>)
+                      : null}
                   </Menu>
                 </Link>
               </div>
@@ -246,7 +263,6 @@ const checkRole = (role)=>{
                         )}
                       </Menu.Item>
                     </Menu.Items>
-
                   </Transition>
                 </Menu>
 

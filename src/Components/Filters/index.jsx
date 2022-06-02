@@ -18,7 +18,9 @@ const Filters = () => {
   const dispatch = useDispatch();
 
   const url= "https://node-api-sneakers.herokuapp.com";
+
   // const url = "http://localhost:3001";
+
 
   const peticion = async () => {
     let resp1 = await fetch(`${url}/brands`);
@@ -54,7 +56,6 @@ const Filters = () => {
     e.preventDefault();
     dispatch(OrderingByPrice(e.target.value));
     setDefPri(e.target.value);
-
   };
 
   return (

@@ -17,13 +17,15 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getRole, getSneakers } from "./Redux/Actions";
+import { getRole,getSneakers, addWishListData, getWishListDB } from "./Redux/Actions";
 import Orders from "./Components/Orders";
+import WishLists from "./Pages/WishLists";
 
 
 function App() {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.productData);
+  const wishlistData = useSelector((state) => state.wishlistData);
   const totalPrice = useSelector((state) => state.totalPrice);
 
   const token = useSelector(state => state.getToken);
@@ -52,7 +54,7 @@ function App() {
       try {
         async function postCart(token) {
           return await axios.post(
-            "https://node-api-sneakers.herokuapp.com/addcart",
+            `${url}/addcart`,
             data,{
               headers: { authorization: `Bearer ${token}`}
             }
@@ -64,6 +66,13 @@ function App() {
       }
     }
   }, [user, totalPrice, token]);
+
+  useEffect(() => {
+    if(user) dispatch(getWishListDB());
+    setTimeout(() => {if(wishlistData?.length === 0) dispatch(addWishListData())}, 2000)
+    // eslint-disable-next-line
+  }, [user]);
+
 
   return (
     <div className="App">
@@ -79,6 +88,7 @@ function App() {
           <Route path="payment" element={<Payment user={user} />} />
         </Route>
         <Route path="/reviews/:id" element={<Reviews />} />
+        <Route path="/wishlist" element={<WishLists />} />
         <Route path="/listreviews" element={<Reviews2 />} />
         {/* {verifyRole(role)?<Route path="/admin" element={<Admin />} /> : <Route path="/*" element={<NotFound />} />} */}
 

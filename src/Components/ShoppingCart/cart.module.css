@@ -3,3 +3,7 @@
     object-fit: contain;
     margin: auto 0;
 }
+
+.heart {
+    background-color: red;
+}

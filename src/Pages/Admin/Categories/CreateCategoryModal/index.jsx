@@ -13,7 +13,7 @@ export default function CreateModalCate(props) {
         const input = document.querySelector('#inputCategoryName')
             if (input.value !== '') {
             await dispatch(createCategory(input.value, token))
-            
+
             props.onHide()
             await dispatch(getCategories());
 

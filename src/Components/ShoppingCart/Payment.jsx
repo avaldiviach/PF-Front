@@ -8,7 +8,7 @@ import s from './cart.module.css'
 import axios from 'axios';
 
 const url1 = 'https://node-api-sneakers.herokuapp.com'
-const url2 = "http://localhost:3001";
+// const url2 = "http://localhost:3001";
 function Payment({user}) {
 
   const [loading, setLoading] = useState(false);
@@ -74,7 +74,6 @@ function Payment({user}) {
 				    }
             );
             dispatch({ type: 'SET_TOTAL_PRICE', payload: 0 });
-
             setTimeout(() => navigate('/cart'), 3000);
           }
         });

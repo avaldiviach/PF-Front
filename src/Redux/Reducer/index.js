@@ -1,34 +1,36 @@
 import {
-	GET_SNEAKERS,
-	SEARCH_BY_NAME,
-	FILTER_BY_BRAND,
-	FILTER_BY_CATEGORY,
-	GET_DETAIL,
-	CLEAN_DETAIL,
-	SORT_PRICE,
-	SET_CART,
-	REMOVE_ITEM_CART,
-	SET_TOTAL_PRICE,
-	GET_ALL_USERS,
-	DELETE_USER,
-	CREATE_MODEL,
-	GET_CATEGORIES,
-	CREATE_CATEGORY,
-	DELETE_CATEGORY,
-	GET_MODELS,
-	GET_BRANDS,
-	GET_MATERIALS,
-	GET_COLORS,
-	GET_SIZES,
-	GET_ALL_REVIEWS,
-	GET_ALL_ORDERS,
-	GET_ORDER_BY_ID,
-	GET_ROLE,
-	GET_TOKEN,
-	GET_USER,
-	RESET,
-	GET_USER_ORDERS,
-	GET_DISCOUNTS
+  GET_SNEAKERS,
+  SEARCH_BY_NAME,
+  FILTER_BY_BRAND,
+  FILTER_BY_CATEGORY,
+  GET_DETAIL,
+  CLEAN_DETAIL,
+  SORT_PRICE,
+  SET_CART,
+  REMOVE_ITEM_CART,
+  SET_TOTAL_PRICE,
+  GET_ALL_USERS,
+  DELETE_USER,
+  CREATE_MODEL,
+  GET_CATEGORIES,
+  CREATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_MODELS,
+  GET_BRANDS,
+  GET_MATERIALS,
+  GET_COLORS,
+  GET_DISCOUNTS,
+  GET_SIZES,
+  GET_ALL_REVIEWS,
+  GET_ALL_ORDERS,
+  GET_ORDER_BY_ID,
+  GET_ROLE,
+  GET_TOKEN,
+  GET_USER,
+  RESET,
+  GET_USER_ORDERS,
+  SET_WISHLIST,
+  GET_WISHLIST_BD
 } from '../Actions';
 
 const initialState = {
@@ -50,6 +52,7 @@ const initialState = {
 	getDiscounts: [],
 	//Estados globales de carrito
 	// productData: [],
+  wishlistData: [...JSON.parse(localStorage.getItem('wishlistData')) || []],
 	productData: [...(JSON.parse(localStorage.getItem('productData')) || [])],
 	totalPrice: 0,
 	// Las propiedades de abajo son para el carrito en caso de que se quiera
@@ -315,11 +318,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		};
 
 		case GET_DISCOUNTS:
-
 			return {
 				...state,
 				getDiscounts: payload
 			}
+      
+      case SET_WISHLIST:
+      localStorage.setItem('wishlistData', JSON.stringify([...state.wishlistData, payload]));
+    case SET_WISHLIST:
+      //localStorage.setItem('wishlistData', JSON.stringify([...payload]));
+      return {
+        ...state,
+        ...payload
+      }
+
+    case GET_WISHLIST_BD:
+      return {
+        ...state,
+        ...payload,
+      }
 		default:
 			return state;
 	}

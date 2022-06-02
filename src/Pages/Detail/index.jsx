@@ -122,9 +122,6 @@ export default function Detail() {
           <ListReviews id={id} />
         </div>
       </div>
-            
-        
     </div>
-
   );
 }

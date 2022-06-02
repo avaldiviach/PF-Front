@@ -68,6 +68,8 @@
 	width: 100%;
 	justify-content: flex-end;
 	display: flex;
+  margin-top: 7px;
+  cursor: pointer;
 }
 
 .img {

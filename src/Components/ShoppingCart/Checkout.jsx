@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { changeCart, getTotalPrice } from '../../Redux/Actions'
-import { useAuth } from "../../context/authContext";
 
 const Checkout = () => {
   const dispatch = useDispatch();
