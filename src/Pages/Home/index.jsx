@@ -11,7 +11,6 @@ import ModalSearch from "../../Components/Modal/";
 //import Carrousel from '../../Components/Carrousel';
 import style from "./home.module.css";
 import {toast, Toaster } from "react-hot-toast";
-import CountdownTimer from "../../Components/Counter/CountdownTimer";
 import { getDiscounts } from "../../Redux/Actions";
 toast('¡Tu email no está verificado!',
         {

@@ -1,0 +1,54 @@
+.counter{
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 3rem;
+    font-weight: 700;
+}
+.counter p{
+    font-size: 3rem;
+    margin: 0 .6rem;
+    color: #000;
+    margin-bottom: 1.5rem;
+}
+.date{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    width: 3.3rem;
+    height: 3.6rem;
+    font-weight: 700;
+    border-radius: .5rem;
+    font-size: 2rem;
+    line-height: 60.95px;
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.section span{
+    margin-top: .5rem;
+    font-size: 1rem;
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .counter{
+        width: 100%;
+        justify-content: center;
+    }
+
+    .date{
+        width: 2.5rem;
+        height: 3rem;
+        font-size: 1.5rem;
+    }
+
+}

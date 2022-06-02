@@ -21,9 +21,9 @@ export default function CarouselDeals() {
                 <ImagenPrincipal />
             </Carousel.Item>
             {
-                deals.map(d => (
+                deals?.map(d => (
                     <Carousel.Item key={d.id} style={{width: '100%'}}>
-                        <BannerDeal model={d.sneakerModel} percentage={d.percentage} expiration={d.expiration} image={d.image} />
+                        <BannerDeal model={d.sneakerModel} percentage={d.percentage} expiration={d.expiration} image={d.image} sneakerId={d.sneakerId}/>
                     </Carousel.Item>
                 ))
             }

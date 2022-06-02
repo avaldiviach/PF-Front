@@ -18,12 +18,12 @@ function ImagenPrincipal() {
   };
 
   return (
-    <section className={styles.section}>
+    <section className={`border ${styles.section}`}>
       <div className={styles.container}>
         <div className={styles.item__left}>
           <h1>Nike <span>Air</span></h1>
           <h2>Zoom</h2>
-          <p>20% Discount</p>
+          <p className={styles.por}>20% Discount</p>
           <button onClick={handleOffer}>Shop now</button>
         </div>
         <div className={styles.item__right}>

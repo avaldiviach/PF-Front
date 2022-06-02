@@ -69,10 +69,11 @@
 
 .img {
 	margin: auto 0;
-	width: 80%;
+	max-width: 80%;
 	height: auto;
 	justify-self: center;
 }
+
 
 p {
 	margin: 0;
