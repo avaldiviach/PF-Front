@@ -36,8 +36,7 @@ function Card({ sneaker }) {
   }
 
   useEffect(() => {
-    console.log('cambió');
-    if (heart !== wishlisted) setWishlisted(!wishlisted);
+    if(heart !== wishlisted) setWishlisted(!wishlisted);
   }, [heart])
 
   return (

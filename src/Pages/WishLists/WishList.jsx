@@ -1,19 +1,15 @@
-import React, { useReducer, useState } from "react";
+import { useReducer } from 'react';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addWishlist,
-  getTotalPrice,
 } from "../../Redux/Actions";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import style from './WishList.module.css';
 
 function WishList({ data }) {
   const dispatch = useDispatch();
-  const [toDelete, setToDelete] = useState(false)
-  const { id, name, model, brand, categories, description, image, size, wishlisted } = data;
-  //const { discountPrice } = useSelector(state => state.Sneakers.find(sneaker => sneaker.id === id));
-  const user = useSelector(state => state.getUser);
+  const { id, model, brand, image, discountPrice, wishlisted } = data;
 
   // para forzar el reenderizado de los componentes cuando se agrega un producto
   const [any, forceUpdate] = useReducer(num => num + 1, 0);
@@ -23,6 +19,7 @@ function WishList({ data }) {
     dispatch(addWishlist(id));
     forceUpdate();
   }
+
   return (
     <>
       <div className={style.card}>

@@ -4,6 +4,17 @@
   justify-content: center;
 }
 
+.msg {
+  margin-top: 40px;
+  position: absolute;
+  top: 250px;
+  left: 5em;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-items: center;
+}
+
 /* .cards {
     display: flex;
     flex-wrap: wrap;

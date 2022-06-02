@@ -38,7 +38,6 @@ export default function Reviews() {
     }
     data.email = user.email;
     data.sneakerId = detail.id;
-    console.log(detail.id);
     data.rating = rating;
     dispatch(createReview(data));
     alert("Review created with success");

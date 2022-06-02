@@ -1,35 +1,36 @@
 import {
-	GET_SNEAKERS,
-	SEARCH_BY_NAME,
-	FILTER_BY_BRAND,
-	FILTER_BY_CATEGORY,
-	GET_DETAIL,
-	CLEAN_DETAIL,
-	SORT_PRICE,
-	SET_CART,
-	REMOVE_ITEM_CART,
-	SET_TOTAL_PRICE,
-	GET_ALL_USERS,
-	DELETE_USER,
-	CREATE_MODEL,
-	GET_CATEGORIES,
-	CREATE_CATEGORY,
-	DELETE_CATEGORY,
-	GET_MODELS,
-	GET_BRANDS,
-	GET_MATERIALS,
-	GET_COLORS,
-	GET_SIZES,
-	GET_ALL_REVIEWS,
-	GET_ALL_ORDERS,
-	GET_ORDER_BY_ID,
-	GET_ROLE,
-	GET_TOKEN,
-	GET_USER,
-	RESET,
-	GET_USER_ORDERS,
-	GET_DISCOUNTS,
-  SET_WISHLIST
+  GET_SNEAKERS,
+  SEARCH_BY_NAME,
+  FILTER_BY_BRAND,
+  FILTER_BY_CATEGORY,
+  GET_DETAIL,
+  CLEAN_DETAIL,
+  SORT_PRICE,
+  SET_CART,
+  REMOVE_ITEM_CART,
+  SET_TOTAL_PRICE,
+  GET_ALL_USERS,
+  DELETE_USER,
+  CREATE_MODEL,
+  GET_CATEGORIES,
+  CREATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_MODELS,
+  GET_BRANDS,
+  GET_MATERIALS,
+  GET_COLORS,
+  GET_DISCOUNTS,
+  GET_SIZES,
+  GET_ALL_REVIEWS,
+  GET_ALL_ORDERS,
+  GET_ORDER_BY_ID,
+  GET_ROLE,
+  GET_TOKEN,
+  GET_USER,
+  RESET,
+  GET_USER_ORDERS,
+  SET_WISHLIST,
+  GET_WISHLIST_BD
 } from '../Actions';
 
 const initialState = {
@@ -311,7 +312,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		};
 
 		case GET_DISCOUNTS:
-
 			return {
 				...state,
 				getDiscounts: payload
@@ -319,19 +319,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
       
       case SET_WISHLIST:
       localStorage.setItem('wishlistData', JSON.stringify([...state.wishlistData, payload]));
+    case SET_WISHLIST:
+      //localStorage.setItem('wishlistData', JSON.stringify([...payload]));
       return {
         ...state,
         ...payload
       }
 
-    case 'GET_WISHLIST_BD':
-      payload.map((id) => {
-        found = state.wishlistData.findIndex(ele => ele.sneakerId === id);
-        if (found !== -1) wishlistData[found].wishlisted = true;
-      });
+    case GET_WISHLIST_BD:
       return {
         ...state,
-        wishlistData: [...state.wishlistData],
+        ...payload,
       }
 		default:
 			return state;

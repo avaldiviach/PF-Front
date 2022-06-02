@@ -17,8 +17,7 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getRole, getSneakers, addWishListData } from "./Redux/Actions";
-
+import { getRole,getSneakers, addWishListData, getWishListDB } from "./Redux/Actions";
 import Orders from "./Components/Orders";
 import WishLists from "./Pages/WishLists";
 
@@ -63,28 +62,11 @@ function App() {
   }, [user, totalPrice, token]);
 
   useEffect(() => {
-    setTimeout(() => {if(wishlistData.length === 0) dispatch(addWishListData())}, 2000)
+    if(user) dispatch(getWishListDB());
+    setTimeout(() => {if(wishlistData?.length === 0) dispatch(addWishListData())}, 2000)
     // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      const { email } = user;
-      const id = wishlistData.map(e => e.id);
-      try {
-        async function postWishList() {
-          const {data: payload} = await axios.post(
-            "https://node-api-sneakers.herokuapp.com/getwishlis",
-            { email, id }
-          );
-          dispatch({ type: 'GET_WISHLIST_BD', payload});
-        }
-        postWishList();
-      } catch (error) {
-        console.log(error);
-      }
-    }
   }, [user]);
+
 
   return (
     <div className="App">
