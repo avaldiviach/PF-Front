@@ -79,6 +79,10 @@
   position: relative;
 }
 
+.iconWishList {
+	margin-top: 0.58rem;
+}
+
 .notifications {
   position: absolute;
   /* top:  */
