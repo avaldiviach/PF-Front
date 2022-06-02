@@ -40,7 +40,7 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
   GET_WISHLIST_BD = 'GET_WISHLIST_BD';
 
 const url = 'https://node-api-sneakers.herokuapp.com';
-// const url = "http://localhost:3001";
+// const url = "${url}";
 
 
 export function getSneakers() {
@@ -102,8 +102,8 @@ export const addWishlist = (id) => {
     const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
     if (getUser) {
       wishlist.wishlisted
-        ? axios.post(`http://localhost:3001/deletewishlist`, { email: getUser.email, id })
-        : axios.post(`http://localhost:3001/addwishlist`, { email: getUser.email, id: [id] })
+        ? axios.post(`${url}/deletewishlist`, { email: getUser.email, id })
+        : axios.post(`${url}/addwishlist`, { email: getUser.email, id: [id] })
     }
     dispatch({
       type: SET_WISHLIST,
@@ -132,7 +132,7 @@ export const getWishListDB = () => {
     const rootReducer = getState();
     const { wishlistData, getUser } = rootReducer;
     if (getUser) {
-      const { data } = await axios.post(`http://localhost:3001/getwishlist`, { email: getUser.email });
+      const { data } = await axios.post(`${url}/getwishlist`, { email: getUser.email });
       data.map((id) => {
         let found = wishlistData.findIndex(ele => ele.id === id);
         if (found !== -1) wishlistData[found].wishlisted = true;
@@ -154,7 +154,7 @@ export const sendWishListDB = () => {
     const id = wishlistData.map(e => {
       if(e.wishlisted) return e.id;
     })
-    await axios.post(`http://localhost:3001/addwishlist`, { email: getUser.email, id });
+    await axios.post(`${url}/addwishlist`, { email: getUser.email, id });
   }
 }
 

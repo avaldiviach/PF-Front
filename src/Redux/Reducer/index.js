@@ -52,7 +52,7 @@ const initialState = {
 	getDiscounts: [],
 	//Estados globales de carrito
 	// productData: [],
-  wishlistData: [...JSON.parse(localStorage.getItem('wishlistData')) || []],
+  	wishlistData: [...JSON.parse(localStorage.getItem('wishlistData')) || []],
 	productData: [...(JSON.parse(localStorage.getItem('productData')) || [])],
 	totalPrice: 0,
 	// Las propiedades de abajo son para el carrito en caso de que se quiera
