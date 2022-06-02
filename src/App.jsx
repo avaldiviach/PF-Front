@@ -31,7 +31,6 @@ function App() {
   const token = useSelector(state => state.getToken);
   const user = useSelector(state => state.getUser);
   const role = useSelector(state => state.getRole);
-  const url = 'https://node-api-sneakers.herokuapp.com'
 
   console.log(role, "rol rutas")
    console.log(token)
