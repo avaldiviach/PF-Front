@@ -302,16 +302,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				userOrders: payload,
 			};
     
-    case 'BACK_TO_HOME':
-      return {
-        ...state,
-        backToHome: payload,
-      };
+		case 'BACK_TO_HOME':
+		return {
+			...state,
+			backToHome: payload,
+		};
 
-			return {
-				...state,
-				userOrders: payload
-			}
 		case GET_DISCOUNTS:
 
 			return {
