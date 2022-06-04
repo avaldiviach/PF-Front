@@ -51,8 +51,7 @@ const initialState = {
 	getSizes: [],
 	getDiscounts: [],
 	//Estados globales de carrito
-	// productData: [],
-  	wishlistData: [...JSON.parse(localStorage.getItem('wishlistData')) || []],
+	wishlistData: [...JSON.parse(localStorage.getItem('wishlistData')) || []],
 	productData: [...(JSON.parse(localStorage.getItem('productData')) || [])],
 	totalPrice: 0,
 	// Las propiedades de abajo son para el carrito en caso de que se quiera
@@ -152,15 +151,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
 				...state,
 				...payload,
 			}
-
-		// case 'GET_CART_BD':
-		// 	const filterDB = payload.filter(prodDB => state.productData.every(product => (prodDB.sneakerId !== product.sneakerId) || (prodDB.sneakerId === product.sneakerId && prodDB.size !== product.size)));
-
-		// 	return {
-		// 		...state,
-		// 		productData: [...state.productData, ...filterDB],
-		// 	}
-		// 	};
 
 		case 'GET_CART_BD':
 			const filterDB = payload.filter((prodDB) =>
@@ -325,7 +315,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       
       case SET_WISHLIST:
       localStorage.setItem('wishlistData', JSON.stringify([...state.wishlistData, payload]));
-    case SET_WISHLIST:
       //localStorage.setItem('wishlistData', JSON.stringify([...payload]));
       return {
         ...state,
