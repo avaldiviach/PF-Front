@@ -314,9 +314,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			}
       
       case SET_WISHLIST:
-      localStorage.setItem('wishlistData', JSON.stringify([...state.wishlistData, payload]));
-      //localStorage.setItem('wishlistData', JSON.stringify([...payload]));
-      return {
+           return {
         ...state,
         ...payload
       }
