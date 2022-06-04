@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import Card from "../Card";
 import CardAdmin from "../CardAdmin";
-
 import style from "./Cards.module.css";
 
 function Cards({
@@ -9,7 +9,10 @@ function Cards({
   setState,
   showModalDelete,
   setModalDeleteProd,
+  discount,
+  showDiscount
 }) {
+
   return (
     <div className={style.cards}>
       {renderSneakers.length > 0 ? (
@@ -21,6 +24,8 @@ function Cards({
               setState={setState}
               showModalDelete={showModalDelete}
               setModalDeleteProd={setModalDeleteProd}
+              discount={discount}
+              showDiscount={showDiscount}
             />
           ))
         ) : (

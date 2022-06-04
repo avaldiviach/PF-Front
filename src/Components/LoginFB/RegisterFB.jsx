@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/authContext";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import styles from './RegisterFB.module.css';
 import image from '../../Assets/Images/3.svg';
 import { createUser } from '../../Redux/Actions';
@@ -11,15 +11,17 @@ import { createUser } from '../../Redux/Actions';
 export default function CreateUser() {
   const { register, handleSubmit, formState: { errors }, watch } = useForm({ mode: "onChange", });
   const [error, setError] = useState('');
-  const { signup } = useAuth();
+  const { signup, verifyEmail } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector(state => state.getToken )
 
   const onSubmit = async (data) => {
     try {
       const userGog = await signup(data.email, data.password);
-      dispatch(createUser({id:userGog.user.uid, name:data.fullName, email:userGog.user.email}))
-      navigate("/");
+      dispatch(createUser({id:userGog.user.uid, name:data.fullName, email:userGog.user.email}, token))
+      verifyEmail(userGog.user);
+      navigate(-1);
     } catch (error) {
       setError(error.message);
     }
@@ -101,7 +103,7 @@ export default function CreateUser() {
               </div>
               <div className={styles.account}>
                 <label className={styles.label_account}>Already have an account?
-                  <Link to="/loginfb">
+                  <Link to="/loginfb" className={styles.label_account_href}>
                     <span>
                       Log in
                     </span>

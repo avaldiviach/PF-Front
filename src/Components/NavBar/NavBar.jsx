@@ -3,34 +3,42 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { GrFavorite } from 'react-icons/gr'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers, logOutAndReset } from "../../Redux/Actions";
+import { getSneakers, getUserOrders, logOutAndReset, sendWishListDB } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
+import { GrCart } from "react-icons/gr";
 import logo from '../../Assets/Images/logo.svg';
+import logo2 from '../../Assets/Images/logo2.svg';
+
 import defaultUser from '../../Assets/Images/defaultUser2.png';
 
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-
+import axios from "axios";
 
 export default function Example() {
   const dispatch = useDispatch();
-  const {logout, loading } = useAuth();
+  const { logout, loading } = useAuth();
   const navigate = useNavigate();
   const [image, setImage] = React.useState(defaultUser);
   const user = useSelector(state => state.getUser);
+  const role = useSelector(state => state.getRole);
   const lsUser = JSON.parse(localStorage.getItem('user'));
   //Para obtener solo el nombre del mail
   const name = lsUser?.email.split("@")[0];
+  const productData = useSelector(state => state.productData);
   // const name = lsUser?.name.split(" ")[0];
+
   useEffect(() => {
     if (user) {
+      dispatch(getUserOrders(user.email))
       if (!user.photoURL) {
         const firstLetter = user.email.charAt(0).toUpperCase();
         setImage(firstLetter);
@@ -42,15 +50,15 @@ export default function Example() {
     }
   }, [user])
 
-
-
+  const checkRole = (role) => {
+    return role === "admin" ? true : false
+  }
   //Enlaces de la pagina
   const navigation = [
     { name: 'Cart', href: '/cart', current: false },
     // { name: 'Admin', href: '#', current: false },
   ]
 
-  console.log(user);
 
   function classNames(...classes) {
     // console.log(classes[classes.length - 1])
@@ -67,20 +75,29 @@ export default function Example() {
     // Se borrra local storage y estado global cuando se hace el logout
     await dispatch(logOutAndReset())
     await dispatch({ type: 'SET_CART', payload: { productData: [] } });
-    localStorage.removeItem('productData')
+    localStorage.removeItem('productData');
+    localStorage.removeItem('user')
+    dispatch(sendWishListDB());
+    await dispatch({ type: 'SET_WISHLIST', payload: { wishlistData: [] } });
+    localStorage.setItem('wishlistData', JSON.stringify([]));
     navigate("/")
   }
 
+  const goOrders = async () => {
+    console.log(user.email)
+  }
+
   return (
+
     <Disclosure as="nav" className="bg-white-800">
       {({ open }) => (
         <>
           <div className="max-w-screen-2xl mx-auto px-2 sm:px-6 lg:px-8">
             {/* <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"> */}
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex items-center justify-flex-end h-16">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className={`inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ${styles.hamburguerMenu}`}>
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -90,7 +107,7 @@ export default function Example() {
                 </Disclosure.Button>
               </div>
 
-              <div className="flex-1 flex items-center justify-center sm:items-stretch md:justify-between">
+              <div className={`flex-1 flex items-center justify-center sm:items-stretch md:justify-start ${styles.logos}`}>
                 {/* LOGOOOOOO */}
                 <div className="flex-shrink-0 flex items-center">
                   {/* logo en movil */}
@@ -98,8 +115,7 @@ export default function Example() {
                     to="/"
                     onClick={() => dispatch(getSneakers())}
                   >
-                    <img src={logo} className="block md:hidden h-10 w-auto" alt="logo" />
-                    {/* <img src={logo} className="block sm:hidden h-10 w-auto" alt="logo" /> */}
+                    <img src={logo2} className={`block md:hidden h-10 w-auto ${styles.logo2}`} alt="logo" />
                   </NavLink>
                   {/* logo en grande */}
                   <NavLink
@@ -110,68 +126,75 @@ export default function Example() {
                   </NavLink>
                 </div>
 
-                {/* OPCIONES DE MENU */}
-                <div className="hidden md:block md:ml-6 items-center">
-                  <div className={`flex space-x-4 mt-2 ${styles.containerEnlaces}`}>
-                    {navigation?.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        // href={item.href}
-                        className={classNames(
-                          item.current
-                            ? `bg-gray-900 text-lg text-white ${styles.enlaces}`
-                            : `text-gray-900 text-lg hover:bg-gray-700 hover:text-white ${styles.enlaces}`, 'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                {/* BOTON DEL CARRITO Y WISHLIST*/}
+                {/* <div className="hidden md:block md:ml-6 items-center"> */}
+
+
+                <Link
+                  to="/wishlist"
+                  className={`${styles.linkWishList}`}
+                >
+
+                  <Menu as="div" className={`ml-14 relative ${styles.admin} ${styles.iconWishList}`}>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M1,8.4 C1,4 4.5,3 6.5,3 C9,3 11,5 12,6.5 C13,5 15,3 17.5,3 C19.5,3 23,4 23,8.4 C23,15 12,21 12,21 C12,21 1,15 1,8.4 Z"></path></svg>
+                  </Menu>
+                </Link>
+
+                <Link
+                  to="/cart"
+                  className={`${styles.linkCart}`}
+                >
+
+                  <Menu as="div" className={`ml-4 relative ${styles.admin} ${styles.cart}`}>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="3.5 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M5,5 L22,5 L20,14 L7,14 L4,2 L0,2 M7,14 L8,18 L21,18 M19,23 C18.4475,23 18,22.5525 18,22 C18,21.4475 18.4475,21 19,21 C19.5525,21 20,21.4475 20,22 C20,22.5525 19.5525,23 19,23 Z M9,23 C8.4475,23 8,22.5525 8,22 C8,21.4475 8.4475,21 9,21 C9.5525,21 10,21.4475 10,22 C10,22.5525 9.5525,23 9,23 Z"></path></svg>
+                    {productData?.length
+                      ? (<span className={styles.notifications}>
+                        &nbsp; {productData.length}
+                      </span>)
+                      : null}
+                  </Menu>
+                </Link>
               </div>
 
-              {/* DERECHA ----> BOTON NOTIFICACIONES Y LOGIN */}
+              {/* DERECHA ----> BOTON de USUARIO */}
               <div className={`absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0 ${styles.containerSearchProfile}`}>
-                {/* BOTON DE NOTIFICACIONES */}
-                {/* <button
-                  type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
                 <div className={`hidden md:block sm:ml-6`}>
                   <SearchBar />
                 </div>
-                <Menu as="div" className={`ml-10 relative ${styles.admin}`}>
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg>
-                </Menu>
+
+                {/* BOTON DE ADMIN */}
+
+
+                {checkRole(role) ? <Link
+                  to="/admin"
+                >
+                  <Menu as="div" className={`ml-10 relative ${styles.admin} `}>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="2em" width="1.60em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M8,11 C10.7614237,11 13,8.76142375 13,6 C13,3.23857625 10.7614237,1 8,1 C5.23857625,1 3,3.23857625 3,6 C3,8.76142375 5.23857625,11 8,11 Z M13.0233822,13.0234994 C11.7718684,11.7594056 10.0125018,11 8,11 C4,11 1,14 1,18 L1,23 L8,23 M10,19.5 C10,20.88 11.12,22 12.5,22 C13.881,22 15,20.88 15,19.5 C15,18.119 13.881,17 12.5,17 C11.12,17 10,18.119 10,19.5 L10,19.5 Z M23,15 L20,12 L14,18 M17.5,14.5 L20.5,17.5 L17.5,14.5 Z"></path></svg>
+                  </Menu>
+                </Link> : null}
+
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-1 relative">
-                  <div>
-                    <Menu.Button className="bg-white-800 flex ml-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                      <span className="sr-only">Open user menu</span>
-                      {
-                        !user
+                  <Menu.Button className={`bg-white-800 flex ml-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ${styles.userIcon}`}>
+                    <span className="sr-only">Open user menu</span>
+                    {
+                      !user
+                        ? (<img
+                          className="h-10 w-10 rounded-full"
+                          src={defaultUser}
+                          alt="profile image"
+                        />)
+                        : user?.photoURL
                           ? (<img
                             className="h-10 w-10 rounded-full"
-                            src={defaultUser}
+                            src={image || defaultUser}
                             alt="profile image"
                           />)
-                          : user?.photoURL
-                            ? (<img
-                              className="h-10 w-10 rounded-full"
-                              src={image}
-                              alt="profile image"
-                            />)
-                            : <p className={`h-10 w-10 rounded-full ${styles.letterName}`}>
-                                <p>{image}</p>
-                              </p>
-                      }
-                    </Menu.Button>
-                  </div>
+                          : <p className={`h-10 w-10 rounded-full ${styles.letterName}`}>
+                            <p>{image}</p>
+                          </p>
+                    }
+                  </Menu.Button>
                   {/* MENU DESPLEGABLE DE USER */}
                   <Transition
                     as={Fragment}
@@ -187,8 +210,8 @@ export default function Example() {
                       <Menu.Item>
                         {user
                           ? (<span className={styles.emailName}>
-                              {name}
-                            </span>)
+                            {name}
+                          </span>)
                           : <></>
                         }
                       </Menu.Item>
@@ -212,20 +235,32 @@ export default function Example() {
                           )
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {user ? null : <Menu.Item>
                         {({ active }) => (
                           (<Link
                             // href="/registerfb"
                             to='/registerfb'
-                            className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(false ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign Up👆
                           </Link>)
                         )}
+                      </Menu.Item>}
+                      <Menu.Item>
+                        {({ active }) => (
+                          (user
+                            ? (<Link
+                              to='/orders'
+                              className={classNames(active ? 'bg-gray-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              onClick={goOrders}
+                            >
+                              My Orders
+                            </Link>)
+                            : <></>
+                          )
+                        )}
                       </Menu.Item>
                     </Menu.Items>
-
-
                   </Transition>
                 </Menu>
 
@@ -235,25 +270,9 @@ export default function Example() {
 
           {/* OPCIONES DE MENU EN MOVIL */}
           <Disclosure.Panel className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 flex items-center justify-center ml-5">
-              {navigation?.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-900 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
+            <div className={`flex items-center justify-end pr-6 ${styles.searchBar}`}>
+              <SearchBar />
 
-              ))}
-              <div className={`flex items-center justify-end pr-6 ${styles.searchBar}`}>
-                <SearchBar />
-              </div>
             </div>
           </Disclosure.Panel>
         </>
@@ -272,85 +291,3 @@ export default function Example() {
 
 
 
-
-
-
-
-
-// import React, { useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { useAuth } from "../../context/authContext";
-// import { useNavigate } from "react-router-dom";
-
-// // Componentes y funciones
-// import SearchBar from "../SearchBar";
-// import Cart from '../ShoppingCart/Cart'
-// import { getSneakers } from "../../Redux/Actions";
-
-// import styles from "./NavBar.module.css";
-// import logo from '../../Assets/Images/logo.svg';
-
-// const NavBar = () => {
-//   const dispatch = useDispatch();
-//   const { user, logout, loading } = useAuth();
-//   const navigate = useNavigate();
-//   //Para obtener solo el nombre del mail
-//   const name = user?.email.split("@")[0];
-
-//   const handleLogout = async () => {
-//     await logout();
-//     // Se borrra local storage y estado global cuando se hace el logout
-//     dispatch({ type: 'SET_CART', payload: { productData: [] } });
-//     localStorage.removeItem('productData')
-//     navigate("/")
-//   }
-
-//   return (
-//     <header className={styles.header}>
-//       <NavLink
-//         to="/"
-//         className={styles.logo}
-//         onClick={() => dispatch(getSneakers())}
-//       >
-//         <img src={logo} alt="logo" />
-//         {/* <img src="https://i.imgur.com/Q9XcQ9I.png" alt="logo" /> */}
-//       </NavLink>
-
-//       <nav className={styles.navbar}>
-//         {/* el navlink se utiliza para saber si está activo o no */}
-//         <ul className={styles.links__ul}>
-//           {/* Componente para searchBar */}
-//           <NavLink className={styles.links__a} to='/cart'>
-//             Cart 🛒
-//           </NavLink>
-
-//           {!user
-//             ? (<>
-//               <NavLink className={styles.links__a} to='/registerfb'>
-//                 Sign Up👆
-//               </NavLink>
-//               <NavLink
-//                 className={styles.links__a}
-//                 to='/loginfb'
-//               >
-//                 Sign In✔
-//               </NavLink>
-//             </>)
-//             : (<> <span className={styles.welcome}>
-//               <span className={styles.emailName}>
-//                 {name}
-//               </span>
-//             </span>
-//               <button onClick={handleLogout} className={styles.welcome}>Logout</button>
-//             </>)
-//           }
-//           <SearchBar />
-//         </ul>
-//       </nav>
-
-//     </header>
-//   );
-// };
-
-// export default NavBar;

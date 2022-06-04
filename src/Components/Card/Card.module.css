@@ -1,57 +1,92 @@
-.card{
-    width: 20rem;
-    height: 20rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 5px 5px 75px rgba(210, 213, 234, 0.45);
-    padding:2rem;
-    margin:3rem 2rem;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: .6rem;
+.card {
+	width: 20rem;
+	height: 20rem;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 5px 5px 75px rgba(210, 213, 234, 0.45);
+	padding: 2rem;
+	margin: 3rem 2rem;
+	align-items: center;
+	border-radius: 0.6rem;
+	justify-content: space-between;
+	position: relative;
 }
 
-.data_container{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+.discount {
+	justify-self: flex-end;
+	text-align: center;
+	padding: 0.2rem;
+	width: 100%;
+	background-color: #f84f4f;
+	border-radius: 0.6rem;
+	font-style: normal;
+	font-weight: 500;
+	color: white;
+	font-size: 1rem;
+	position: absolute;
+	top: 0rem;
 }
 
-.data{
-    display: flex;
-    flex-direction: column;
+.data_container {
+	justify-self: end;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
-.brand{
-    font-style: normal;
-    font-weight: 800;
+.data {
+	display: flex;
+	flex-direction: column;
 }
 
-.name{
-    font-style: normal;
-    color: #8A8A9D;
+.brand {
+	font-style: normal;
+	font-weight: 800;
 }
 
-.price_section{
-    display: flex;
-    color: #3A63E0;
-    font-weight: 700;
-    align-items: center;
-    font-size: 1.1rem;
+.name {
+	font-style: normal;
+	color: #8a8a9d;
 }
 
-.price{
-    font-style: normal;
-    font-weight: 700;
-    color: black;
-    font-size: 1.3rem;
+.price_section {
+	display: flex;
+	color: #3a63e0;
+	font-weight: 700;
+	align-items: center;
+	font-size: 1.1rem;
 }
 
-.img{
-    width: 80%;
-    height: auto;
+.price {
+	font-style: normal;
+	font-weight: 700;
+	color: black;
+	font-size: 1.3rem;
 }
 
-p{
-    margin: 0;
+.heart {
+	width: 100%;
+	justify-content: flex-end;
+	display: flex;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+.img {
+	margin: auto 0;
+	max-width: 80%;
+	height: auto;
+	justify-self: center;
+}
+
+
+p {
+	margin: 0;
+}
+
+
+@media (max-width: 769px) {
+  .card {
+    width: 90%;
+  }
 }

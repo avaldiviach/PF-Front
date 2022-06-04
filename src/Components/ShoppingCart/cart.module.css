@@ -1,5 +1,9 @@
 .img{
-    width: 20rem;
+    max-width: 29rem;
     object-fit: contain;
     margin: auto 0;
+}
+
+.heart {
+    background-color: red;
 }

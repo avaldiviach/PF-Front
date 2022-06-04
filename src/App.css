@@ -4,6 +4,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 .App {
   display: flex;
+  width: 100vw;
   flex-direction: column;
   padding: 1rem .5rem;
   font-family: 'Montserrat', sans-serif;

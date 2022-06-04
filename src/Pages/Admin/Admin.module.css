@@ -10,4 +10,10 @@
     width: 75%;
     height: 100%;
     overflow-x: none;
+    padding: 1rem;
+}
+
+.btn{
+    display: flex;
+    justify-content: space-around;
 }

@@ -6,9 +6,11 @@ import { getSneakers, updateSneaker } from "../../../../Redux/Actions";
 import { useDispatch } from "react-redux";
 import SelectSizes from "./select/Sizes";
 import s from './form.module.css'
+import {useSelector} from 'react-redux'
 
 export default function UpdateSneaker({onHide, show, sneaker}) {
     const dispatch = useDispatch();
+    const token = useSelector(state => state.getToken )
     const [input, setInput] = useState({
             price: [],
             sizes: []
@@ -42,7 +44,7 @@ export default function UpdateSneaker({onHide, show, sneaker}) {
     const createClick = async (e) => {
         e.preventDefault();
         console.log(input)
-        await dispatch(updateSneaker(sneaker.id, input));
+        await dispatch(updateSneaker(sneaker.id, input, token));
         setInput({
             price: '',
             sizes: [],

@@ -2,25 +2,23 @@ import Modal from 'react-bootstrap/Modal'
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { createCategory, getCategories } from '../../../../Redux/Actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 export default function CreateModalCate(props) {
     const dispatch = useDispatch()
+    const token = useSelector(state => state.getToken )
 
     const createClick =async (e) => {
         e.preventDefault()
         const input = document.querySelector('#inputCategoryName')
-        console.log(input.value)
-        if (input.value !== '') {
-            await dispatch(createCategory(input.value))
-            
+            if (input.value !== '') {
+            await dispatch(createCategory(input.value, token))
+
             props.onHide()
             await dispatch(getCategories());
 
         }
     }
-
-
 
     return (
         <Modal

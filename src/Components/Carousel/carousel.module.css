@@ -1,0 +1,149 @@
+.ca{
+    width: 100%;
+}
+
+.container{
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.banner{
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #FFFFFF 0%, #FAFFD1 100%);
+    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.119);
+    border-radius: 5px;
+    overflow: hidden;
+
+}
+.shop{
+    width: 15rem;
+	height: 3.475rem;
+	background-color: var(--color1);
+	color: var(--blanco);
+	font-size: calc(1vw + 1.1vh + 0.6vmin);
+	border: none;
+	box-shadow: 0px 5px 7px rgba(251, 80, 20, 0.45);
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+.por{
+    color: var(--color2);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2rem;
+}
+
+.data{
+    width: 40%;
+    height: 100%;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 4rem;
+}
+
+.model{
+    font-style: normal;
+    font-weight: 700;
+    width: 110%;
+    font-size: 5rem;
+    line-height: 5rem;
+    letter-spacing: .5rem;
+}
+
+
+.image{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.imgBack{
+    height: 60rem;
+    width: 60rem;
+    border-radius: 100%;
+    background: #FB5014;
+    position: absolute;
+    left: 14rem;
+    top: -3rem;
+
+}
+
+.image img{
+    padding: 1.5rem;
+    width: 80%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1) rotate(20deg);
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .container{
+        flex-direction: column;
+        justify-content: space-around;
+        height: 35rem;
+    }
+    .banner{
+        width: 100%;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAFFD1 100%);
+
+    }
+    .image{
+        height: 45%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+    }
+    
+
+    .data{
+        height: 55%;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+    .model{
+        margin-top: 2rem;
+        text-align: center;
+        width: 100%;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 3.5rem;
+        line-height:2.9rem;
+        letter-spacing: 0.05em;
+    }
+    .imgBack{
+        height: 50rem;
+        width: 60rem;
+        border-radius: 100%;
+        background: #FB5014;
+        position: absolute;
+        left: -40px;
+        top: 10px;
+    
+    }
+    
+    .image img{
+        padding: 1rem;
+        width: 90%;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1) rotate(20deg);
+    }
+}
