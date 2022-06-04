@@ -7,7 +7,7 @@ import { GrFavorite } from 'react-icons/gr'
 
 // Componentes y funciones
 import SearchBar from "../SearchBar";
-import { getSneakers, getUserOrders, logOutAndReset, sendWishListDB } from "../../Redux/Actions";
+import { getSneakers, getUserOrders, logOutAndReset } from "../../Redux/Actions";
 
 import styles from "./NavBar.module.css";
 // import { GrUserAdmin } from "react-icons/gr";
@@ -20,8 +20,7 @@ import defaultUser from '../../Assets/Images/defaultUser2.png';
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import axios from "axios";
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -77,7 +76,6 @@ export default function Example() {
     await dispatch({ type: 'SET_CART', payload: { productData: [] } });
     localStorage.removeItem('productData');
     localStorage.removeItem('user')
-    dispatch(sendWishListDB());
     await dispatch({ type: 'SET_WISHLIST', payload: { wishlistData: [] } });
     localStorage.setItem('wishlistData', JSON.stringify([]));
     navigate("/")
