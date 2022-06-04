@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import axios from "axios";
-import {  sendWishListDB } from '../../Redux/Actions';
 
 import image from "../../Assets/Images/3.svg";
 import styles from "./RegisterFB.module.css";
@@ -47,8 +46,8 @@ export default function CreateUser() {
   };
 
   useEffect(() => {
+    dispatch(sendWishListDB());
     if (user) {
-      dispatch(sendWishListDB());
       const { email } = user;
       try {
         async function fetchData() {
@@ -66,13 +65,8 @@ export default function CreateUser() {
         console.log(error);
       }
     }
-    dispatch(sendWishListDB());
-
   }, [user]);
   
-    
-
-
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password); //Nos retorna datos del usuario que se logueó
