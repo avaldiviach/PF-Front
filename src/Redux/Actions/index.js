@@ -97,7 +97,7 @@ export function filterByBrand(brand) {
 export const addWishlist = (id) => {
   return async (dispatch, getState) => {
     try {
-      const rootReducer = getState();
+    const rootReducer = getState();
     const { wishlistData, getUser } = rootReducer;
     const wishlist = wishlistData.find(sneaker => sneaker.id === id);
     const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
@@ -106,9 +106,13 @@ export const addWishlist = (id) => {
         ? axios.post(`${url}/deletewishlist`, { email: getUser.email, id })
         : axios.post(`${url}/addwishlist`, { email: getUser.email, id: [id] })
     }
+	  wishlistData[index].wishlisted = !wishlist.wishlisted;
+    localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
     dispatch({
       type: SET_WISHLIST,
-      payload: (wishlistData[index].wishlisted = !wishlist.wishlisted),
+      payload: {
+        wishlistData
+      }
     });
     } catch (error) {
       console.log('There is an error in addWishlist action');
@@ -146,6 +150,7 @@ export const getWishListDB = () => {
         if (found !== -1) wishlistData[found].wishlisted = true;
       });
     }
+    localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
     dispatch({
       type: GET_WISHLIST_BD,
       payload: {
@@ -159,9 +164,7 @@ export const sendWishListDB = () => {
   return async (dispatch, getState) => {
     const rootReducer = getState();
     const { wishlistData, getUser } = rootReducer;
-    const id = wishlistData.map(e => {
-      if(e.wishlisted) return e.id;
-    })
+    const id = wishlistData.map(e => e.wishlisted ? e.id : null).filter(e => e);
     await axios.post(`${url}/addwishlist`, { email: getUser.email, id });
   }
 }
