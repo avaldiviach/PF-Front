@@ -9,7 +9,7 @@ import {  sendWishListDB } from '../../Redux/Actions';
 
 import image from "../../Assets/Images/3.svg";
 import styles from "./RegisterFB.module.css";
-import { createUser } from "../../Redux/Actions";
+import { createUser, sendWishListDB } from "../../Redux/Actions";
 
 export default function CreateUser() {
   const {
@@ -48,6 +48,7 @@ export default function CreateUser() {
 
   useEffect(() => {
     if (user) {
+      dispatch(sendWishListDB());
       const { email } = user;
       try {
         async function fetchData() {
