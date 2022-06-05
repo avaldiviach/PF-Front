@@ -121,7 +121,7 @@ export const addWishListData = () => {
     try {
       const rootReducer = getState();
     const { Sneakers } = rootReducer;
-    const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
+    const wishlistData = Sneakers?.map(sneaker => ({ ...sneaker, wishlisted: false }));
     localStorage.setItem('wishlistData', JSON.stringify([...wishlistData]));
     dispatch({
       type: SET_WISHLIST,
@@ -141,7 +141,7 @@ export const getWishListDB = () => {
     const { wishlistData, getUser } = rootReducer;
     if (getUser) {
       const { data } = await axios.post(`${url}/getwishlist`, { email: getUser.email });
-      data.map((id) => {
+      data?.map((id) => {
         let found = wishlistData.findIndex(ele => ele.id === id);
         if (found !== -1) wishlistData[found].wishlisted = true;
       });
@@ -162,7 +162,7 @@ export const sendWishListDB = () => {
     const id = wishlistData.map(e => {
       if(e.wishlisted) return e.id;
     })
-    await axios.post(`${url}/addwishlist`, { email: getUser.email, id });
+    await axios.post(`${url}/addwishlist`, { email: getUser?.email, id });
   }
 }
 

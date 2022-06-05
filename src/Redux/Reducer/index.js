@@ -163,7 +163,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		// 	};
 
 		case 'GET_CART_BD':
-			const filterDB = payload.filter((prodDB) =>
+			const filterDB = payload?.filter((prodDB) =>
 				state.productData.every(
 					(product) =>
 						prodDB.sneakerId !== product.sneakerId ||
