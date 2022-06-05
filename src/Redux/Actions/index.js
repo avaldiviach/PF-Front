@@ -126,7 +126,7 @@ export const addWishListData = () => {
       const rootReducer = getState();
     const { Sneakers } = rootReducer;
     const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
-    localStorage.setItem('wishlistData', JSON.stringify([wishlistData]));
+    localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
     dispatch({
       type: SET_WISHLIST,
       payload: {
