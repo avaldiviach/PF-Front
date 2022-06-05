@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import WishList from "./WishList";
 import style from './WishLists.module.css';
@@ -7,7 +6,7 @@ function WishLists() {
 
   const productWishList = useSelector(state => state.wishlistData);
   const render = productWishList.filter(e => e.wishlisted);
-  const render2 = render.filter(d => d.wishlisted === true)
+
   return (
     <>
       <div className={style.page}>
@@ -18,7 +17,7 @@ function WishLists() {
           ? (
             <div className={style.cards}>
               {
-                render2?.map(data => <WishList key={data.id} data={data} />)
+                render?.map(data => <WishList key={data.id} data={data} />)
 
               }
             </div>

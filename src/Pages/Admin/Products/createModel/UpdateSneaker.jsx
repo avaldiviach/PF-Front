@@ -43,7 +43,6 @@ export default function UpdateSneaker({onHide, show, sneaker}) {
 
     const createClick = async (e) => {
         e.preventDefault();
-        console.log(input)
         await dispatch(updateSneaker(sneaker.id, input, token));
         setInput({
             price: '',

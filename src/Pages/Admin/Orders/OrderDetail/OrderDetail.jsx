@@ -3,12 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 
 const OrderDetail = ({ onHide, show }) => {
+  
   const order = useSelector((state) => state.orderById);
-  const dispatch = useDispatch();
-
-  console.log(order);
-  //getOrderById id, token
-  //	orderById: payload
 
   return (
     <Modal
