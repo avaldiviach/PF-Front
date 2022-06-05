@@ -13,9 +13,8 @@ function WishLists() {
         <h1>My Wishlist</h1>
       </div>
       {
-        render.length === 0
-          ? (<div className={style.msg}><h3>Add products to your wishlist</h3></div>)
-          : (
+        render.length > 0
+          ? (
             <div className={style.cards}>
               {
                 render?.map(data => <WishList key={data.id} data={data} />)
@@ -23,6 +22,7 @@ function WishLists() {
               }
             </div>
           )
+          : (<div className={style.msg}><h3>Add products to your wishlist</h3></div>)
       }
     </>
   )
