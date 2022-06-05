@@ -25,15 +25,15 @@ export default function CreateUser() {
   const user = useSelector((state) => state.getUser);
   const token = useSelector((state) => state.getToken);
 
-  const url2 = 'https://node-api-sneakers.herokuapp.com'
-  const url1 = "http://localhost:3001";
+  // const url2 = 'https://node-api-sneakers.herokuapp.com'
+  const url = "http://localhost:3001";
 
   const getUserCart = async (email) => {
   
     try {
       async function fetchData() {
         const response = await axios.post(
-          `${url2}/getCart`,{ email },
+          `${url}/getCart`,{ email },
           {
             headers: { authorization: `Bearer ${token}` },
           }
@@ -52,7 +52,7 @@ export default function CreateUser() {
       try {
         async function fetchData() {
           const response = await axios.post(
-            `${url2}/getCart`,
+            `${url}/getCart`,
               {email: email} ,
             {
               headers: { authorization: `Bearer ${token}` },

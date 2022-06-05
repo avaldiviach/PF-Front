@@ -7,10 +7,10 @@ import { createOrder } from '../../Redux/Actions';
 import s from './cart.module.css'
 import axios from 'axios';
 
-const url1 = 'https://node-api-sneakers.herokuapp.com'
-// const url2 = "http://localhost:3001";
-function Payment({user}) {
+// const url1 = 'https://node-api-sneakers.herokuapp.com'
+const url = "http://localhost:3001";
 
+function Payment({user}) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const [address, setAddress] = useState('');
@@ -45,7 +45,7 @@ function Payment({user}) {
         products: productData,
         total: totalPrice
       }, token));
-      return fetch(`${url1}/payment`, {
+      return fetch(`${url}/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ function Payment({user}) {
       }
       <div className='h-full bg-white p-4 rounded-md shadow-lg space-y-4 mb-7'>
         <p>Insert Addres</p>
-        <input type='text' class="form-control" placeholder='Insert your address...' onChange={onChangeAd}></input>
+        <input type='text' className="form-control" placeholder='Insert your address...' onChange={onChangeAd}></input>
       </div>
       <CardElement />
       <button

@@ -38,8 +38,8 @@ function App() {
     return role === "admin" ? true: false;
   }
 
-  const url = 'https://node-api-sneakers.herokuapp.com';
-  // const url = "http://localhost:3001";
+  // const url = 'https://node-api-sneakers.herokuapp.com';
+  const url = "http://localhost:3001";
   // useEffect para se ejecute cuando cambia carrito y mande el post al backend
   // de todos los productos del carrito
   useEffect(() => {

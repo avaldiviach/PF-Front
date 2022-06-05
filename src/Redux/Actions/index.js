@@ -39,8 +39,8 @@ export const GET_SNEAKERS = 'GET_SNEAKERS',
   SET_WISHLIST = 'SET_WISHLIST',
   GET_WISHLIST_BD = 'GET_WISHLIST_BD';
 
-const url = 'https://node-api-sneakers.herokuapp.com';
-// const url = "${url}";
+// const url = 'https://node-api-sneakers.herokuapp.com';
+const url = "http://localhost:3001";
 
 
 export function getSneakers() {

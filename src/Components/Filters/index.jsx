@@ -17,9 +17,8 @@ const Filters = () => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
-  const url= "https://node-api-sneakers.herokuapp.com";
-
-  // const url = "http://localhost:3001";
+  // const url= "https://node-api-sneakers.herokuapp.com";
+  const url = "http://localhost:3001";
 
 
   const peticion = async () => {
