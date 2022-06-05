@@ -67,7 +67,6 @@ function App() {
   useEffect(() => {
     if(user) dispatch(getWishListDB());
     setTimeout(() => {if(wishlistData?.length === 0) dispatch(addWishListData())}, 2000)
-    // eslint-disable-next-line
   }, [user]);
 
 
