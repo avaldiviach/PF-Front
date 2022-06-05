@@ -281,23 +281,6 @@ export const OrderingByPrice = (payload) => {
   };
 };
 
-// OrderingByPrice: async (req, res) => {
-// 	const { order } = req.query
-// 	const data = await getData()
-
-// 	try {
-// 			if (order === 'asc') {
-// 					let newOrder = data.sort((a, b) => a.price - b.price)
-// 					res.send(newOrder)
-// 			} else {
-// 					let newOrder = data.sort((a, b) => b.price - a.price)
-// 					res.send(newOrder)
-// 			}
-// 	} catch (error) {
-// 			console.log(error)
-// 	}
-// },
-
 export const getTotalPrice = () => {
   return async (dispatch, getState) => {
     const rootReducer = getState();

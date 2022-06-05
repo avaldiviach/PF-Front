@@ -38,7 +38,6 @@ useEffect(()=>{
             dispatch(getUser(currentUser));
             dispatch(getToken(await currentUser.getIdToken()));
             dispatch(getRole(currentUser.uid, currentUser.accessToken));
-            console.log(currentUser, " role context");
             localStorage.setItem("user", JSON.stringify({ name: currentUser.displayName, email: currentUser.email }));
         }
         // setLoading(false);

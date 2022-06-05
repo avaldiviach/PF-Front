@@ -17,9 +17,9 @@ import RegisterFB from "./Components/LoginFB/RegisterFB";
 import RecoverPassword from "./Components/RecoverPassword/RecoverPassword";
 import Reviews from "./Components/Reviews/CreateReview";
 import Reviews2 from "./Components/Reviews/ListReview";
-import { getRole,getSneakers, addWishListData, getWishListDB } from "./Redux/Actions";
 import Orders from "./Components/Orders";
 import WishLists from "./Pages/WishLists";
+import { getRole,getSneakers, addWishListData, getWishListDB } from "./Redux/Actions";
 
 
 function App() {
@@ -32,8 +32,6 @@ function App() {
   const user = useSelector(state => state.getUser);
   const role = useSelector(state => state.getRole);
 
-  console.log(role, "rol rutas")
-   console.log(token)
   const verifyRole = (role) =>{
     return role === "admin" ? true: false;
   }
@@ -44,14 +42,12 @@ function App() {
   // de todos los productos del carrito
   useEffect(() => {
     dispatch(getSneakers()); 
-    console.log(role)
     if (user && productData.length > 0) {
       const { email } = user;
       const data = {
         email,
         productData,
       };
-      console.log(data, "data de nico")
       try {
         async function postCart(token) {
           return await axios.post(
