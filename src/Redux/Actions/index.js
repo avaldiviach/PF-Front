@@ -97,23 +97,23 @@ export function filterByBrand(brand) {
 export const addWishlist = (id) => {
   return async (dispatch, getState) => {
     try {
-    const rootReducer = getState();
-    const { wishlistData, getUser } = rootReducer;
-    const wishlist = wishlistData.find(sneaker => sneaker.id === id);
-    const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
-    if (getUser) {
-      wishlist.wishlisted
-        ? axios.post(`${url}/deletewishlist`, { email: getUser.email, id })
-        : axios.post(`${url}/addwishlist`, { email: getUser.email, id: [id] })
-    }
-	  wishlistData[index].wishlisted = !wishlist.wishlisted;
-    localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
-    dispatch({
-      type: SET_WISHLIST,
-      payload: {
-        wishlistData
+      const rootReducer = getState();
+      const { wishlistData, getUser } = rootReducer;
+      const wishlist = wishlistData.find(sneaker => sneaker.id === id);
+      const index = wishlistData.findIndex(sneaker => JSON.stringify(sneaker) === JSON.stringify(wishlist));
+      if (getUser) {
+        wishlist.wishlisted
+          ? axios.post(`${url}/deletewishlist`, { email: getUser.email, id })
+          : axios.post(`${url}/addwishlist`, { email: getUser.email, id: [id] })
       }
-    });
+      wishlistData[index].wishlisted = !wishlist.wishlisted;
+      localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
+      dispatch({
+        type: SET_WISHLIST,
+        payload: {
+          wishlistData
+        }
+      });
     } catch (error) {
       console.log('There is an error in addWishlist action');
     }
@@ -124,15 +124,15 @@ export const addWishListData = () => {
   return async (dispatch, getState) => {
     try {
       const rootReducer = getState();
-    const { Sneakers } = rootReducer;
-    const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
-    localStorage.setItem('wishlistData', JSON.stringify([wishlistData]));
-    dispatch({
-      type: SET_WISHLIST,
-      payload: {
-        wishlistData
-      },
-    });
+      const { Sneakers } = rootReducer;
+      const wishlistData = Sneakers.map(sneaker => ({ ...sneaker, wishlisted: false }));
+      localStorage.setItem('wishlistData', JSON.stringify(wishlistData));
+      dispatch({
+        type: SET_WISHLIST,
+        payload: {
+          wishlistData
+        }
+      });
     } catch (error) {
       console.log('There is an error in addWishListData action');
     }
@@ -203,60 +203,60 @@ export const decreaseItemQuantity = (index) => {
 };
 
 export const addItem = (data) => (dispatch, getState) => {
-	const rootReducer = getState();
-	const { productData } = rootReducer;
-	const formatter = new Intl.ListFormat('en', {
-		style: 'long',
-		type: 'conjunction',
-	});
+  const rootReducer = getState();
+  const { productData } = rootReducer;
+  const formatter = new Intl.ListFormat('en', {
+    style: 'long',
+    type: 'conjunction',
+  });
 
-	const exist = productData?.some(
-		(product) => product.sneakerId === data.id && product.size === data.sizes.size
-	);
-	if (exist) return exist;
-	dispatch({
-		type: SET_CART,
-		payload: {
-			productData: [
-				...productData,
-				{
-					sneakerId: data.id,
-					name: data.model,
-					brand: data.brand,
-					categories: formatter.format(data.categories),
-					price: data.price,
-					discountPrice: data.discountPrice,
-					description: data.description,
-					size: data.sizes.size,
-					max: data.sizes.stock,
-					qty: 1,
-					image: data.image,
-					wishlisted: false,
-				},
-			],
-		},
-	});
+  const exist = productData?.some(
+    (product) => product.sneakerId === data.id && product.size === data.sizes.size
+  );
+  if (exist) return exist;
+  dispatch({
+    type: SET_CART,
+    payload: {
+      productData: [
+        ...productData,
+        {
+          sneakerId: data.id,
+          name: data.model,
+          brand: data.brand,
+          categories: formatter.format(data.categories),
+          price: data.price,
+          discountPrice: data.discountPrice,
+          description: data.description,
+          size: data.sizes.size,
+          max: data.sizes.stock,
+          qty: 1,
+          image: data.image,
+          wishlisted: false,
+        },
+      ],
+    },
+  });
 };
 
 export const removeItem = (id, size, email, token) => {
-	return async (dispatch, getState) => {
-		const rootReducer = getState();
-		const { productData } = rootReducer;
-		const payload = productData.filter((product) => product.sneakerId !== id || product.size !== size)
-		const data = {
-			email,
-			productData: payload
-		}
-		if (email) axios.post(`${url}/deletecart`, { email: data.email, productData: payload },
-			{
-				headers: { authorization: `Bearer ${token}` }
-			}
-		);
-		dispatch({
-			type: REMOVE_ITEM_CART,
-			payload
-		});
-	};
+  return async (dispatch, getState) => {
+    const rootReducer = getState();
+    const { productData } = rootReducer;
+    const payload = productData.filter((product) => product.sneakerId !== id || product.size !== size)
+    const data = {
+      email,
+      productData: payload
+    }
+    if (email) axios.post(`${url}/deletecart`, { email: data.email, productData: payload },
+      {
+        headers: { authorization: `Bearer ${token}` }
+      }
+    );
+    dispatch({
+      type: REMOVE_ITEM_CART,
+      payload
+    });
+  };
 };
 
 export const changeCart = (data) => {
@@ -301,35 +301,35 @@ export const getTotalPrice = () => {
 };
 //------------ADMIN----------------ADMIN------------ADMIN
 export function getAllUsers(token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getUser`,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: GET_ALL_USERS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getUser`,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 //deleteUsers
 
 export function deleteUser(id, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(
-				`${url}/updatedDisableUser/${id}`, { body: 'body' },
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
+        `${url}/updatedDisableUser/${id}`, { body: 'body' },
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
 
       return dispatch({
         type: DELETE_USER,
@@ -344,45 +344,45 @@ export function deleteUser(id, token) {
 //createModel
 
 export function createModel(payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.post(
-				`${url}/createModel`,
-				payload,
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `${url}/createModel`,
+        payload,
 
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: CREATE_MODEL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: CREATE_MODEL,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function createSneaker(payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.post(
-				`${url}/createSneaker`,
-				payload,
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `${url}/createSneaker`,
+        payload,
 
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: CREATE_SNEAKER,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: CREATE_SNEAKER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 //getCategories
@@ -406,38 +406,38 @@ export function getCategories() {
 //create category para el form de create model
 
 export function createCategory(payload, token) {
-	return async function (dispatch) {
-		try {
-			const newCategory = { nameCategory: payload };
-			const { data } = await axios.post(
-				`${url}/createCate`,
-				newCategory,
+  return async function (dispatch) {
+    try {
+      const newCategory = { nameCategory: payload };
+      const { data } = await axios.post(
+        `${url}/createCate`,
+        newCategory,
 
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: CREATE_CATEGORY,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: CREATE_CATEGORY,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 //delete category
 
 export function deleteCategory(id, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(
-				`${url}/deleteCategory/${id}`, { body: 'body' },
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
+        `${url}/deleteCategory/${id}`, { body: 'body' },
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
 
       return dispatch({
         type: DELETE_CATEGORY,
@@ -499,11 +499,11 @@ export function getMaterials() {
 }
 
 export function getColors() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getColors`
-			);
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getColors`
+      );
 
       return dispatch({
         type: GET_COLORS,
@@ -533,39 +533,39 @@ export function getSizes() {
 }
 
 export function deleteSneaker(id, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(`${url}/deleteSneaker/${id}`, { body: 'body' },
-				{
-					headers: { authorization: `Bearer ${token}` }
-				})
-			return dispatch({
-				type: DELETE_SNEAKER,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	}
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(`${url}/deleteSneaker/${id}`, { body: 'body' },
+        {
+          headers: { authorization: `Bearer ${token}` }
+        })
+      return dispatch({
+        type: DELETE_SNEAKER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 
 
 export function updateSneaker(id, payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				})
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(`${url}/updatesneaker/${id}`, payload,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        })
 
-			return dispatch({
-				type: UPDATE_SNEAKER,
-				payload: data,
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
+      return dispatch({
+        type: UPDATE_SNEAKER,
+        payload: data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 
@@ -604,144 +604,144 @@ export function getAllreviews(id) {
 
 export function getOrders(token) {
 
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getOrders`,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: GET_ALL_ORDERS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getOrders`,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: GET_ALL_ORDERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function createUser(payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.post(
-				`${url}/user`,
-				payload
-			);
-			dispatch(getRole(data.id,token));
-			return dispatch({
-				type: CREATE_USER,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `${url}/user`,
+        payload
+      );
+      dispatch(getRole(data.id, token));
+      return dispatch({
+        type: CREATE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function getOrderById(id, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getOrders/${id}`,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: GET_ORDER_BY_ID,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getOrders/${id}`,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: GET_ORDER_BY_ID,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function getUserOrders(id) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getOrdUser/${id}`
-			);
-			return dispatch({
-				type: GET_USER_ORDERS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getOrdUser/${id}`
+      );
+      return dispatch({
+        type: GET_USER_ORDERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 
 export function createOrder(payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.post(
-				`${url}/createOrder`, payload,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: CREATE_ORDER,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `${url}/createOrder`, payload,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: CREATE_ORDER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function updateOrder(id, status, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
 
-				`${url}/updateOrder/${id}`, { newStatus: status },
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
+        `${url}/updateOrder/${id}`, { newStatus: status },
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
 
-			);
-			return dispatch({
-				type: 'UPDATE_ORDER',
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+      );
+      return dispatch({
+        type: 'UPDATE_ORDER',
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 
-export function getRole (id, token) {
-	return async function(dispatch) {
-		console.warn(id)
+export function getRole(id, token) {
+  return async function (dispatch) {
+    console.warn(id)
 
-		try {
-			if(!id) {
-				return dispatch({
-					type: GET_ROLE,
-					payload: "guest",
-				});
-			}
-			const { data } = await axios.get(
-				`${url}/role/${id}`,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: GET_ROLE,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error)
-		}
-	}
+    try {
+      if (!id) {
+        return dispatch({
+          type: GET_ROLE,
+          payload: "guest",
+        });
+      }
+      const { data } = await axios.get(
+        `${url}/role/${id}`,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: GET_ROLE,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export function getToken(token) {
@@ -786,100 +786,100 @@ export function createDiscount(id, payload) {
   };
 }
 export const offerSneaker = (id) => async (dispatch, getState) => {
-	const rootReducer = getState();
-	const { productData } = rootReducer;
-	const formatter = new Intl.ListFormat('en', {
-		style: 'long',
-		type: 'conjunction',
-	});
-	const { data } = await axios.get(`${url}/sneaker/${id}`)
-	const exist = productData?.every(
-		(product) => product.id !== data.id && product.size !== data.sizes[0].size
-	);
-	if (!exist) return !exist;
-	dispatch({
-		type: SET_CART,
-		payload: {
-			productData: [
-				...productData,
-				{
-					sneakerId: data.id,
-					name: data.model,
-					brand: data.brand,
-					categories: formatter.format(data.categories),
-					price: data.price * (0.80),
-					description: data.description,
-					size: data.sizes[0].size,
-					max: data.sizes[0].stock,
-					qty: 1,
-					image: data.image,
-					wishlisted: false,
-				},
-			],
-		},
-	});
+  const rootReducer = getState();
+  const { productData } = rootReducer;
+  const formatter = new Intl.ListFormat('en', {
+    style: 'long',
+    type: 'conjunction',
+  });
+  const { data } = await axios.get(`${url}/sneaker/${id}`)
+  const exist = productData?.every(
+    (product) => product.id !== data.id && product.size !== data.sizes[0].size
+  );
+  if (!exist) return !exist;
+  dispatch({
+    type: SET_CART,
+    payload: {
+      productData: [
+        ...productData,
+        {
+          sneakerId: data.id,
+          name: data.model,
+          brand: data.brand,
+          categories: formatter.format(data.categories),
+          price: data.price * (0.80),
+          description: data.description,
+          size: data.sizes[0].size,
+          max: data.sizes[0].stock,
+          qty: 1,
+          image: data.image,
+          wishlisted: false,
+        },
+      ],
+    },
+  });
 
 }
 
 export function updateUser(id, payload, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(
-				`${url}/updateUser/${id}`, payload,
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: 'UPDATE_USER',
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
+        `${url}/updateUser/${id}`, payload,
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: 'UPDATE_USER',
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function getDiscounts() {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.get(
-				`${url}/getDiscounts/`
-			);
-			return dispatch({
-				type: GET_DISCOUNTS,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        `${url}/getDiscounts/`
+      );
+      return dispatch({
+        type: GET_DISCOUNTS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function disableDeal(id, token) {
-	return async function (dispatch) {
-		try {
-			const { data } = await axios.put(
-				`${url}/deleteDiscount/${id}`, { body: 'body' },
-				{
-					headers: { authorization: `Bearer ${token}` }
-				}
-			);
-			return dispatch({
-				type: DELETE_DEAL,
-				payload: data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.put(
+        `${url}/deleteDiscount/${id}`, { body: 'body' },
+        {
+          headers: { authorization: `Bearer ${token}` }
+        }
+      );
+      return dispatch({
+        type: DELETE_DEAL,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function sneakerToReview(id) {
-	return function (dispatch) {
-		return dispatch({
-			payload: id,
-			type: "SNEAKER_TO_R",
-		});
-	}
+  return function (dispatch) {
+    return dispatch({
+      payload: id,
+      type: "SNEAKER_TO_R",
+    });
+  }
 }

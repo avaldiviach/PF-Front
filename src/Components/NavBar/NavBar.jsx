@@ -77,7 +77,7 @@ export default function Example() {
     localStorage.removeItem('productData');
     localStorage.removeItem('user')
     await dispatch({ type: 'SET_WISHLIST', payload: { wishlistData: [] } });
-    localStorage.setItem('wishlistData', JSON.stringify([]));
+    localStorage.setItem('wishlistData', JSON.stringify(wishlistData.map(e => ({...e, wishlisted: false}))));
     navigate("/")
   }
 
