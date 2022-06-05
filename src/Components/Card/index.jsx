@@ -2,22 +2,8 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { addWishlist } from '../../Redux/Actions';
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import style from './Card.module.css'
-
-
-// CORAZON
-// <span title={wishlisted ? `it's already on your wishlist` : `add it to your wishlist`} >
-//           {
-//             wishlisted ? <FaHeart color='red' /> : <FaRegHeart />
-//           }
-//         </span>
-
-
-function handleClick() {
-  alert('Esto es una prueba')
-  dispatch({ type: 'BACK_TO_HOME', payload: true })
-}
 
 function Card({ sneaker }) {
 
