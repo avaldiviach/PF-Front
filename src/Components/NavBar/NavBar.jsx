@@ -33,6 +33,7 @@ export default function Example() {
   //Para obtener solo el nombre del mail
   const name = lsUser?.email.split("@")[0];
   const productData = useSelector(state => state.productData);
+  const wishlistData = useSelector(state => state.wishlistData);
   // const name = lsUser?.name.split(" ")[0];
 
   useEffect(() => {
