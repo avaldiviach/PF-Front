@@ -162,7 +162,7 @@ export const sendWishListDB = () => {
     const id = wishlistData.map(e => {
       if(e.wishlisted) return e.id;
     })
-    await axios.post(`${url}/addwishlist`, { email: getUser.email, id });
+    await axios.post(`${url}/addwishlist`, { email: getUser?.email, id });
   }
 }
 
