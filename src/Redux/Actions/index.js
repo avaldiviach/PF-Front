@@ -165,7 +165,7 @@ export const sendWishListDB = () => {
     const rootReducer = getState();
     const { wishlistData, getUser } = rootReducer;
     const id = wishlistData.map(e => e.wishlisted ? e.id : null).filter(e => e);
-    await axios.post(`${url}/addwishlist`, { email: getUser.email, id });
+    await axios.post(`${url}/addwishlist`, { email: getUser?.email, id });
   }
 }
 
